@@ -1,5 +1,5 @@
 # Project Overview
-Realtor'sHub is a real estate management platform that connects property sellers with potential buyers. Sellers can list properties with detailed information while buyers can browse, search, and directly contact property owners. Future expansions will include rental management and virtual auction features.
+Panora is a real estate management platform that connects property sellers with potential buyers. Sellers can list properties with detailed information while buyers can browse, search, and directly contact property owners. Future expansions will include rental management and virtual auction features.
 
 ## Property Management Flow  
 flowchart TD
@@ -25,7 +25,11 @@ flowchart TD
 
 # Feature Requirements
 - Using Next.js, shadcn, Clerk Auth, Supabase, Mapbox API
-## Front-End Feature Requirements for "Realtor'sHub"  
+## Front-End Feature Requirements for "Panora"  
+
+First when a user open the webappp, he should see the authentication screen  with a blank place on the left for the content and a signup/ sign in form on the right. There should also be a button for entering as gues and make sure the guest can see the homepage and the featured properties.
+
+
 ### Homepage (`/`)  
 **Core Elements**:  
 - **Hero Section**:  
