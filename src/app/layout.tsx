@@ -20,8 +20,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${inter.variable} font-outfit`}>
-        <body className="antialiased">
+      <html lang="en" suppressHydrationWarning>
+        <head>
+          <link 
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" 
+            rel="stylesheet"
+          />
+        </head>
+        <body className={`antialiased ${inter.variable} font-outfit`}>
           {children}
         </body>
       </html>

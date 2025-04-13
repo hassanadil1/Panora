@@ -113,9 +113,15 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-background">
-        {/* Optional subtle pattern if desired 
-        <div className="absolute inset-0 bg-grid-pattern opacity-5 z-0" /> 
-        */}
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+            alt="Luxury Property" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-background/85 backdrop-blur-sm"></div>
+        </div>
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -124,8 +130,15 @@ export default function HomePage() {
               transition={{ duration: 0.5 }}
               className="text-center"
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">
-                Find Your Dream Property or List Your Investment 🏡
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="/Fav icon No Black BG.png" 
+                  alt="Panora Logo" 
+                  className="w-20 md:w-24 lg:w-28 h-auto"
+                />
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-3 text-primary">
+                Find Your Dream Property or List Your Investment
               </h1>
               <p className="text-xl md:text-2xl mb-10 text-muted-foreground">
                 Your trusted platform for buying, selling, and managing real estate properties
@@ -193,8 +206,8 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-end mb-12">
             <div>
-              <h4 className="text-sm font-semibold text-primary uppercase tracking-wide mb-2">Discover Properties</h4>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground">Featured Listings</h2>
+              <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2">Discover Properties</h4>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary">Featured Listings</h2>
             </div>
             <Link href="/properties" className="text-primary hover:underline flex items-center gap-1">
               View all properties <ArrowRight className="h-4 w-4" />
