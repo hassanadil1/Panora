@@ -4,8 +4,11 @@ import Link from "next/link"
 import { SignIn } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
+import { useState } from "react"
 
 export default function SignInPage() {
+  const [videoError, setVideoError] = useState(false);
+  
   return (
     <div className="min-h-screen md:grid md:grid-cols-2">
       {/* Left side - Hidden on small screens, takes full height */}
@@ -13,9 +16,25 @@ export default function SignInPage() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
-        className="hidden md:flex md:flex-col justify-between p-12 bg-secondary h-full"
+        className="hidden md:flex md:flex-col justify-between p-12 bg-secondary h-full relative overflow-hidden"
       >
-        <div>
+        {/* Simple background video implementation */}
+        {!videoError ? (
+          <video 
+            className="absolute inset-0 w-full h-full object-cover opacity-40 z-0"
+            autoPlay
+            muted
+            loop
+            playsInline
+            src="/panora_demo.mp4"
+            onError={() => setVideoError(true)}
+          />
+        ) : (
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-secondary via-secondary/90 to-primary/20 opacity-60 z-0"></div>
+        )}
+        
+        {/* Content positioned above the background */}
+        <div className="z-10 relative">
           <div className="flex items-center gap-2">
             <motion.span 
               initial={{ scale: 0.9 }}
@@ -28,7 +47,7 @@ export default function SignInPage() {
           </div>
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-8 z-10 relative">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -40,7 +59,7 @@ export default function SignInPage() {
           </motion.div>
         </div>
         
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-4 gap-4 z-10 relative">
           {[1, 2, 3, 4].map((i) => (
             <motion.div 
               key={i}
