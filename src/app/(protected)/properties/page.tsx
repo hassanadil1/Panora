@@ -1,15 +1,33 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, Wifi, Tv, MountainSnow, Waves, PawPrint } from "lucide-react"
+import { MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, ChevronLeft, DollarSign, Grid2X2, Map, Calendar, Sliders, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
+import { Slider } from "@/components/ui/slider"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import * as mapboxgl from 'mapbox-gl';
+import { motion, AnimatePresence } from "framer-motion"
+import * as mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { cn } from "@/lib/utils"
 
 // Mock properties data
 const properties = [
@@ -89,8 +107,9 @@ const amenities = [
   { name: "Wifi", icon: <Wifi className="h-5 w-5" /> }
 ]
 
+// Main component that doesn't use the useSidebar hook
 export default function PropertiesPage() {
-  const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('split')
+  const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('map')
   const [selectedProperty, setSelectedProperty] = useState<number | null>(null)
   const [viewport, setViewport] = useState({
     latitude: 31.4697,
@@ -101,6 +120,9 @@ export default function PropertiesPage() {
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
   const popupRefs = useRef<{[key: number]: mapboxgl.Popup}>({})
+  const [priceRange, setPriceRange] = useState([300, 1200])
+  const [defaultCollapsed, setDefaultCollapsed] = useState(false)
+  const [propertiesOpen, setPropertiesOpen] = useState(true)
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -232,221 +254,322 @@ export default function PropertiesPage() {
     };
   }, [viewMode, selectedProperty, mapLoaded, properties]);
 
-  const formatPrice = (price: number) => {
-    return `$${price}`
-  }
-
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Property Listings</h1>
-
-        {/* Filters and Search Section */}
-        <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
-          <div className="relative w-full md:w-auto md:flex-1">
-            <div className="flex items-center gap-2 w-full px-4 py-2 rounded-md border bg-background">
-              <Filter className="text-muted-foreground h-5 w-5" />
-              <span className="text-sm font-medium">Filter</span>
-            </div>
-          </div>
-
-          <div className="relative w-full md:w-auto md:flex-[2]">
-            <div className="flex items-center gap-2 w-full px-4 py-2 rounded-md border bg-background">
-              <Search className="text-muted-foreground h-5 w-5" />
-              <Input 
-                className="border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                placeholder="Culver City, CA"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 w-full md:w-auto">
-            <Button variant="outline" size="sm" className="flex-1">
-              Price <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1">
-              Beds/Baths <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1">
-              Home Type <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1">
-              Specialty Housing <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1">
-              Move-in Date <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1">
-              Sort <ChevronDown className="ml-1 h-4 w-4" />
-            </Button>
-            <div className="flex border rounded-md overflow-hidden">
-              <button 
-                className={`p-2 ${viewMode === 'list' ? 'bg-primary text-primary-foreground' : 'bg-card'}`}
-                onClick={() => setViewMode('list')}
-              >
-                <ListIcon className="h-5 w-5" />
-              </button>
-              <button 
-                className={`p-2 ${viewMode === 'map' ? 'bg-primary text-primary-foreground' : 'bg-card'}`}
-                onClick={() => setViewMode('map')}
-              >
-                <MapIcon className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Property Types */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium mb-3">Property Type</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-            {propertyTypes.map((type, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05, duration: 0.3 }}
-                className="flex flex-col items-center justify-center p-4 border rounded-lg bg-card hover:border-primary cursor-pointer"
-              >
-                <div className="h-10 w-10 flex items-center justify-center mb-2">
-                  {type.icon}
-                </div>
-                <span className="text-sm">{type.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        {/* Price Range */}
-        <div className="mb-6">
-          <h2 className="text-lg font-medium mb-3">Price Range</h2>
-          <div className="flex flex-col gap-2">
-            <div className="text-sm text-muted-foreground flex justify-between">
-              <span>Monthly</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="h-1 bg-border flex-1 rounded-full relative">
-                <div className="absolute h-1 bg-primary rounded-full left-[20%] right-[30%]"></div>
-                <div className="absolute w-4 h-4 bg-primary rounded-full top-1/2 -translate-y-1/2 left-[20%] -ml-2"></div>
-                <div className="absolute w-4 h-4 bg-primary rounded-full top-1/2 -translate-y-1/2 right-[30%] -mr-2"></div>
-              </div>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>$300</span>
-              <span>$1200</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Conveniences */}
-        <div className="mb-10">
-          <h2 className="text-lg font-medium mb-3">Conveniences</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-            {amenities.map((amenity, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05, duration: 0.3 }}
-                className="flex items-center gap-3 p-3 border rounded-lg hover:border-primary cursor-pointer"
-              >
-                <div className="text-muted-foreground">
-                  {amenity.icon}
-                </div>
-                <span className="text-sm">{amenity.name}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex justify-center mb-8">
-          <Button className="px-8">APPLY</Button>
-        </div>
-
-        {/* Map and Properties Split View */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {(viewMode === 'list' || viewMode === 'split') && (
-            <div className={viewMode === 'split' ? 'lg:col-span-1 flex flex-col gap-6' : 'lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'}>
-              {properties.map((property) => (
-                <motion.div
-                  key={property.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative"
-                  onMouseEnter={() => setSelectedProperty(property.id)}
-                  onMouseLeave={() => setSelectedProperty(null)}
-                >
-                  <Link href={`/properties/${property.id}`}>
-                    <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="relative h-52">
-                        <img 
-                          src={property.image} 
-                          alt={property.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <Badge className="bg-card text-foreground">Superhost</Badge>
-                        </div>
-                        <div className="absolute top-3 right-3">
-                          <Badge className="bg-card text-foreground">Self Check-in</Badge>
-                        </div>
-                        <div className="absolute bottom-3 right-3">
-                          <button className="h-8 w-8 rounded-full bg-background flex items-center justify-center">
-                            <HeartIcon className="h-5 w-5 text-foreground" />
-                          </button>
-                        </div>
-                      </div>
-                      <div className="p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-bold text-lg">{property.title}</h3>
-                          <div className="flex items-center gap-1 text-sm">
-                            <StarIcon className="h-4 w-4 text-yellow-500" fill="currentColor" />
-                            <span>{property.rating}</span>
-                            <span className="text-muted-foreground">({property.reviews})</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center text-muted-foreground text-sm mb-2">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          {property.location}
-                        </div>
-                        <div className="flex justify-between items-center mt-4">
-                          <div className="flex gap-2">
-                            <div className="flex items-center gap-1 text-sm">
-                              <Bed className="h-4 w-4" />
-                              <span>{property.beds} bed</span>
-                            </div>
-                            <div className="flex items-center gap-1 text-sm">
-                              <Bath className="h-4 w-4" />
-                              <span>{property.baths} bath</span>
-                            </div>
-                            {property.hasPool && (
-                              <div className="flex items-center gap-1 text-sm">
-                                <Waves className="h-4 w-4" />
-                                <span>Pool</span>
-                              </div>
-                            )}
-                          </div>
-                          <p className="font-bold">${property.price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {(viewMode === 'map' || viewMode === 'split') && (
-            <div className={viewMode === 'split' ? 'lg:col-span-2' : 'lg:col-span-3'}>
-              <div ref={mapContainer} className="h-[600px] rounded-xl overflow-hidden border">
-                {/* Map content will be rendered here */}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+    <div className="h-screen w-screen overflow-hidden flex">
+      <SidebarProvider defaultOpen={!defaultCollapsed}>
+        <PropertiesContent 
+          viewMode={viewMode}
+          setViewMode={setViewMode}
+          selectedProperty={selectedProperty}
+          setSelectedProperty={setSelectedProperty}
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+          defaultCollapsed={defaultCollapsed}
+          setDefaultCollapsed={setDefaultCollapsed}
+          propertiesOpen={propertiesOpen}
+          setPropertiesOpen={setPropertiesOpen}
+          mapContainer={mapContainer}
+        />
+      </SidebarProvider>
     </div>
+  )
+}
+
+// Internal component that uses the useSidebar hook safely within the provider
+function PropertiesContent({
+  viewMode,
+  setViewMode,
+  selectedProperty,
+  setSelectedProperty,
+  priceRange,
+  setPriceRange,
+  defaultCollapsed,
+  setDefaultCollapsed,
+  propertiesOpen,
+  setPropertiesOpen,
+  mapContainer
+}: {
+  viewMode: 'map' | 'list' | 'split'
+  setViewMode: (mode: 'map' | 'list' | 'split') => void
+  selectedProperty: number | null
+  setSelectedProperty: (id: number | null) => void
+  priceRange: number[]
+  setPriceRange: (range: number[]) => void
+  defaultCollapsed: boolean
+  setDefaultCollapsed: (collapsed: boolean) => void
+  propertiesOpen: boolean
+  setPropertiesOpen: (open: boolean) => void
+  mapContainer: React.RefObject<HTMLDivElement>
+}) {
+  // Now we can safely use the hook inside the provider
+  const { state } = useSidebar()
+  
+  return (
+    <>
+      <Sidebar 
+        variant="floating" 
+        collapsible="icon" 
+        className="z-30"
+      >
+        <SidebarHeader className="flex items-center justify-between">
+          <div className="flex items-center gap-2 px-4 py-2">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground shrink-0">
+              <Home className="h-6 w-6" />
+            </div>
+            <div className="group-data-[collapsible=icon]:hidden">
+              <h3 className="font-bold">Panora</h3>
+              <p className="text-xs text-muted-foreground">Property Listings</p>
+            </div>
+          </div>
+          <SidebarTrigger />
+        </SidebarHeader>
+
+        <SidebarContent className="pt-0 overflow-y-auto">
+          {/* View Toggle Icons */}
+          <SidebarGroup>
+            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">View</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton 
+                    isActive={viewMode === 'list'} 
+                    onClick={() => setViewMode('list')}
+                    tooltip="List View"
+                  >
+                    <Grid2X2 className="h-4 w-4" />
+                    <span>List View</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton 
+                    isActive={viewMode === 'map'} 
+                    onClick={() => setViewMode('map')}
+                    tooltip="Map View"
+                  >
+                    <Map className="h-4 w-4" />
+                    <span>Map View</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton 
+                    isActive={viewMode === 'split'} 
+                    onClick={() => setViewMode('split')}
+                    tooltip="Split View"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    <span>Split View</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarSeparator />
+          
+          <div className="group-data-[collapsible=icon]:hidden px-4 py-2">
+            <div className="relative mb-4">
+              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input placeholder="Search properties..." className="pl-8" />
+            </div>
+          </div>
+
+          {/* Property Type Icons */}
+          <SidebarGroup>
+            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Property Type</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {propertyTypes.map((type, i) => (
+                  <SidebarMenuItem key={i}>
+                    <SidebarMenuButton tooltip={type.name}>
+                      {type.icon}
+                      <span>{type.name}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarSeparator />
+          
+          {/* Price Range - Only visible when expanded */}
+          <SidebarGroup className="group-data-[collapsible=icon]:hidden">
+            <SidebarGroupLabel>Price Range</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <div className="px-4 py-2">
+                <div className="text-sm text-muted-foreground flex justify-between mb-4">
+                  <span>Monthly</span>
+                  <span>${priceRange[0]} - ${priceRange[1]}</span>
+                </div>
+                <Slider
+                  defaultValue={priceRange}
+                  min={100}
+                  max={2000}
+                  step={50}
+                  onValueChange={(value) => setPriceRange(value as number[])}
+                  className="mb-4"
+                />
+              </div>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          <SidebarSeparator className="group-data-[collapsible=icon]:hidden" />
+          
+          {/* Amenities Icons */}
+          <SidebarGroup>
+            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Amenities</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {amenities.map((amenity, i) => (
+                  <SidebarMenuItem key={i}>
+                    <SidebarMenuButton tooltip={amenity.name}>
+                      {amenity.icon}
+                      <span>{amenity.name}</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+
+          {/* Filter button - Only visible when expanded */}
+          <div className="px-4 py-4 group-data-[collapsible=icon]:hidden">
+            <Button className="w-full" size="sm">
+              <Sliders className="mr-2 h-4 w-4" />
+              Apply Filters
+            </Button>
+          </div>
+        </SidebarContent>
+      </Sidebar>
+
+      {/* Main content - Fixed height, no scrolling */}
+      <div className="flex-1 relative h-screen">
+        {/* Map container - Full height and width */}
+        <div 
+          ref={mapContainer} 
+          className="absolute inset-0 w-full h-full z-0"
+        />
+        
+        {/* Floating header */}
+        <div className="absolute top-0 left-0 right-0 z-10 p-4 md:p-6 flex justify-between items-center">
+          <div className="flex items-center">
+            <h1 className="text-2xl font-bold shadow-sm bg-background/80 px-4 py-2 rounded-lg backdrop-blur-sm">
+              Property Listings
+            </h1>
+          </div>
+          
+          {/* Mobile-only toggle button */}
+          <Button 
+            variant="secondary" 
+            size="icon" 
+            onClick={() => setDefaultCollapsed(!defaultCollapsed)} 
+            className="md:hidden shadow-lg"
+          >
+            <MenuIcon className="h-5 w-5" />
+          </Button>
+        </div>
+        
+        {/* Property cards overlay - Slides in from bottom */}
+        <AnimatePresence>
+          {(viewMode === 'list' || viewMode === 'split' || selectedProperty !== null) && (
+            <motion.div 
+              initial={{ y: "100%" }}
+              animate={{ y: propertiesOpen ? "0%" : "calc(100% - 40px)" }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 30 }}
+              className={cn(
+                "absolute bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm rounded-t-xl shadow-xl z-20",
+                "max-h-[60vh] overflow-hidden flex flex-col",
+                viewMode === 'list' ? "md:max-h-[80vh]" : "md:max-h-[50vh]"
+              )}
+            >
+              {/* Handle for sliding up/down */}
+              <div 
+                className="h-10 flex items-center justify-center cursor-pointer hover:bg-muted/50" 
+                onClick={() => setPropertiesOpen(!propertiesOpen)}
+              >
+                <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+              </div>
+              
+              <div className="px-4 pb-2 flex items-center justify-between">
+                <h2 className="text-lg font-semibold">Available Properties</h2>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <DollarSign className="mr-1 h-4 w-4" />
+                    Price
+                  </Button>
+                  <Button variant="outline" size="sm">
+                    <Calendar className="mr-1 h-4 w-4" />
+                    Dates
+                  </Button>
+                </div>
+              </div>
+              
+              {/* Scrollable property list */}
+              <div className="overflow-y-auto flex-1 p-4 pt-0 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {properties.map((property) => (
+                  <Card 
+                    key={property.id}
+                    className="overflow-hidden hover:shadow-lg transition-all border-transparent hover:border-primary cursor-pointer"
+                    onClick={() => setSelectedProperty(property.id === selectedProperty ? null : property.id)}
+                  >
+                    <div className="relative h-40">
+                      <img 
+                        src={property.image} 
+                        alt={property.title}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute top-3 left-3 flex gap-2">
+                        <Badge className="bg-primary text-primary-foreground shadow-md">Superhost</Badge>
+                      </div>
+                      <div className="absolute top-3 right-3">
+                        <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-md">
+                          <Heart className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="absolute bottom-3 right-3">
+                        <Badge className="bg-background/90 text-foreground backdrop-blur-sm shadow-md">
+                          ${property.price}<span className="text-muted-foreground">/night</span>
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="p-3">
+                      <div className="flex justify-between items-start">
+                        <h3 className="font-bold text-base line-clamp-1">{property.title}</h3>
+                        <div className="flex items-center gap-1 text-sm">
+                          <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
+                          <span>{property.rating}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center text-muted-foreground text-xs mt-1 mb-2">
+                        <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                        <span className="truncate">{property.location}</span>
+                      </div>
+                      <div className="flex gap-3 mt-2 text-xs">
+                        <div className="flex items-center gap-1">
+                          <Bed className="h-3 w-3" />
+                          <span>{property.beds} beds</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Bath className="h-3 w-3" />
+                          <span>{property.baths} bath</span>
+                        </div>
+                        {property.hasPool && (
+                          <div className="flex items-center gap-1">
+                            <Waves className="h-3 w-3" />
+                            <span>Pool</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   )
 }
 
