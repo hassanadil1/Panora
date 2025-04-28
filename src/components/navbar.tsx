@@ -22,16 +22,12 @@ const routes = [
     href: "/buy",
   },
   {
-    label: "Sell",
-    href: "/sell",
-  },
-  {
     label: "Rent",
     href: "/rent",
   },
   {
-    label: "REELS",
-    href: "/reels",
+    label: "Sell",
+    href: "/sell",
   },
   {
     label: "Virtual Tours",
@@ -42,8 +38,8 @@ const routes = [
     href: "/properties",
   },
   {
-    label: "Sold Properties",
-    href: "/sold-properties",
+    label: "Properties Sold",
+    href: "/properties-sold",
   },
   {
     label: "Sell It For Me",

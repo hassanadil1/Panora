@@ -88,11 +88,9 @@ const properties = [
 // Property types
 const propertyTypes = [
   { name: "Rooms", icon: <Home className="h-5 w-5" /> },
-  { name: "Townhouse", icon: <Building className="h-5 w-5" /> }, 
-  { name: "Apartment", icon: <Building className="h-5 w-5" /> },
-  { name: "Villa", icon: <Home className="h-5 w-5" /> },
-  { name: "Townhouse", icon: <Home className="h-5 w-5" /> },
-  { name: "Cottage", icon: <Home className="h-5 w-5" /> }
+  { name: "Residential", icon: <Building className="h-5 w-5" /> }, 
+  { name: "Commercial", icon: <Building className="h-5 w-5" /> },
+  
 ]
 
 // Amenities
@@ -309,9 +307,9 @@ function PropertiesContent({
       <Sidebar 
         variant="floating" 
         collapsible="icon" 
-        className="z-30"
+        className="z-30 mt-14 flex flex-col h-[calc(100vh-4rem)]"
       >
-        <SidebarHeader className="flex items-center justify-between">
+        <SidebarHeader className="flex-shrink-0">
           <div className="flex items-center gap-2 px-4 py-2">
             <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground shrink-0">
               <Home className="h-6 w-6" />
@@ -324,7 +322,7 @@ function PropertiesContent({
           <SidebarTrigger />
         </SidebarHeader>
 
-        <SidebarContent className="pt-0 overflow-y-auto">
+        <SidebarContent className="pt-0 flex-grow overflow-y-auto">
           {/* View Toggle Icons */}
           <SidebarGroup>
             <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">View</SidebarGroupLabel>
@@ -431,15 +429,15 @@ function PropertiesContent({
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-
-          {/* Filter button - Only visible when expanded */}
-          <div className="px-4 py-4 group-data-[collapsible=icon]:hidden">
-            <Button className="w-full" size="sm">
-              <Sliders className="mr-2 h-4 w-4" />
-              Apply Filters
-            </Button>
-          </div>
         </SidebarContent>
+        
+        {/* Always visible filter button at bottom */}
+        <div className="flex-shrink-0 p-4 border-t">
+          <Button className="w-full" size="sm">
+            <Sliders className="mr-2 h-4 w-4" />
+            Apply Filters
+          </Button>
+        </div>
       </Sidebar>
 
       {/* Main content - Fixed height, no scrolling */}

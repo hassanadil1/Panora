@@ -148,14 +148,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-background">
         {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-            alt="Luxury Property" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-background/85 backdrop-blur-sm"></div>
-        </div>
+                  
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
