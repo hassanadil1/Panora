@@ -1,7 +1,14 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, ChevronLeft, DollarSign, Grid2X2, Map, Calendar, Sliders, Star } from "lucide-react"
+import { 
+  MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, 
+  Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, 
+  ChevronLeft, DollarSign, Grid2X2, Calendar, 
+  Sliders, Star, X, ChevronsDown, ArrowDownUp, Square, 
+  ChevronRight, SquareDot
+} from "lucide-react"
+import { Map } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -28,6 +35,29 @@ import {
 } from "@/components/ui/sidebar"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 // Mock properties data
 const properties = [
@@ -88,9 +118,11 @@ const properties = [
 // Property types
 const propertyTypes = [
   { name: "Rooms", icon: <Home className="h-5 w-5" /> },
-  { name: "Residential", icon: <Building className="h-5 w-5" /> }, 
-  { name: "Commercial", icon: <Building className="h-5 w-5" /> },
-  
+  { name: "Townhouse", icon: <Building className="h-5 w-5" /> }, 
+  { name: "Apartment", icon: <Building className="h-5 w-5" /> },
+  { name: "Villa", icon: <Home className="h-5 w-5" /> },
+  { name: "Tinyhouse", icon: <Home className="h-5 w-5" /> },
+  { name: "Cottage", icon: <Home className="h-5 w-5" /> }
 ]
 
 // Amenities
@@ -107,7 +139,7 @@ const amenities = [
 
 // Main component that doesn't use the useSidebar hook
 export default function PropertiesPage() {
-  const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('map')
+  const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('split')
   const [selectedProperty, setSelectedProperty] = useState<number | null>(null)
   const [viewport, setViewport] = useState({
     latitude: 31.4697,
@@ -118,9 +150,18 @@ export default function PropertiesPage() {
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
   const popupRefs = useRef<{[key: number]: mapboxgl.Popup}>({})
-  const [priceRange, setPriceRange] = useState([300, 1200])
+  const [priceRange, setPriceRange] = useState([200, 1200])
+  const [minPriceInput, setMinPriceInput] = useState(`$${priceRange[0]}`)
+  const [maxPriceInput, setMaxPriceInput] = useState(`$${priceRange[1]}`)
+  const [areaRange, setAreaRange] = useState([500, 5000])
+  const [minAreaInput, setMinAreaInput] = useState(`${areaRange[0]}`)
+  const [maxAreaInput, setMaxAreaInput] = useState(`${areaRange[1]}`)
+  const [bedsCount, setBedsCount] = useState<string>("Any")
+  const [bathsCount, setBathsCount] = useState<string>("Any")
   const [defaultCollapsed, setDefaultCollapsed] = useState(false)
   const [propertiesOpen, setPropertiesOpen] = useState(true)
+  const [searchQuery, setSearchQuery] = useState("")
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   useEffect(() => {
     if (!mapContainer.current) return;
@@ -130,32 +171,94 @@ export default function PropertiesPage() {
       // Set access token
       (mapboxgl as any).accessToken = "pk.eyJ1IjoiaGFzc2FuYWRpbHpha2kiLCJhIjoiY205dTVqdjI3MDRvdTJqcjhneDFveTF1NCJ9.fRofO78X0uoH0_bfDDmI2Q";
       
+      // Completely disable Mapbox telemetry
+      (mapboxgl as any).config.DISABLE_ATTRIBUTION_CONTROL = true;
+      (mapboxgl as any).config.TELEMETRY_DISABLED = true;
+      (mapboxgl as any).prewarm = false; // Disable session warming
       
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [viewport.longitude, viewport.latitude],
-        zoom: viewport.zoom
-      });
-
-      // Add navigation controls
-      map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
-      
-      // Set mapLoaded when the map is fully loaded
-      map.current.on('load', () => {
-        setMapLoaded(true);
-      });
-      
-      // Update viewport state when the map moves
-      map.current.on('move', () => {
-        if (!map.current) return;
-        const center = map.current.getCenter();
-        setViewport({
-          latitude: center.lat,
-          longitude: center.lng,
-          zoom: map.current.getZoom()
+      try {
+        // Disable sending anonymous usage data to Mapbox
+        const mapboxMap = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: 'mapbox://styles/mapbox/streets-v11',
+          center: [viewport.longitude, viewport.latitude],
+          zoom: viewport.zoom,
+          trackResize: true,
+          attributionControl: false, // Disable default attribution which includes telemetry
+          collectResourceTiming: false,
+          fadeDuration: 0,
+          preserveDrawingBuffer: true,
+          logoPosition: 'bottom-left',
+          boxZoom: true,
+          interactive: true,
+          localIdeographFontFamily: "'sans-serif'", // Fix for boolean not assignable to string
+          maxZoom: 20,
+          minZoom: 0,
+          renderWorldCopies: true
         });
-      });
+        
+        map.current = mapboxMap;
+
+        // Add navigation controls 
+        map.current.addControl(new mapboxgl.NavigationControl({
+          showCompass: true,
+          showZoom: true,
+          visualizePitch: false
+        }), 'top-right');
+        
+        // Add custom attribution WITHOUT telemetry link
+        map.current.addControl(new mapboxgl.AttributionControl({
+          customAttribution: 'Map data © Mapbox',
+          compact: true
+        }));
+        
+        // Set mapLoaded when the map is fully loaded
+        map.current.on('load', () => {
+          // Further disable tracking after map load - safely with type casting
+          try {
+            // This effectively prevents events from being sent to Mapbox's analytics
+            if (map.current) {
+              // Create a no-op function for the 'send' method
+              const noopSend = () => {};
+              
+              // Only set if the current implementation exists and is a function
+              const mapAny = map.current as any;
+              if (typeof mapAny.send === 'function') {
+                mapAny.send = noopSend;
+              }
+              
+              // Force resize to ensure proper rendering
+              map.current.resize();
+            }
+          } catch (e) {
+            // Silently ignore errors
+          }
+          
+          setMapLoaded(true);
+        });
+        
+        // Handle any errors during map loading
+        map.current.on('error', (err) => {
+          console.error("Mapbox error:", err);
+        });
+        
+        // Update viewport state when the map moves
+        map.current.on('move', () => {
+          if (!map.current) return;
+          const center = map.current.getCenter();
+          setViewport({
+            latitude: center.lat,
+            longitude: center.lng,
+            zoom: map.current.getZoom()
+          });
+        });
+      } catch (error) {
+        console.error("Failed to initialize map:", error);
+      }
+    } else if (map.current) {
+      // Trigger resize when the component re-renders
+      // This helps in cases where the map container size has changed
+      map.current.resize();
     }
     
     // Update markers and popups when the map or selected property changes
@@ -173,15 +276,25 @@ export default function PropertiesPage() {
         const markerEl = document.createElement('div');
         markerEl.className = 'custom-marker';
         
+        // Create image container
         const markerContent = document.createElement('div');
-        markerContent.className = selectedProperty === property.id 
-          ? 'p-2 rounded-full bg-primary text-primary-foreground shadow-md cursor-pointer transition-colors'
-          : 'p-2 rounded-full bg-background shadow-md cursor-pointer transition-colors';
+        markerContent.className = 'relative';
         
+        // Add property image
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'w-16 h-16 rounded-full border-2 border-primary overflow-hidden shadow-lg';
+        
+        const img = document.createElement('img');
+        img.src = property.image;
+        img.className = 'w-full h-full object-cover';
+        imgContainer.appendChild(img);
+        
+        // Add price badge
         const priceEl = document.createElement('div');
-        priceEl.className = 'px-2 py-1 rounded bg-primary text-primary-foreground font-bold text-sm';
+        priceEl.className = 'absolute -bottom-2 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md';
         priceEl.textContent = `$${property.price}`;
         
+        markerContent.appendChild(imgContainer);
         markerContent.appendChild(priceEl);
         markerEl.appendChild(markerContent);
         
@@ -252,260 +365,69 @@ export default function PropertiesPage() {
     };
   }, [viewMode, selectedProperty, mapLoaded, properties]);
 
-  return (
-    <div className="h-screen w-screen overflow-hidden flex">
-      <SidebarProvider defaultOpen={!defaultCollapsed}>
-        <PropertiesContent 
-          viewMode={viewMode}
-          setViewMode={setViewMode}
-          selectedProperty={selectedProperty}
-          setSelectedProperty={setSelectedProperty}
-          priceRange={priceRange}
-          setPriceRange={setPriceRange}
-          defaultCollapsed={defaultCollapsed}
-          setDefaultCollapsed={setDefaultCollapsed}
-          propertiesOpen={propertiesOpen}
-          setPropertiesOpen={setPropertiesOpen}
-          mapContainer={mapContainer}
-        />
-      </SidebarProvider>
-    </div>
-  )
-}
+  useEffect(() => {
+    setMinPriceInput(`$${priceRange[0]}`)
+    setMaxPriceInput(`$${priceRange[1]}`)
+  }, [priceRange])
 
-// Internal component that uses the useSidebar hook safely within the provider
-function PropertiesContent({
-  viewMode,
-  setViewMode,
-  selectedProperty,
-  setSelectedProperty,
-  priceRange,
-  setPriceRange,
-  defaultCollapsed,
-  setDefaultCollapsed,
-  propertiesOpen,
-  setPropertiesOpen,
-  mapContainer
-}: {
-  viewMode: 'map' | 'list' | 'split'
-  setViewMode: (mode: 'map' | 'list' | 'split') => void
-  selectedProperty: number | null
-  setSelectedProperty: (id: number | null) => void
-  priceRange: number[]
-  setPriceRange: (range: number[]) => void
-  defaultCollapsed: boolean
-  setDefaultCollapsed: (collapsed: boolean) => void
-  propertiesOpen: boolean
-  setPropertiesOpen: (open: boolean) => void
-  mapContainer: React.RefObject<HTMLDivElement>
-}) {
-  // Now we can safely use the hook inside the provider
-  const { state } = useSidebar()
-  
-  return (
-    <>
-      <Sidebar 
-        variant="floating" 
-        collapsible="icon" 
-        className="z-30 mt-14 flex flex-col h-[calc(100vh-4rem)]"
-      >
-        <SidebarHeader className="flex-shrink-0">
-          <div className="flex items-center gap-2 px-4 py-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-primary-foreground shrink-0">
-              <Home className="h-6 w-6" />
-            </div>
-            <div className="group-data-[collapsible=icon]:hidden">
-              <h3 className="font-bold">Panora</h3>
-              <p className="text-xs text-muted-foreground">Property Listings</p>
-            </div>
-          </div>
-          <SidebarTrigger />
-        </SidebarHeader>
+  useEffect(() => {
+    setMinAreaInput(`${areaRange[0]}`)
+    setMaxAreaInput(`${areaRange[1]}`)
+  }, [areaRange])
 
-        <SidebarContent className="pt-0 flex-grow overflow-y-auto">
-          {/* View Toggle Icons */}
-          <SidebarGroup>
-            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">View</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    isActive={viewMode === 'list'} 
-                    onClick={() => setViewMode('list')}
-                    tooltip="List View"
-                  >
-                    <Grid2X2 className="h-4 w-4" />
-                    <span>List View</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    isActive={viewMode === 'map'} 
-                    onClick={() => setViewMode('map')}
-                    tooltip="Map View"
-                  >
-                    <Map className="h-4 w-4" />
-                    <span>Map View</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-                <SidebarMenuItem>
-                  <SidebarMenuButton 
-                    isActive={viewMode === 'split'} 
-                    onClick={() => setViewMode('split')}
-                    tooltip="Split View"
-                  >
-                    <MapPin className="h-4 w-4" />
-                    <span>Split View</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value) {
+      const numValue = parseInt(value)
+      setMinPriceInput(`$${numValue}`)
+      if (numValue < priceRange[1]) {
+        setPriceRange([numValue, priceRange[1]])
+      }
+    } else {
+      setMinPriceInput('$')
+    }
+  }
 
-          <SidebarSeparator />
-          
-          <div className="group-data-[collapsible=icon]:hidden px-4 py-2">
-            <div className="relative mb-4">
-              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input placeholder="Search properties..." className="pl-8" />
-            </div>
-          </div>
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value) {
+      const numValue = parseInt(value)
+      setMaxPriceInput(`$${numValue}`)
+      if (numValue > priceRange[0]) {
+        setPriceRange([priceRange[0], numValue])
+      }
+    } else {
+      setMaxPriceInput('$')
+    }
+  }
 
-          {/* Property Type Icons */}
-          <SidebarGroup>
-            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Property Type</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {propertyTypes.map((type, i) => (
-                  <SidebarMenuItem key={i}>
-                    <SidebarMenuButton tooltip={type.name}>
-                      {type.icon}
-                      <span>{type.name}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+  const handleMinAreaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value) {
+      const numValue = parseInt(value)
+      setMinAreaInput(numValue.toString())
+      if (numValue < areaRange[1]) {
+        setAreaRange([numValue, areaRange[1]])
+      }
+    } else {
+      setMinAreaInput('')
+    }
+  }
 
-          <SidebarSeparator />
-          
-          {/* Price Range - Only visible when expanded */}
-          <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-            <SidebarGroupLabel>Price Range</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <div className="px-4 py-2">
-                <div className="text-sm text-muted-foreground flex justify-between mb-4">
-                  <span>Monthly</span>
-                  <span>${priceRange[0]} - ${priceRange[1]}</span>
-                </div>
-                <Slider
-                  defaultValue={priceRange}
-                  min={100}
-                  max={2000}
-                  step={50}
-                  onValueChange={(value) => setPriceRange(value as number[])}
-                  className="mb-4"
-                />
-              </div>
-            </SidebarGroupContent>
-          </SidebarGroup>
+  const handleMaxAreaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, '')
+    if (value) {
+      const numValue = parseInt(value)
+      setMaxAreaInput(numValue.toString())
+      if (numValue > areaRange[0]) {
+        setAreaRange([areaRange[0], numValue])
+      }
+    } else {
+      setMaxAreaInput('')
+    }
+  }
 
-          <SidebarSeparator className="group-data-[collapsible=icon]:hidden" />
-          
-          {/* Amenities Icons */}
-          <SidebarGroup>
-            <SidebarGroupLabel className="group-data-[collapsible=icon]:hidden">Amenities</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {amenities.map((amenity, i) => (
-                  <SidebarMenuItem key={i}>
-                    <SidebarMenuButton tooltip={amenity.name}>
-                      {amenity.icon}
-                      <span>{amenity.name}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        
-        {/* Always visible filter button at bottom */}
-        <div className="flex-shrink-0 p-4 border-t">
-          <Button className="w-full" size="sm">
-            <Sliders className="mr-2 h-4 w-4" />
-            Apply Filters
-          </Button>
-        </div>
-      </Sidebar>
-
-      {/* Main content - Fixed height, no scrolling */}
-      <div className="flex-1 relative h-screen">
-        {/* Map container - Full height and width */}
-        <div 
-          ref={mapContainer} 
-          className="absolute inset-0 w-full h-full z-0"
-        />
-        
-        {/* Floating header */}
-        <div className="absolute top-0 left-0 right-0 z-10 p-4 md:p-6 flex justify-between items-center">
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold shadow-sm bg-background/80 px-4 py-2 rounded-lg backdrop-blur-sm">
-              Property Listings
-            </h1>
-          </div>
-          
-          {/* Mobile-only toggle button */}
-          <Button 
-            variant="secondary" 
-            size="icon" 
-            onClick={() => setDefaultCollapsed(!defaultCollapsed)} 
-            className="md:hidden shadow-lg"
-          >
-            <MenuIcon className="h-5 w-5" />
-          </Button>
-        </div>
-        
-        {/* Property cards overlay - Slides in from bottom */}
-        <AnimatePresence>
-          {(viewMode === 'list' || viewMode === 'split' || selectedProperty !== null) && (
-            <motion.div 
-              initial={{ y: "100%" }}
-              animate={{ y: propertiesOpen ? "0%" : "calc(100% - 40px)" }}
-              exit={{ y: "100%" }}
-              transition={{ type: "spring", damping: 30 }}
-              className={cn(
-                "absolute bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm rounded-t-xl shadow-xl z-20",
-                "max-h-[60vh] overflow-hidden flex flex-col",
-                viewMode === 'list' ? "md:max-h-[80vh]" : "md:max-h-[50vh]"
-              )}
-            >
-              {/* Handle for sliding up/down */}
-              <div 
-                className="h-10 flex items-center justify-center cursor-pointer hover:bg-muted/50" 
-                onClick={() => setPropertiesOpen(!propertiesOpen)}
-              >
-                <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
-              </div>
-              
-              <div className="px-4 pb-2 flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Available Properties</h2>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <DollarSign className="mr-1 h-4 w-4" />
-                    Price
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Calendar className="mr-1 h-4 w-4" />
-                    Dates
-                  </Button>
-                </div>
-              </div>
-              
-              {/* Scrollable property list */}
-              <div className="overflow-y-auto flex-1 p-4 pt-0 pb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {properties.map((property) => (
+  const renderPropertyCard = (property: typeof properties[0]) => (
                   <Card 
                     key={property.id}
                     className="overflow-hidden hover:shadow-lg transition-all border-transparent hover:border-primary cursor-pointer"
@@ -561,13 +483,453 @@ function PropertiesContent({
                       </div>
                     </div>
                   </Card>
+  )
+
+  // Add a separate effect to handle resize and view mode changes
+  useEffect(() => {
+    // Function to handle window resize
+    const handleResize = () => {
+      if (map.current && mapLoaded) {
+        map.current.resize();
+      }
+    };
+
+    // Add resize event listener
+    window.addEventListener('resize', handleResize);
+    
+    // Call resize immediately to ensure proper initial sizing
+    // Short timeout to ensure DOM has settled
+    const timeoutId = setTimeout(() => {
+      handleResize();
+    }, 100);
+
+    // Cleanup event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
+  }, [mapLoaded, viewMode]); // Re-run when map loads or view mode changes
+
+  return (
+    <div className="h-screen w-screen overflow-hidden flex flex-col">
+      {/* Top Navigation Filters */}
+      <div className="border-b px-4 py-2 flex items-center gap-2 flex-wrap">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="rounded-full flex items-center gap-1 md:hidden"
+          onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+        >
+          <Filter className="h-4 w-4" />
+          <span>Filter</span>
+        </Button>
+        
+        <div className="relative flex-grow max-w-md">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input 
+            placeholder="Search location..." 
+            className="pl-10 rounded-full" 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        
+        {/* Price Dropdown */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="rounded-full">
+              Price
+              <DollarSign className="ml-1 h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-4">
+            <div className="space-y-4">
+              <h4 className="font-medium">Price Range</h4>
+              <Slider
+                defaultValue={priceRange}
+                value={priceRange}
+                min={100}
+                max={2000}
+                step={50}
+                onValueChange={(value) => setPriceRange(value as number[])}
+                className="mb-6"
+              />
+              <div className="flex items-center justify-between">
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Min</label>
+                  <Input 
+                    value={minPriceInput} 
+                    onChange={handleMinPriceChange} 
+                    className="mt-1" 
+                  />
+                </div>
+                <div className="text-muted-foreground">—</div>
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Max</label>
+                  <Input 
+                    value={maxPriceInput} 
+                    onChange={handleMaxPriceChange} 
+                    className="mt-1" 
+                  />
+                </div>
+              </div>
+              <Button className="w-full mt-2" size="sm">Apply</Button>
+            </div>
+          </PopoverContent>
+        </Popover>
+        
+        {/* Area Size Dropdown */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="rounded-full">
+              Area
+              <SquareDot className="ml-1 h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-80 p-4">
+            <div className="space-y-4">
+              <h4 className="font-medium">Area Size (sq ft)</h4>
+              <Slider
+                defaultValue={areaRange}
+                value={areaRange}
+                min={100}
+                max={10000}
+                step={100}
+                onValueChange={(value) => setAreaRange(value as number[])}
+                className="mb-6"
+              />
+              <div className="flex items-center justify-between">
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Min</label>
+                  <Input 
+                    value={minAreaInput} 
+                    onChange={handleMinAreaChange} 
+                    className="mt-1" 
+                  />
+                </div>
+                <div className="text-muted-foreground">—</div>
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Max</label>
+                  <Input 
+                    value={maxAreaInput} 
+                    onChange={handleMaxAreaChange} 
+                    className="mt-1" 
+                  />
+                </div>
+              </div>
+              <Button className="w-full mt-2" size="sm">Apply</Button>
+            </div>
+          </PopoverContent>
+        </Popover>
+        
+        {/* Beds Dropdown */}
+        <Select value={bedsCount} onValueChange={setBedsCount}>
+          <SelectTrigger className="h-8 rounded-full w-[100px] border border-input bg-background">
+            <span className="flex items-center">
+              <Bed className="mr-1 h-3.5 w-3.5" />
+              <span>{bedsCount === "Any" ? "Beds" : `${bedsCount} Beds`}</span>
+            </span>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Any">Any</SelectItem>
+            <SelectItem value="1">1 Bed</SelectItem>
+            <SelectItem value="2">2 Beds</SelectItem>
+            <SelectItem value="3">3 Beds</SelectItem>
+            <SelectItem value="4">4 Beds</SelectItem>
+            <SelectItem value="5+">5+ Beds</SelectItem>
+          </SelectContent>
+        </Select>
+        
+        {/* Baths Dropdown */}
+        <Select value={bathsCount} onValueChange={setBathsCount}>
+          <SelectTrigger className="h-8 rounded-full w-[100px] border border-input bg-background">
+            <span className="flex items-center">
+              <Bath className="mr-1 h-3.5 w-3.5" />
+              <span>{bathsCount === "Any" ? "Baths" : `${bathsCount} Baths`}</span>
+            </span>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Any">Any</SelectItem>
+            <SelectItem value="1">1 Bath</SelectItem>
+            <SelectItem value="2">2 Baths</SelectItem>
+            <SelectItem value="3">3 Baths</SelectItem>
+            <SelectItem value="4+">4+ Baths</SelectItem>
+          </SelectContent>
+        </Select>
+        
+        {/* Home Type Dropdown */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="rounded-full">
+              Home Type
+              <Home className="ml-1 h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-60 p-3">
+            <div className="grid grid-cols-2 gap-2">
+              {propertyTypes.map((type, i) => (
+                <button 
+                  key={i}
+                  className="flex flex-col items-center justify-center p-3 border rounded-lg hover:border-primary transition-colors"
+                >
+                  <div className="p-2 rounded-full bg-muted mb-1">
+                    {type.icon}
+                  </div>
+                  <span className="text-xs">{type.name}</span>
+                </button>
+              ))}
+            </div>
+          </PopoverContent>
+        </Popover>
+        
+        <div className="flex ml-auto">
+          <Button 
+            variant={viewMode === 'list' ? 'default' : 'outline'} 
+            size="sm" 
+            className="rounded-l-md rounded-r-none"
+            onClick={() => setViewMode('list')}
+          >
+            <Grid2X2 className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant={viewMode === 'map' ? 'default' : 'outline'} 
+            size="sm" 
+            className="rounded-l-none rounded-r-none border-l-0 border-r-0"
+            onClick={() => setViewMode('map')}
+          >
+            <Map className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant={viewMode === 'split' ? 'default' : 'outline'}
+            size="sm" 
+            className="rounded-l-none rounded-r-md"
+            onClick={() => setViewMode('split')}
+          >
+            <div className="h-4 w-4 flex items-center justify-center">
+              <div className="h-full w-1/2 border-r"></div>
+            </div>
+          </Button>
+        </div>
+      </div>
+      
+      {/* Main content area */}
+      <div className="flex flex-1 overflow-hidden" style={{ height: 'calc(100vh - 56px)' }}>
+        {/* Sidebar - Collapsible */}
+        <div 
+          className={cn(
+            "border-r bg-background overflow-y-auto pt-4 flex flex-col h-full transition-all duration-300",
+            sidebarCollapsed ? "w-0 md:w-14 overflow-hidden" : "w-64"
+          )}
+        >
+          {/* Toggle button to collapse/expand */}
+          <div className="px-4 flex justify-between items-center mb-4">
+            <h2 className={cn("font-semibold text-lg", sidebarCollapsed && "hidden md:hidden")}>Filters</h2>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className={cn(
+                "h-8 w-8", 
+                sidebarCollapsed && "mx-auto"
+              )}
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            >
+              {sidebarCollapsed ? (
+                <ChevronRight className="h-4 w-4" />
+              ) : (
+                <ChevronLeft className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+          
+          {/* Sidebar Content - Only shows fully when expanded */}
+          <div className={cn("flex-1", sidebarCollapsed && "hidden md:hidden")}>
+            <div className="px-4 pb-4">
+              <h2 className="font-semibold text-lg">Property Type</h2>
+              <div className="grid grid-cols-2 gap-2 mt-3">
+                {propertyTypes.map((type, i) => (
+                  <button 
+                    key={i}
+                    className="flex flex-col items-center justify-center p-3 border rounded-lg hover:border-primary transition-colors"
+                  >
+                    <div className="p-2 rounded-full bg-muted mb-1">
+                      {type.icon}
+                    </div>
+                    <span className="text-xs">{type.name}</span>
+                  </button>
                 ))}
               </div>
-            </motion.div>
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Price Range</h2>
+              <div className="text-sm text-muted-foreground flex justify-between mb-2">
+                <span>Monthly</span>
+                <span>${priceRange[0]} - ${priceRange[1]}</span>
+              </div>
+              <Slider
+                value={priceRange}
+                min={100}
+                max={2000}
+                step={50}
+                onValueChange={(value) => setPriceRange(value as number[])}
+                className="mb-4"
+              />
+              <div className="flex items-center justify-between">
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Min</label>
+                  <Input 
+                    value={minPriceInput} 
+                    onChange={handleMinPriceChange} 
+                    className="mt-1" 
+                  />
+                </div>
+                <div className="text-muted-foreground">—</div>
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Max</label>
+                  <Input 
+                    value={maxPriceInput} 
+                    onChange={handleMaxPriceChange} 
+                    className="mt-1" 
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Area (sq ft)</h2>
+              <div className="text-sm text-muted-foreground flex justify-between mb-2">
+                <span>Size</span>
+                <span>{areaRange[0]} - {areaRange[1]} sq ft</span>
+              </div>
+              <Slider
+                value={areaRange}
+                min={100}
+                max={10000}
+                step={100}
+                onValueChange={(value) => setAreaRange(value as number[])}
+                className="mb-4"
+              />
+              <div className="flex items-center justify-between">
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Min</label>
+                  <Input 
+                    value={minAreaInput} 
+                    onChange={handleMinAreaChange} 
+                    className="mt-1" 
+                  />
+                </div>
+                <div className="text-muted-foreground">—</div>
+                <div className="w-[45%]">
+                  <label className="text-xs text-muted-foreground">Max</label>
+                  <Input 
+                    value={maxAreaInput} 
+                    onChange={handleMaxAreaChange} 
+                    className="mt-1" 
+                  />
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Specialty Housing</h2>
+              <div className="space-y-2">
+                <div className="flex items-center">
+                  <input type="checkbox" id="senior" className="mr-2" />
+                  <label htmlFor="senior">Senior Living</label>
+                </div>
+                <div className="flex items-center">
+                  <input type="checkbox" id="student" className="mr-2" />
+                  <label htmlFor="student">Student Housing</label>
+                </div>
+                <div className="flex items-center">
+                  <input type="checkbox" id="income" className="mr-2" />
+                  <label htmlFor="income">Income Restricted</label>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Move-in Date</h2>
+              <Input 
+                type="date" 
+                className="w-full" 
+              />
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Conveniences</h2>
+              <div className="space-y-3">
+                {amenities.map((amenity, i) => (
+                  <div key={i} className="flex items-center">
+                    <Button variant="outline" size="sm" className="rounded-md mr-2 w-8 h-8 p-0">
+                      {amenity.icon}
+                    </Button>
+                    <span className="text-sm">{amenity.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Apply button - always shown */}
+          <div className={cn("border-t p-4", sidebarCollapsed && "hidden md:hidden")}>
+            <Button className="w-full">
+              Apply Filters
+            </Button>
+          </div>
+        </div>
+        
+        {/* Map and Properties area */}
+        <div className="flex-1 flex relative h-full">
+          {/* Map container - conditionally sized based on view mode */}
+          {viewMode !== 'list' && (
+            <div 
+              className={cn(
+                "relative h-full", 
+                viewMode === 'map' ? 'w-full' : 'w-1/2'
+              )}
+            >
+              <div 
+                ref={mapContainer} 
+                className="absolute inset-0 z-10 bg-muted"
+                style={{ width: '100%', height: '100%' }}
+              />
+              
+              {/* Location label */}
+              <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm z-20">
+                <span className="font-medium">DHA PHASE 5, Lahore</span>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
+          
+          {/* Property listing - conditionally sized based on view mode */}
+          {viewMode !== 'map' && (
+            <div 
+              className={cn(
+                "bg-background overflow-y-auto", 
+                viewMode === 'list' ? 'w-full' : 'w-1/2'
+              )}
+            >
+              <div className="p-4">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-lg font-semibold">Available Properties</h2>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Sort:</span>
+                    <Button variant="outline" size="sm">
+                      Price
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 gap-4">
+                  {properties.map(property => renderPropertyCard(property))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 

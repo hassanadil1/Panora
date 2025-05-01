@@ -26,7 +26,7 @@ export default function SignInPage() {
             muted
             loop
             playsInline
-            src="/"
+            src="/panora_demo.mp4"
             onError={() => setVideoError(true)}
           />
         ) : (
