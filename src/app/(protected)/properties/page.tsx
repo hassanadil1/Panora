@@ -428,61 +428,62 @@ export default function PropertiesPage() {
   }
 
   const renderPropertyCard = (property: typeof properties[0]) => (
-                  <Card 
-                    key={property.id}
-                    className="overflow-hidden hover:shadow-lg transition-all border-transparent hover:border-primary cursor-pointer"
-                    onClick={() => setSelectedProperty(property.id === selectedProperty ? null : property.id)}
-                  >
-                    <div className="relative h-40">
-                      <img 
-                        src={property.image} 
-                        alt={property.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-3 left-3 flex gap-2">
-                        <Badge className="bg-primary text-primary-foreground shadow-md">Superhost</Badge>
-                      </div>
-                      <div className="absolute top-3 right-3">
-                        <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-md">
-                          <Heart className="h-4 w-4" />
-                        </Button>
-                      </div>
-                      <div className="absolute bottom-3 right-3">
-                        <Badge className="bg-background/90 text-foreground backdrop-blur-sm shadow-md">
-                          ${property.price}<span className="text-muted-foreground">/night</span>
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-3">
-                      <div className="flex justify-between items-start">
-                        <h3 className="font-bold text-base line-clamp-1">{property.title}</h3>
-                        <div className="flex items-center gap-1 text-sm">
-                          <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                          <span>{property.rating}</span>
+                  <Link href={`/properties/${property.id}`} key={property.id}>
+                    <Card 
+                      className="overflow-hidden hover:shadow-lg transition-all border-transparent hover:border-primary cursor-pointer"
+                      onClick={() => setSelectedProperty(property.id === selectedProperty ? null : property.id)}
+                    >
+                      <div className="relative h-40">
+                        <img 
+                          src={property.image} 
+                          alt={property.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-3 left-3 flex gap-2">
+                          <Badge className="bg-primary text-primary-foreground shadow-md">Superhost</Badge>
+                        </div>
+                        <div className="absolute top-3 right-3">
+                          <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-md">
+                            <Heart className="h-4 w-4" />
+                          </Button>
+                        </div>
+                        <div className="absolute bottom-3 right-3">
+                          <Badge className="bg-background/90 text-foreground backdrop-blur-sm shadow-md">
+                            ${property.price}<span className="text-muted-foreground">/night</span>
+                          </Badge>
                         </div>
                       </div>
-                      <div className="flex items-center text-muted-foreground text-xs mt-1 mb-2">
-                        <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
-                        <span className="truncate">{property.location}</span>
-                      </div>
-                      <div className="flex gap-3 mt-2 text-xs">
-                        <div className="flex items-center gap-1">
-                          <Bed className="h-3 w-3" />
-                          <span>{property.beds} beds</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Bath className="h-3 w-3" />
-                          <span>{property.baths} bath</span>
-                        </div>
-                        {property.hasPool && (
-                          <div className="flex items-center gap-1">
-                            <Waves className="h-3 w-3" />
-                            <span>Pool</span>
+                      <div className="p-3">
+                        <div className="flex justify-between items-start">
+                          <h3 className="font-bold text-base line-clamp-1">{property.title}</h3>
+                          <div className="flex items-center gap-1 text-sm">
+                            <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
+                            <span>{property.rating}</span>
                           </div>
-                        )}
+                        </div>
+                        <div className="flex items-center text-muted-foreground text-xs mt-1 mb-2">
+                          <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                          <span className="truncate">{property.location}</span>
+                        </div>
+                        <div className="flex gap-3 mt-2 text-xs">
+                          <div className="flex items-center gap-1">
+                            <Bed className="h-3 w-3" />
+                            <span>{property.beds} beds</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Bath className="h-3 w-3" />
+                            <span>{property.baths} bath</span>
+                          </div>
+                          {property.hasPool && (
+                            <div className="flex items-center gap-1">
+                              <Waves className="h-3 w-3" />
+                              <span>Pool</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Card>
+                  </Link>
   )
 
   // Add a separate effect to handle resize and view mode changes
