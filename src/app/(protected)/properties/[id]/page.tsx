@@ -71,6 +71,62 @@ const properties = [
       "https://images.unsplash.com/photo-1600210492493-0946911123ea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
     ]
+  },
+  {
+    id: 3,
+    title: "Villa Kayu Raja",
+    location: "DHA Phase 6, Lahore, Pakistan",
+    price: 130,
+    beds: 1,
+    baths: 1,
+    area: 850,
+    hasPool: true,
+    rating: 4.5,
+    reviews: 121,
+    image: "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    coordinates: [74.3971, 31.4607],
+    description: "Welcome to Villa Kayu Raja, a serene and intimate property in the heart of DHA Phase 6. This charming villa offers a perfect blend of traditional and modern design elements, creating a warm and inviting atmosphere. The property features a private pool, spacious living areas, and lush gardens that provide perfect relaxation spaces and entertainment venues.",
+    amenities: ["Washer/Dryer", "Air Conditioning", "High-Speed Internet", "Walk-In Closets", "Polished Floors", "Refrigerator", "Dishwasher", "Microwave"],
+    highlights: ["High-Speed Internet Access", "Washer/Dryer", "Air Conditioning", "Heating", "Cable Ready", "Satellite TV", "Double Vanities", "Smoke Free", "Private Pool", "Garden View", "Sprinkler System"],
+    fees: {
+      application: 25,
+      pets: true,
+      parking: true
+    },
+    additionalImages: [
+      "https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1600566753051-f0b89df2dd90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    ]
+  },
+  {
+    id: 4,
+    title: "The Edge Bali",
+    location: "DHA Phase 4, Lahore, Pakistan",
+    price: 190,
+    beds: 2,
+    baths: 1,
+    area: 920,
+    hasPool: true,
+    rating: 4.4,
+    reviews: 134,
+    image: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    coordinates: [74.4081, 31.4727],
+    description: "Experience the ultimate luxury at The Edge Bali, a stunning property inspired by Balinese aesthetics in the prestigious DHA Phase 4 area. This exclusive property offers breathtaking views, open-concept living spaces, and premium finishes throughout. The outdoor living area features a private infinity pool, perfect for relaxation and entertainment.",
+    amenities: ["Washer/Dryer", "Air Conditioning", "High-Speed Internet", "Walk-In Closets", "Polished Floors", "Refrigerator", "Dishwasher", "Microwave", "Infinity Pool"],
+    highlights: ["High-Speed Internet Access", "Washer/Dryer", "Air Conditioning", "Heating", "Cable Ready", "Satellite TV", "Double Vanities", "Smoke Free", "Tub/Shower", "Intercom", "Sprinkler System", "Open Concept Design"],
+    fees: {
+      application: 35,
+      pets: true,
+      parking: true
+    },
+    additionalImages: [
+      "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+    ]
   }
 ]
 
