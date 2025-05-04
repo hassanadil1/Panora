@@ -104,6 +104,7 @@ export default function SignUpPage() {
           className="w-full max-w-md mt-16 md:mt-4"
         >
           <SignUp 
+            routing="hash"
             appearance={{
               variables: {
                 colorPrimary: 'hsl(145 3% 39%)',

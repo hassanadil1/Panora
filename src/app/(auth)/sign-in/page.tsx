@@ -105,6 +105,7 @@ export default function SignInPage() {
           className="w-full max-w-md"
         >
           <SignIn 
+            routing="hash"
             appearance={{
               variables: {
                 colorPrimary: 'hsl(145 3% 39%)',
