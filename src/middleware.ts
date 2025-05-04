@@ -1,4 +1,4 @@
-import { authMiddleware, getAuth } from "@clerk/nextjs/server";
+import { authMiddleware } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
 // This example protects all routes including api/trpc routes
