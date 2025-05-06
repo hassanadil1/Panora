@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import { useQuery, useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
@@ -9,6 +9,8 @@ import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css'
 import { 
   Home, 
   Building, 
@@ -53,6 +55,11 @@ import {
 } from "@/components/ui/card"
 import Link from "next/link"
 
+// Set your Mapbox access token
+// In production, use environment variable
+const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || '';
+console.log("Mapbox token available:", !!mapboxToken);
+
 // Property types
 const propertyTypes = [
   { value: "home", label: "Home" },
@@ -84,11 +91,21 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>
 
+// Initial map center (Lahore, Pakistan)
+const INITIAL_LAT = 31.5204;
+const INITIAL_LNG = 74.3587;
+
 export default function ListPropertyPage() {
   const router = useRouter()
   const { user } = useClerk()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [imageUrls, setImageUrls] = useState<string[]>([])
+  const [mapError, setMapError] = useState<string | null>(null)
+  const [viewState, setViewState] = useState({
+    longitude: INITIAL_LNG,
+    latitude: INITIAL_LAT,
+    zoom: 13
+  });
   
   // Get userId from Convex
   const userIdQuery = useQuery(api.users.getUserByClerkId, { 
@@ -108,8 +125,8 @@ export default function ListPropertyPage() {
       purpose: "rent",
       type: "home",
       city: "",
-      latitude: 0,
-      longitude: 0,
+      latitude: INITIAL_LAT,
+      longitude: INITIAL_LNG,
       areaSize: 0,
       price: 0,
       bedrooms: 1,
@@ -120,6 +137,30 @@ export default function ListPropertyPage() {
       phone: ""
     },
   })
+
+  // Update marker position when map is clicked
+  const handleMapClick = useCallback((event: mapboxgl.MapMouseEvent) => {
+    const { lng, lat } = event.lngLat;
+    form.setValue('longitude', lng, { shouldValidate: true });
+    form.setValue('latitude', lat, { shouldValidate: true });
+    setViewState(prev => ({
+      ...prev,
+      longitude: lng,
+      latitude: lat
+    }));
+  }, [form]);
+
+  // Update marker position when marker is dragged
+  const handleMarkerDrag = useCallback((event: mapboxgl.MapMouseEvent) => {
+    const { lng, lat } = event.lngLat;
+    form.setValue('longitude', lng, { shouldValidate: true });
+    form.setValue('latitude', lat, { shouldValidate: true });
+    setViewState(prev => ({
+      ...prev,
+      longitude: lng,
+      latitude: lat
+    }));
+  }, [form]);
 
   // Handle form submission
   const onSubmit = async (values: FormValues) => {
@@ -167,7 +208,7 @@ export default function ListPropertyPage() {
       const result = await createProperty(propertyData)
       
       toast.success("Property listed successfully!")
-      router.push(`/properties/${result?._id}`)
+      router.push("/properties")
     } catch (error) {
       toast.error("Failed to list property. Please try again.")
       console.error("Error listing property:", error)
@@ -196,6 +237,10 @@ export default function ListPropertyPage() {
     form.setValue("images", newUrls, { shouldValidate: true, shouldDirty: true })
     toast.success(`${files.length} images uploaded successfully`)
   }
+
+  // Get the current latitude and longitude from the form
+  const latitude = form.watch('latitude');
+  const longitude = form.watch('longitude');
 
   // Loading state
   if (!userIdQuery) {
@@ -340,34 +385,103 @@ export default function ListPropertyPage() {
                     )}
                   />
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <FormField
-                      control={form.control}
-                      name="latitude"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Latitude *</FormLabel>
-                          <FormControl>
-                            <Input type="number" step="any" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <div className="space-y-4">
+                    <FormLabel>Map Location *</FormLabel>
+                    <FormDescription>
+                      Click on the map or drag the marker to set your property's exact location.
+                    </FormDescription>
                     
-                    <FormField
-                      control={form.control}
-                      name="longitude"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Longitude *</FormLabel>
-                          <FormControl>
-                            <Input type="number" step="any" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
+                    <div className="relative w-full h-64 rounded-md border overflow-hidden">
+                      {!mapboxToken ? (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 p-4">
+                          <div className="text-center text-red-500">
+                            <p className="font-medium">Map configuration error</p>
+                            <p className="text-sm">Mapbox token is missing or invalid.</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div id="map" className="w-full h-full" ref={(el) => {
+                          if (el && !el.hasChildNodes()) {
+                            // Initialize map only once
+                            const map = new mapboxgl.Map({
+                              container: el,
+                              style: 'mapbox://styles/mapbox/streets-v12',
+                              center: [longitude, latitude],
+                              zoom: viewState.zoom,
+                              accessToken: mapboxToken
+                            });
+                            
+                            // Add navigation controls
+                            map.addControl(new mapboxgl.NavigationControl());
+                            
+                            // Add a marker
+                            const marker = new mapboxgl.Marker({ draggable: true })
+                              .setLngLat([longitude, latitude])
+                              .addTo(map);
+                            
+                            // Handle map click
+                            map.on('click', (e) => {
+                              marker.setLngLat(e.lngLat);
+                              form.setValue('longitude', e.lngLat.lng, { shouldValidate: true });
+                              form.setValue('latitude', e.lngLat.lat, { shouldValidate: true });
+                            });
+                            
+                            // Handle marker drag
+                            marker.on('dragend', () => {
+                              const lngLat = marker.getLngLat();
+                              form.setValue('longitude', lngLat.lng, { shouldValidate: true });
+                              form.setValue('latitude', lngLat.lat, { shouldValidate: true });
+                            });
+                          }
+                        }} />
                       )}
-                    />
+                      {mapError && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-gray-100 bg-opacity-80 p-4">
+                          <div className="text-center text-red-500">
+                            <p className="font-medium">Map loading error</p>
+                            <p className="text-sm">{mapError}</p>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="mt-2"
+                              onClick={() => window.location.reload()}
+                            >
+                              Reload page
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="latitude"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Latitude *</FormLabel>
+                            <FormControl>
+                              <Input type="number" step="any" {...field} readOnly />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="longitude"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Longitude *</FormLabel>
+                            <FormControl>
+                              <Input type="number" step="any" {...field} readOnly />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
                 </div>
                 
