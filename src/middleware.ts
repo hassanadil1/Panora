@@ -1,21 +1,35 @@
 import { authMiddleware } from '@clerk/nextjs/server';
 import { NextResponse } from "next/server";
 
+// Define the protected routes that require authentication
+const protectedRoutes = [
+  '/properties/(.*)',
+  '/residences/(.*)',
+  '/favorites/(.*)',
+  '/profile/(.*)',
+  '/dashboard/(.*)',
+];
+
 export default authMiddleware({
-  // Routes that can be accessed while signed out
-  publicRoutes: [
-    '/',
-    '/sign-in(.*)',
-    '/sign-up(.*)',
-    '/api/webhooks/clerk',
-    '/api(.*)',
-    '/_next(.*)'
-  ],
-  // Routes that can always be accessed, and have
-  // no authentication information
+  // Allow all routes by default
+  publicRoutes: (req) => {
+    // Check if the URL path matches any protected route pattern
+    const path = req.nextUrl.pathname;
+    const isProtectedRoute = protectedRoutes.some(pattern => {
+      // Convert the pattern to a regex
+      const regex = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`);
+      return regex.test(path);
+    });
+
+    // If not a protected route, it's public
+    return !isProtectedRoute;
+  },
+  
+  // Routes that can always be accessed, no auth info needed
   ignoredRoutes: [
     '/api/webhooks/clerk'
   ],
+  
   // Custom function to handle middleware authentication
   afterAuth(auth, req) {
     // If the user is not signed in and trying to access a private route,
@@ -31,9 +45,14 @@ export default authMiddleware({
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|mp4|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
-    // Always run for API routes
-    '/(api|trpc)(.*)',
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - public folder
+     * - public files with extensions (.png, .jpg, etc)
+     */
+    '/((?!_next/static|_next/image|favicon.ico|public).*)',
   ],
 }; 

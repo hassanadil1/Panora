@@ -7,6 +7,7 @@ export const createUser = mutation({
     email: v.string(),
     clerkId: v.string(),
     imageUrl: v.optional(v.string()),
+    active: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const existingUser = await ctx.db
@@ -23,6 +24,7 @@ export const createUser = mutation({
       email: args.email,
       clerkId: args.clerkId,
       imageUrl: args.imageUrl,
+      active: args.active ?? true, // Default to active
       createdAt: Date.now(),
       updatedAt: Date.now(),
     });
@@ -37,6 +39,7 @@ export const updateUser = mutation({
     name: v.optional(v.string()),
     email: v.optional(v.string()),
     imageUrl: v.optional(v.string()),
+    active: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
     const user = await ctx.db
@@ -52,6 +55,7 @@ export const updateUser = mutation({
       ...(args.name && { name: args.name }),
       ...(args.email && { email: args.email }),
       ...(args.imageUrl && { imageUrl: args.imageUrl }),
+      ...(args.active !== undefined && { active: args.active }),
       updatedAt: Date.now(),
     });
 
@@ -74,5 +78,15 @@ export const getCurrentUser = query({
 export const getAllUsers = query({
   handler: async (ctx) => {
     return await ctx.db.query("users").collect();
+  },
+});
+
+// Get only active users
+export const getActiveUsers = query({
+  handler: async (ctx) => {
+    return await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("active"), true))
+      .collect();
   },
 }); 

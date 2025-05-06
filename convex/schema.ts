@@ -7,6 +7,7 @@ export default defineSchema({
     email: v.string(),
     clerkId: v.string(),
     imageUrl: v.optional(v.string()),
+    active: v.optional(v.boolean()),
     createdAt: v.number(),
     updatedAt: v.number(),
   })

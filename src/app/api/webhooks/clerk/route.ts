@@ -10,8 +10,11 @@ export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
+    console.error("Missing CLERK_WEBHOOK_SECRET");
     throw new Error("Please add CLERK_WEBHOOK_SECRET from Clerk Dashboard to .env");
   }
+
+  console.log("Received webhook from Clerk");
 
   // Get the headers
   const headerPayload = headers();
@@ -21,6 +24,7 @@ export async function POST(req: Request) {
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
+    console.error("Missing svix headers");
     return new Response("Error occured -- no svix headers", {
       status: 400,
     });
@@ -51,24 +55,91 @@ export async function POST(req: Request) {
 
   // Handle the webhook
   const eventType = evt.type;
+  console.log(`Processing Clerk webhook: ${eventType}`);
 
-  if (eventType === "user.created") {
-    const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+  try {
+    // Handle user creation
+    if (eventType === "user.created") {
+      const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+      console.log(`User created: ${id}, ${email_addresses[0]?.email_address}`);
 
-    try {
-      await convex.mutation(api.users.createUser, {
-        name: `${first_name} ${last_name}`,
-        email: email_addresses[0].email_address,
-        clerkId: id,
-        imageUrl: image_url,
-      });
-    } catch (error) {
-      console.error("Error creating user in Convex:", error);
-      return new Response("Error creating user in Convex", {
-        status: 500,
-      });
+      try {
+        const result = await convex.mutation(api.users.createUser, {
+          name: `${first_name || ""} ${last_name || ""}`.trim() || "New User",
+          email: email_addresses[0]?.email_address || `user-${id}@example.com`,
+          clerkId: id,
+          imageUrl: image_url || undefined,
+          active: true,
+        });
+        console.log("User created in Convex:", result);
+      } catch (error) {
+        console.error("Error creating user in Convex:", error);
+        return new Response("Error creating user in Convex", {
+          status: 500,
+        });
+      }
     }
-  }
 
-  return new Response("", { status: 200 });
+    // Handle user update
+    else if (eventType === "user.updated") {
+      const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+      console.log(`User updated: ${id}`);
+
+      try {
+        const result = await convex.mutation(api.users.updateUser, {
+          clerkId: id,
+          name: first_name && last_name ? `${first_name} ${last_name}`.trim() : undefined,
+          email: email_addresses && email_addresses[0] ? email_addresses[0].email_address : undefined,
+          imageUrl: image_url || undefined,
+        });
+        console.log("User updated in Convex:", result);
+      } catch (error) {
+        console.error("Error updating user in Convex:", error);
+        return new Response("Error updating user in Convex", {
+          status: 500,
+        });
+      }
+    }
+
+    // Handle user deletion
+    else if (eventType === "user.deleted") {
+      const { id } = evt.data;
+      console.log(`User deleted: ${id}`);
+
+      // Make sure id is a string
+      if (!id) {
+        console.error("Missing user ID in webhook payload");
+        return new Response("Missing user ID", { status: 400 });
+      }
+
+      try {
+        // Alternative approach - mark user as inactive instead of deleting
+        const result = await convex.mutation(api.users.updateUser, {
+          clerkId: id,
+          active: false,
+        });
+        console.log("User marked as inactive in Convex:", result);
+      } catch (error) {
+        console.error("Error handling deleted user in Convex:", error);
+        return new Response("Error handling deleted user in Convex", {
+          status: 500,
+        });
+      }
+    }
+
+    return new Response(JSON.stringify({ success: true }), { 
+      status: 200,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (error) {
+    console.error("Error processing webhook:", error);
+    return new Response(JSON.stringify({ error: "Internal server error" }), { 
+      status: 500,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
 } 
