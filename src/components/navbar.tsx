@@ -5,7 +5,7 @@ import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
-import { Menu } from "lucide-react"
+import { Menu, Heart, PlusSquare } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -27,7 +27,7 @@ const routes = [
   },
   {
     label: "Sell",
-    href: "/sell",
+    href: "/list-property",
   },
   {
     label: "Virtual Tours",
@@ -44,6 +44,20 @@ const routes = [
   {
     label: "Sell It For Me",
     href: "/sell-it-for-me",
+  },
+]
+
+// After routes declaration, add authenticated routes
+const authenticatedRoutes = [
+  {
+    label: "Favorites",
+    href: "/favorites",
+    icon: <Heart className="h-4 w-4 mr-1" />,
+  },
+  {
+    label: "List Property",
+    href: "/list-property",
+    icon: <PlusSquare className="h-4 w-4 mr-1" />,
   },
 ]
 
@@ -79,32 +93,51 @@ export function Navbar() {
                 {route.label}
               </Link>
             ))}
-          </nav>
-          <div className="flex items-center gap-4">
+            
+            {/* Authenticated Routes */}
             <SignedIn>
-              <UserButton 
-                afterSignOutUrl="/"
-                appearance={{
-                  elements: {
-                    avatarBox: "h-10 w-10"
-                  }
-                }}
-              />
+              {authenticatedRoutes.map((route) => (
+                <Link
+                  key={route.href}
+                  href={route.href}
+                  className={cn(
+                    "text-sm font-medium transition-colors hover:text-primary flex items-center",
+                    pathname === route.href
+                      ? "text-foreground"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {route.icon}
+                  {route.label}
+                </Link>
+              ))}
             </SignedIn>
-            <SignedOut>
-              <div className="flex items-center gap-2">
-                <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
-                <Button asChild size="sm">
-                  <Link href="/sign-in">Sign In</Link>
-                </Button>
+          </nav>
+          
+          <SignedIn>
+            <UserButton 
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: "h-10 w-10"
+                }
+              }}
+            />
+          </SignedIn>
+          
+          <SignedOut>
+            <div className="flex items-center gap-2">
+              <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
               </div>
-            </SignedOut>
-          </div>
+              <Button asChild size="sm">
+                <Link href="/sign-in">Sign In</Link>
+              </Button>
+            </div>
+          </SignedOut>
         </div>
         
         {/* Mobile Navigation - Fixed to be truly hidden on md screens and up */}
@@ -158,6 +191,26 @@ export function Navbar() {
                     </Link>
                   ))}
                 </nav>
+                
+                {/* Authenticated Routes for Mobile */}
+                <SignedIn>
+                  {authenticatedRoutes.map((route) => (
+                    <Link
+                      key={route.href}
+                      href={route.href}
+                      onClick={() => setOpen(false)}
+                      className={cn(
+                        "text-base font-medium transition-colors hover:text-primary p-2 flex items-center",
+                        pathname === route.href
+                          ? "text-foreground bg-accent/50 rounded-md"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      {route.icon}
+                      {route.label}
+                    </Link>
+                  ))}
+                </SignedIn>
                 
                 <SignedOut>
                   <div className="pt-6 border-t">

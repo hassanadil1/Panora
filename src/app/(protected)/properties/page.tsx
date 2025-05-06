@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { 
@@ -9,9 +9,8 @@ import {
   Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, 
   ChevronLeft, DollarSign, Grid2X2, Calendar, 
   Sliders, Star, X, ChevronsDown, ArrowDownUp, Square, 
-  ChevronRight, SquareDot
+  ChevronRight, SquareDot, MapIcon as MapIconLucide, ListIcon as ListIconLucide
 } from "lucide-react"
-import { Map } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -61,6 +60,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
+import { useClerk } from "@clerk/nextjs"
+import { toast } from "sonner"
 
 // Property types
 const propertyTypes = [
@@ -86,9 +88,76 @@ const amenities = [
 
 // Main component that doesn't use the useSidebar hook
 export default function PropertiesPage() {
-  // Add this query to get properties from Convex
-  const properties = useQuery(api.properties.getAllProperties) || [];
+  // Get properties
+  const properties = useQuery(api.properties.getAllProperties) || []
   
+  // Get user data
+  const { user } = useClerk()
+  const userIdQuery = useQuery(api.users.getUserByClerkId, { 
+    clerkId: user?.id ?? ""
+  });
+  const userId = userIdQuery?._id;
+  
+  // Get user's favorites
+  const favoritesQuery = useQuery(
+    api.favorites.getUserFavorites, 
+    userId ? { userId } : "skip"
+  );
+  const [favoritesMap, setFavoritesMap] = useState<Map<string, boolean>>(new Map());
+  
+  // Update favorites map when query results change
+  useEffect(() => {
+    if (favoritesQuery) {
+      const newMap = new Map<string, boolean>();
+      favoritesQuery.forEach(property => {
+        newMap.set(property._id as string, true);
+      });
+      setFavoritesMap(newMap);
+    }
+  }, [favoritesQuery]);
+  
+  // Mutations for adding and removing favorites
+  const addToFavorites = useMutation(api.favorites.addFavorite);
+  const removeFromFavorites = useMutation(api.favorites.removeFavorite);
+  
+  // Toggle favorite status for a property
+  const toggleFavorite = async (e: React.MouseEvent, propertyId: Id<"properties">) => {
+    e.preventDefault(); // Prevent navigating to property detail page
+    e.stopPropagation(); // Prevent bubbling up to parent elements
+    
+    if (!userId) {
+      toast.error("Please sign in to save favorites");
+      return;
+    }
+    
+    try {
+      const isFavorited = favoritesMap.get(propertyId as string);
+      
+      if (isFavorited) {
+        await removeFromFavorites({ userId, propertyId });
+        // Optimistic UI update
+        setFavoritesMap((prev: Map<string, boolean>) => {
+          const newMap = new Map<string, boolean>(prev);
+          newMap.delete(propertyId as string);
+          return newMap;
+        });
+        toast.success("Removed from favorites");
+      } else {
+        await addToFavorites({ userId, propertyId });
+        // Optimistic UI update
+        setFavoritesMap((prev: Map<string, boolean>) => {
+          const newMap = new Map<string, boolean>(prev);
+          newMap.set(propertyId as string, true);
+          return newMap;
+        });
+        toast.success("Added to favorites");
+      }
+    } catch (error) {
+      toast.error("Failed to update favorites");
+      console.error("Error updating favorites:", error);
+    }
+  };
+
   const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('split')
   const [selectedProperty, setSelectedProperty] = useState<string | null>(null)
   const [viewport, setViewport] = useState({
@@ -383,72 +452,84 @@ export default function PropertiesPage() {
     }
   }
 
-  const renderPropertyCard = (property: any) => (
-    <Link 
-      href={`/properties/${property._id}`} 
-      key={property._id}
-      className="block"
-    >
-      <div 
-        className={cn(
-          "relative rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md",
-          selectedProperty === property._id ? "ring-2 ring-primary" : ""
-        )} 
-        onMouseEnter={() => setSelectedProperty(property._id)}
-        onMouseLeave={() => setSelectedProperty(null)}
+  const renderPropertyCard = (property: any) => {
+    const isFavorited = favoritesMap.get(property._id);
+    
+    return (
+      <Link 
+        href={`/properties/${property._id}`} 
+        key={property._id}
+        className="block"
       >
-        <div className="relative h-64 overflow-hidden">
-          <img 
-            src={property.images[0]} 
-            alt={property.title}
-            className="object-cover w-full h-full"
-          />
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
-          >
-            <Heart className="h-4 w-4 text-muted-foreground" />
-          </Button>
+        <div 
+          className={cn(
+            "relative rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md",
+            selectedProperty === property._id ? "ring-2 ring-primary" : ""
+          )} 
+          onMouseEnter={() => setSelectedProperty(property._id)}
+          onMouseLeave={() => setSelectedProperty(null)}
+        >
+          <div className="relative h-64 overflow-hidden">
+            <img 
+              src={property.images[0]} 
+              alt={property.title}
+              className="object-cover w-full h-full"
+            />
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
+              onClick={(e) => toggleFavorite(e, property._id)}
+            >
+              <Heart 
+                className={cn(
+                  "h-4 w-4", 
+                  isFavorited 
+                    ? "fill-red-500 text-red-500" 
+                    : "text-muted-foreground"
+                )} 
+              />
+            </Button>
+          </div>
+          <div className="p-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-medium line-clamp-1">{property.title}</h3>
+              <div className="flex items-center">
+                <Star className="h-4 w-4 fill-primary text-primary" />
+                <span className="ml-1 text-sm">4.8</span>
+              </div>
+            </div>
+            <div className="mt-1 text-sm text-muted-foreground flex items-center">
+              <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground/70" />
+              <span className="truncate">{property.city}</span>
+            </div>
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <div className="flex items-center">
+                <Bed className="h-4 w-4 mr-1" />
+                <span>{property.bedrooms}</span>
+              </div>
+              <div className="flex items-center">
+                <Bath className="h-4 w-4 mr-1" />
+                <span>{property.bathrooms}</span>
+              </div>
+              <div className="flex items-center">
+                <Square className="h-4 w-4 mr-1" />
+                <span>{property.areaSize} sqft</span>
+              </div>
+            </div>
+            <div className="mt-3 flex items-center justify-between">
+              <div className="font-medium">
+                ${property.price.toLocaleString()}
+                <span className="text-xs text-muted-foreground font-normal">
+                  {property.purpose === 'rent' ? '/mo' : ''}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-medium line-clamp-1">{property.title}</h3>
-            <div className="flex items-center">
-              <Star className="h-4 w-4 fill-primary text-primary" />
-              <span className="ml-1 text-sm">4.8</span>
-            </div>
-          </div>
-          <div className="mt-1 text-sm text-muted-foreground flex items-center">
-            <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground/70" />
-            <span className="truncate">{property.city}</span>
-          </div>
-          <div className="mt-3 flex items-center gap-2 text-sm">
-            <div className="flex items-center">
-              <Bed className="h-4 w-4 mr-1" />
-              <span>{property.bedrooms}</span>
-            </div>
-            <div className="flex items-center">
-              <Bath className="h-4 w-4 mr-1" />
-              <span>{property.bathrooms}</span>
-            </div>
-            <div className="flex items-center">
-              <Square className="h-4 w-4 mr-1" />
-              <span>{property.areaSize} sqft</span>
-            </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between">
-            <div className="font-medium">
-              ${property.price.toLocaleString()}
-              <span className="text-xs text-muted-foreground font-normal">
-                {property.purpose === 'rent' ? '/mo' : ''}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
-  )
+      </Link>
+    )
+  }
 
   // Add a separate effect to handle resize and view mode changes
   useEffect(() => {
@@ -649,12 +730,11 @@ export default function PropertiesPage() {
         
         <div className="flex ml-auto">
           <Button 
+            size="icon" 
             variant={viewMode === 'list' ? 'default' : 'outline'} 
-            size="sm" 
-            className="rounded-l-md rounded-r-none"
             onClick={() => setViewMode('list')}
           >
-            <Grid2X2 className="h-4 w-4" />
+            <ListIconLucide className="h-4 w-4" />
           </Button>
           <Button 
             variant={viewMode === 'map' ? 'default' : 'outline'} 
@@ -662,7 +742,7 @@ export default function PropertiesPage() {
             className="rounded-l-none rounded-r-none border-l-0 border-r-0"
             onClick={() => setViewMode('map')}
           >
-            <Map className="h-4 w-4" />
+            <MapIconLucide className="h-4 w-4" />
           </Button>
           <Button 
             variant={viewMode === 'split' ? 'default' : 'outline'}

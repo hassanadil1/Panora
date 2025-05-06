@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react"
 import { useParams } from "next/navigation"
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import Image from "next/image"
@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import * as mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { useClerk } from "@clerk/nextjs"
+import { toast } from "sonner"
 
 // Property Features Icons component for reuse
 const PropertyFeature = ({ icon, text }: { icon: React.ReactNode, text: string }) => (
@@ -30,15 +32,52 @@ const PropertyFeature = ({ icon, text }: { icon: React.ReactNode, text: string }
 export default function PropertyDetailPage() {
   const params = useParams()
   const id = typeof params.id === 'string' ? params.id : ''
+  const { user } = useClerk()
+  
+  // Get userId from Convex
+  const userIdQuery = useQuery(api.users.getUserByClerkId, { 
+    clerkId: user?.id ?? ""
+  });
+  const userId = userIdQuery?._id;
   
   // Query the property from Convex using the ID from params
   const property = useQuery(api.properties.getProperty, { id: id as Id<"properties"> });
+  
+  // Check if property is favorited by the user
+  const isFavorited = useQuery(
+    api.favorites.isPropertyFavorited,
+    userId && property
+      ? { userId: userId, propertyId: property._id }
+      : "skip"
+  );
+  
+  // Mutations for adding and removing favorites
+  const addToFavorites = useMutation(api.favorites.addFavorite);
+  const removeFromFavorites = useMutation(api.favorites.removeFavorite);
   
   const [selectedImage, setSelectedImage] = useState(0)
   
   // Always declare hooks, regardless of whether property is loaded
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
+  
+  // Toggle favorite status
+  const toggleFavorite = async () => {
+    if (!userId || !property) return;
+    
+    try {
+      if (isFavorited) {
+        await removeFromFavorites({ userId, propertyId: property._id });
+        toast.success("Removed from favorites");
+      } else {
+        await addToFavorites({ userId, propertyId: property._id });
+        toast.success("Added to favorites");
+      }
+    } catch (error) {
+      toast.error("Failed to update favorites");
+      console.error("Error updating favorites:", error);
+    }
+  };
   
   // Initialize map when component mounts
   useEffect(() => {
@@ -152,11 +191,25 @@ export default function PropertyDetailPage() {
   
   return (
     <div className="container mx-auto py-8 px-4 md:px-6">
-      {/* Back button */}
-      <Link href="/properties" className="inline-flex items-center gap-2 mb-6 hover:text-primary transition-colors">
-        <ArrowLeft className="h-4 w-4" />
-        <span>Back to Search</span>
-      </Link>
+      {/* Back button and favorite button */}
+      <div className="flex justify-between items-center mb-6">
+        <Link href="/properties" className="inline-flex items-center gap-2 hover:text-primary transition-colors">
+          <ArrowLeft className="h-4 w-4" />
+          <span>Back to Search</span>
+        </Link>
+        
+        {userId && (
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-2"
+            onClick={toggleFavorite}
+          >
+            <Heart className={`h-4 w-4 ${isFavorited ? "fill-red-500 text-red-500" : ""}`} />
+            {isFavorited ? "Favorited" : "Add to Favorites"}
+          </Button>
+        )}
+      </div>
       
       {/* Property title and location */}
       <div className="mb-6">

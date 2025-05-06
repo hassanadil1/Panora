@@ -42,4 +42,13 @@ export default defineSchema({
     .index("by_city", ["city"])
     .index("by_purpose", ["purpose"])
     .index("by_type", ["type"]),
+  
+  favorites: defineTable({
+    userId: v.id("users"),
+    propertyId: v.id("properties"),
+    createdAt: v.number(),
+  })
+    .index("by_user", ["userId"])
+    .index("by_property", ["propertyId"])
+    .index("by_user_and_property", ["userId", "propertyId"]),
 }); 

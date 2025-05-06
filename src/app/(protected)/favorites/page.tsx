@@ -5,84 +5,14 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { motion } from "framer-motion"
-import { MapPin, Bed, Bath, Waves, Heart, MessageSquare, Home, User, CreditCard, Settings, LogOut } from "lucide-react"
+import { MapPin, Bed, Bath, Waves, Heart, MessageSquare, Home, User, CreditCard, Settings, LogOut, Search } from "lucide-react"
 import Link from "next/link"
-
-// Mock favorite properties data
-const favoriteProperties = [
-  {
-    id: 1,
-    title: "Sunset Bungalows",
-    location: "Villa Kuta Selatan, Bali, Indonesia",
-    price: 530,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.8,
-    reviews: 347,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80"
-  },
-  {
-    id: 2,
-    title: "Villa Kayu Raja",
-    location: "Seminyak, Bali, Indonesia",
-    price: 130,
-    beds: 1,
-    baths: 1,
-    hasPool: true,
-    rating: 4.5,
-    reviews: 121,
-    image: "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 3,
-    title: "The Edge Bali",
-    location: "Uluwatu, Bali, Indonesia",
-    price: 190,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.4,
-    reviews: 134,
-    image: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 4,
-    title: "Bali Boutique Resort & Spa",
-    location: "Kerobokan, Bali, Indonesia",
-    price: 145,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.9,
-    reviews: 567,
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 5,
-    title: "Amarterra Villas Bali Nusa Dua",
-    location: "Nusa Dua, Bali, Indonesia",
-    price: 200,
-    beds: 1,
-    baths: 1,
-    hasPool: true,
-    rating: 4.8,
-    reviews: 322,
-    image: "https://images.unsplash.com/photo-1615460549969-36fa19521a4f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-  },
-  {
-    id: 6,
-    title: "Banyan Tree Ungasan",
-    location: "Ungasan, Bali, Indonesia",
-    price: 250,
-    beds: 1,
-    baths: 1,
-    hasPool: true,
-    rating: 4.9,
-    reviews: 324,
-    image: "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  }
-]
+import { useQuery, useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
+import { Id } from "@/convex/_generated/dataModel"
+import { useClerk } from "@clerk/nextjs"
+import { toast } from "sonner"
+import Image from "next/image"
 
 // Navigation items for the sidebar
 const navigationItems = [
@@ -95,12 +25,47 @@ const navigationItems = [
 ]
 
 export default function FavoritesPage() {
-  const [favorites, setFavorites] = useState(favoriteProperties)
-
-  const removeFromFavorites = (id: number) => {
-    setFavorites(favorites.filter(property => property.id !== id))
+  const { user } = useClerk()
+  
+  // Get userId from Convex
+  const userIdQuery = useQuery(api.users.getUserByClerkId, { 
+    clerkId: user?.id ?? ""
+  });
+  const userId = userIdQuery?._id;
+  
+  // Get user's favorites
+  const favoriteProperties = useQuery(
+    api.favorites.getUserFavorites, 
+    userId ? { userId } : "skip"
+  );
+  
+  // Mutation to remove from favorites
+  const removeFromFavorites = useMutation(api.favorites.removeFavorite);
+  
+  const handleRemoveFromFavorites = async (propertyId: Id<"properties">) => {
+    if (!userId) return;
+    
+    try {
+      await removeFromFavorites({ 
+        userId, 
+        propertyId 
+      });
+      toast.success("Removed from favorites");
+    } catch (error) {
+      toast.error("Failed to remove from favorites");
+      console.error("Error removing from favorites:", error);
+    }
+  };
+  
+  // Loading state
+  if (!favoriteProperties) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
   }
-
+  
   return (
     <div className="min-h-screen bg-background">
       <div className="flex">
@@ -124,7 +89,7 @@ export default function FavoritesPage() {
                 <User className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <p className="font-medium">Syarip Yunus</p>
+                <p className="font-medium">{user?.fullName || "User"}</p>
                 <p className="text-xs text-muted-foreground">Renter</p>
               </div>
             </div>
@@ -159,91 +124,96 @@ export default function FavoritesPage() {
                 <p className="text-muted-foreground">Properties you've saved</p>
               </div>
               <div className="flex gap-2 items-center">
-                <Button size="sm" variant="outline">
-                  <SearchIcon className="h-4 w-4 mr-2" />
-                  Search Rentals
+                <Button size="sm" variant="outline" asChild>
+                  <Link href="/properties">
+                    <Search className="h-4 w-4 mr-2" />
+                    Search Properties
+                  </Link>
                 </Button>
               </div>
             </div>
 
-            {/* Properties Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {favorites.map((property, index) => (
-                <motion.div
-                  key={property.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.3 }}
-                >
-                  <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow">
-                    <div className="relative h-48">
-                      <img 
-                        src={property.image} 
-                        alt={property.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <Badge className="bg-card text-foreground">Superhost</Badge>
-                      </div>
-                      <div className="absolute top-3 right-3">
-                        <Badge className="bg-card text-foreground">Self Check-in</Badge>
-                      </div>
-                      <div className="absolute bottom-3 right-3">
-                        <button 
-                          className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
-                          onClick={() => removeFromFavorites(property.id)}
-                        >
-                          <Heart className="h-5 w-5 fill-current" />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <Link href={`/properties/${property.id}`}>
-                          <h3 className="font-bold text-lg hover:text-primary">{property.title}</h3>
-                        </Link>
-                        <div className="flex items-center gap-1 text-sm">
-                          <StarIcon className="h-4 w-4 text-yellow-500" fill="currentColor" />
-                          <span>{property.rating}</span>
-                          <span className="text-muted-foreground">({property.reviews})</span>
+            {favoriteProperties.length === 0 ? (
+              <div className="text-center py-20 bg-muted/20 rounded-xl border border-dashed">
+                <Heart className="h-20 w-20 mx-auto text-muted-foreground stroke-[1.25px]" />
+                <h3 className="mt-6 text-2xl font-semibold">No Favorites Yet</h3>
+                <p className="mt-3 text-muted-foreground max-w-md mx-auto">
+                  You haven't added any properties to your favorites.
+                  Click the heart icon on properties you like to save them here.
+                </p>
+                <Button className="mt-8" size="lg" asChild>
+                  <Link href="/properties">
+                    <Search className="h-4 w-4 mr-2" />
+                    Browse Properties
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <>
+                {/* Properties Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {favoriteProperties.map((property, index) => (
+                    <motion.div
+                      key={property._id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.05, duration: 0.3 }}
+                    >
+                      <Card className="overflow-hidden h-full hover:shadow-lg transition-shadow">
+                        <div className="relative h-48">
+                          <img 
+                            src={property.images[0]} 
+                            alt={property.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute top-3 left-3">
+                            <Badge className="bg-card text-foreground">
+                              {property.purpose === 'rent' ? 'For Rent' : 'For Sale'}
+                            </Badge>
+                          </div>
+                          <div className="absolute bottom-3 right-3">
+                            <button 
+                              className="h-8 w-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center"
+                              onClick={() => handleRemoveFromFavorites(property._id)}
+                            >
+                              <Heart className="h-5 w-5 fill-current" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex items-center text-muted-foreground text-sm mb-3">
-                        <MapPin className="h-4 w-4 mr-1" />
-                        {property.location}
-                      </div>
-                      <div className="flex justify-between items-center mt-4">
-                        <div className="flex gap-2">
-                          <div className="flex items-center gap-1 text-sm">
-                            <Bed className="h-4 w-4" />
-                            <span>{property.beds} Bed</span>
+                        <div className="p-4">
+                          <div className="flex justify-between items-start mb-2">
+                            <Link href={`/properties/${property._id}`}>
+                              <h3 className="font-bold text-lg hover:text-primary">{property.title}</h3>
+                            </Link>
                           </div>
-                          <div className="flex items-center gap-1 text-sm">
-                            <Bath className="h-4 w-4" />
-                            <span>{property.baths} Bath</span>
+                          <div className="flex items-center text-muted-foreground text-sm mb-3">
+                            <MapPin className="h-4 w-4 mr-1" />
+                            {property.city}
                           </div>
-                          {property.hasPool && (
-                            <div className="flex items-center gap-1 text-sm">
-                              <Waves className="h-4 w-4" />
-                              <span>Pool</span>
+                          <div className="flex justify-between items-center mt-4">
+                            <div className="flex gap-2">
+                              <div className="flex items-center gap-1 text-sm">
+                                <Bed className="h-4 w-4" />
+                                <span>{property.bedrooms} Bed</span>
+                              </div>
+                              <div className="flex items-center gap-1 text-sm">
+                                <Bath className="h-4 w-4" />
+                                <span>{property.bathrooms} Bath</span>
+                              </div>
                             </div>
-                          )}
+                            <p className="font-bold">${property.price.toLocaleString()}
+                              <span className="text-sm font-normal text-muted-foreground">
+                                {property.purpose === 'rent' ? '/mo' : ''}
+                              </span>
+                            </p>
+                          </div>
                         </div>
-                        <p className="font-bold">${property.price}<span className="text-sm font-normal text-muted-foreground">/night</span></p>
-                      </div>
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Load more button */}
-            <div className="flex justify-center mt-8">
-              <Button variant="outline" className="gap-2">
-                <LoadMoreIcon className="h-5 w-5" />
-                Load more properties
-              </Button>
-            </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </main>
       </div>
@@ -251,30 +221,61 @@ export default function FavoritesPage() {
   )
 }
 
-// Icons
 function StarIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
     </svg>
-  );
+  )
 }
 
 function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="11" cy="11" r="8"></circle>
-      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
     </svg>
-  );
+  )
 }
 
 function LoadMoreIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="12" y1="8" x2="12" y2="16"></line>
-      <line x1="8" y1="12" x2="16" y2="12"></line>
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <polyline points="7 11 12 6 17 11" />
+      <polyline points="7 17 12 12 17 17" />
     </svg>
-  );
+  )
 } 

@@ -13,6 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as favorites from "../favorites.js";
 import type * as mockProperties from "../mockProperties.js";
 import type * as properties from "../properties.js";
 import type * as users from "../users.js";
@@ -26,6 +27,7 @@ import type * as users from "../users.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  favorites: typeof favorites;
   mockProperties: typeof mockProperties;
   properties: typeof properties;
   users: typeof users;
