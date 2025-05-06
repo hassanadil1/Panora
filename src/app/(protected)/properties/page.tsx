@@ -1,6 +1,9 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
 import { 
   MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, 
   Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, 
@@ -59,62 +62,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-// Mock properties data
-const properties = [
-  {
-    id: 1,
-    title: "Sunset Bungalows",
-    location: "DHA Phase 5, Lahore, Pakistan",
-    price: 530,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.8,
-    reviews: 347,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80",
-    coordinates: [74.3991, 31.4697]
-  },
-  {
-    id: 2,
-    title: "Cangu Privat Villa",
-    location: "DHA Phase 2, Lahore, Pakistan",
-    price: 200,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.8,
-    reviews: 347,
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    coordinates: [74.4091, 31.4797]
-  },
-  {
-    id: 3,
-    title: "Villa Kayu Raja",
-    location: "DHA Phase 6, Lahore, Pakistan",
-    price: 130,
-    beds: 1,
-    baths: 1,
-    hasPool: true,
-    rating: 4.5,
-    reviews: 121,
-    image: "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    coordinates: [74.3971, 31.4607]
-  },
-  {
-    id: 4,
-    title: "The Edge Bali",
-    location: "DHA Phase 4, Lahore, Pakistan",
-    price: 190,
-    beds: 2,
-    baths: 1,
-    hasPool: true,
-    rating: 4.4,
-    reviews: 134,
-    image: "https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    coordinates: [74.4081, 31.4727]
-  }
-]
-
 // Property types
 const propertyTypes = [
   { name: "Rooms", icon: <Home className="h-5 w-5" /> },
@@ -139,8 +86,11 @@ const amenities = [
 
 // Main component that doesn't use the useSidebar hook
 export default function PropertiesPage() {
+  // Add this query to get properties from Convex
+  const properties = useQuery(api.properties.getAllProperties) || [];
+  
   const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('split')
-  const [selectedProperty, setSelectedProperty] = useState<number | null>(null)
+  const [selectedProperty, setSelectedProperty] = useState<string | null>(null)
   const [viewport, setViewport] = useState({
     latitude: 31.4697,
     longitude: 74.3991,
@@ -149,7 +99,7 @@ export default function PropertiesPage() {
   const [mapLoaded, setMapLoaded] = useState(false)
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
-  const popupRefs = useRef<{[key: number]: mapboxgl.Popup}>({})
+  const popupRefs = useRef<{[key: string]: mapboxgl.Popup}>({})
   const [priceRange, setPriceRange] = useState([200, 1200])
   const [minPriceInput, setMinPriceInput] = useState(`$${priceRange[0]}`)
   const [maxPriceInput, setMaxPriceInput] = useState(`$${priceRange[1]}`)
@@ -164,7 +114,7 @@ export default function PropertiesPage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   useEffect(() => {
-    if (!mapContainer.current) return;
+    if (!mapContainer.current || !properties || properties.length === 0) return;
     
     // Initialize the map only once
     if (!map.current) {
@@ -177,11 +127,17 @@ export default function PropertiesPage() {
       (mapboxgl as any).prewarm = false; // Disable session warming
       
       try {
+        // Use the first property's location for the map center or default to Lahore
+        const centerProperty = properties[0];
+        const center = centerProperty 
+          ? [centerProperty.location.longitude, centerProperty.location.latitude]
+          : [viewport.longitude, viewport.latitude];
+        
         // Disable sending anonymous usage data to Mapbox
         const mapboxMap = new mapboxgl.Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/streets-v11',
-          center: [viewport.longitude, viewport.latitude],
+          center: center as [number, number],
           zoom: viewport.zoom,
           trackResize: true,
           attributionControl: false, // Disable default attribution which includes telemetry
@@ -285,7 +241,7 @@ export default function PropertiesPage() {
         imgContainer.className = 'w-16 h-16 rounded-full border-2 border-primary overflow-hidden shadow-lg';
         
         const img = document.createElement('img');
-        img.src = property.image;
+        img.src = property.images[0];
         img.className = 'w-full h-full object-cover';
         imgContainer.appendChild(img);
         
@@ -298,23 +254,23 @@ export default function PropertiesPage() {
         markerContent.appendChild(priceEl);
         markerEl.appendChild(markerContent);
         
-        // Create marker and add to map
+        // Create marker and add to map - ensure coordinates are in the correct format
         const marker = new mapboxgl.Marker(markerEl)
-          .setLngLat(property.coordinates as [number, number])
+          .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
           .addTo(map.current!);
         
         // Handle marker click
         markerEl.addEventListener('click', () => {
-          setSelectedProperty(property.id === selectedProperty ? null : property.id);
+          setSelectedProperty(property._id === selectedProperty ? null : property._id);
         });
         
         // Show popup for selected property
-        if (selectedProperty === property.id) {
+        if (selectedProperty === property._id) {
           const popupContent = document.createElement('div');
           popupContent.className = 'p-2 w-60';
           
           const img = document.createElement('img');
-          img.src = property.image;
+          img.src = property.images[0];
           img.alt = property.title;
           img.className = 'w-full h-32 object-cover rounded-md mb-2';
           
@@ -324,18 +280,18 @@ export default function PropertiesPage() {
           
           const location = document.createElement('p');
           location.className = 'text-sm text-muted-foreground';
-          location.textContent = property.location;
+          location.textContent = property.city;
           
           const details = document.createElement('div');
           details.className = 'flex justify-between items-center mt-2';
           
           const rating = document.createElement('div');
           rating.className = 'flex items-center gap-1 text-sm';
-          rating.innerHTML = `<svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${property.rating}</span>`;
+          rating.innerHTML = `<svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>4.8</span>`;
           
           const price = document.createElement('p');
           price.className = 'font-bold';
-          price.innerHTML = `$${property.price}<span class="text-sm font-normal text-muted-foreground">/night</span>`;
+          price.innerHTML = `$${property.price}<span class="text-sm font-normal text-muted-foreground">${property.purpose === 'rent' ? '/mo' : ''}</span>`;
           
           details.appendChild(rating);
           details.appendChild(price);
@@ -347,11 +303,11 @@ export default function PropertiesPage() {
           
           // Create and store the popup reference
           const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
-            .setLngLat(property.coordinates as [number, number])
+            .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
             .setDOMContent(popupContent)
             .addTo(map.current!);
           
-          popupRefs.current[property.id] = popup;
+          popupRefs.current[property._id] = popup;
         }
       });
     }
@@ -427,63 +383,71 @@ export default function PropertiesPage() {
     }
   }
 
-  const renderPropertyCard = (property: typeof properties[0]) => (
-                  <Link href={`/properties/${property.id}`} key={property.id}>
-                    <Card 
-                      className="overflow-hidden hover:shadow-lg transition-all border-transparent hover:border-primary cursor-pointer"
-                      onClick={() => setSelectedProperty(property.id === selectedProperty ? null : property.id)}
-                    >
-                      <div className="relative h-40">
-                        <img 
-                          src={property.image} 
-                          alt={property.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute top-3 left-3 flex gap-2">
-                          <Badge className="bg-primary text-primary-foreground shadow-md">Superhost</Badge>
-                        </div>
-                        <div className="absolute top-3 right-3">
-                          <Button size="icon" variant="secondary" className="h-8 w-8 rounded-full shadow-md">
-                            <Heart className="h-4 w-4" />
-                          </Button>
-                        </div>
-                        <div className="absolute bottom-3 right-3">
-                          <Badge className="bg-background/90 text-foreground backdrop-blur-sm shadow-md">
-                            ${property.price}<span className="text-muted-foreground">/night</span>
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="p-3">
-                        <div className="flex justify-between items-start">
-                          <h3 className="font-bold text-base line-clamp-1">{property.title}</h3>
-                          <div className="flex items-center gap-1 text-sm">
-                            <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                            <span>{property.rating}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center text-muted-foreground text-xs mt-1 mb-2">
-                          <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
-                          <span className="truncate">{property.location}</span>
-                        </div>
-                        <div className="flex gap-3 mt-2 text-xs">
-                          <div className="flex items-center gap-1">
-                            <Bed className="h-3 w-3" />
-                            <span>{property.beds} beds</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Bath className="h-3 w-3" />
-                            <span>{property.baths} bath</span>
-                          </div>
-                          {property.hasPool && (
-                            <div className="flex items-center gap-1">
-                              <Waves className="h-3 w-3" />
-                              <span>Pool</span>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
+  const renderPropertyCard = (property: any) => (
+    <Link 
+      href={`/properties/${property._id}`} 
+      key={property._id}
+      className="block"
+    >
+      <div 
+        className={cn(
+          "relative rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md",
+          selectedProperty === property._id ? "ring-2 ring-primary" : ""
+        )} 
+        onMouseEnter={() => setSelectedProperty(property._id)}
+        onMouseLeave={() => setSelectedProperty(null)}
+      >
+        <div className="relative h-64 overflow-hidden">
+          <img 
+            src={property.images[0]} 
+            alt={property.title}
+            className="object-cover w-full h-full"
+          />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
+          >
+            <Heart className="h-4 w-4 text-muted-foreground" />
+          </Button>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium line-clamp-1">{property.title}</h3>
+            <div className="flex items-center">
+              <Star className="h-4 w-4 fill-primary text-primary" />
+              <span className="ml-1 text-sm">4.8</span>
+            </div>
+          </div>
+          <div className="mt-1 text-sm text-muted-foreground flex items-center">
+            <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground/70" />
+            <span className="truncate">{property.city}</span>
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-sm">
+            <div className="flex items-center">
+              <Bed className="h-4 w-4 mr-1" />
+              <span>{property.bedrooms}</span>
+            </div>
+            <div className="flex items-center">
+              <Bath className="h-4 w-4 mr-1" />
+              <span>{property.bathrooms}</span>
+            </div>
+            <div className="flex items-center">
+              <Square className="h-4 w-4 mr-1" />
+              <span>{property.areaSize} sqft</span>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center justify-between">
+            <div className="font-medium">
+              ${property.price.toLocaleString()}
+              <span className="text-xs text-muted-foreground font-normal">
+                {property.purpose === 'rent' ? '/mo' : ''}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Link>
   )
 
   // Add a separate effect to handle resize and view mode changes

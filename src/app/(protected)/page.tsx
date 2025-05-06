@@ -2,75 +2,13 @@
 
 import Link from "next/link"
 import { useState } from "react"
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { Search, MapPin, Home as HomeIcon, ChevronRight, Building, ArrowRight, Bed, Bath } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
-
-// Sample properties for featured listings
-const featuredProperties = [
-  {
-    id: 1,
-    title: "Modern Luxury Villa",
-    location: "Islamabad, Pakistan",
-    price: "Rs 45,000,000",
-    beds: 4,
-    baths: 3,
-    area: "3,200 sq ft",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2075&q=80"
-  },
-  {
-    id: 2,
-    title: "Contemporary Apartment",
-    location: "Lahore, Pakistan",
-    price: "Rs 18,500,000",
-    beds: 2,
-    baths: 2,
-    area: "1,100 sq ft",
-    image: "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 3,
-    title: "Oceanfront Condo",
-    location: "Karachi, Pakistan",
-    price: "Rs 32,750,000",
-    beds: 3,
-    baths: 2,
-    area: "1,800 sq ft",
-    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 4,
-    title: "Suburban Family Home",
-    location: "Rawalpindi, Pakistan",
-    price: "Rs 28,900,000",
-    beds: 4,
-    baths: 3,
-    area: "2,500 sq ft",
-    image: "https://images.unsplash.com/photo-1602941525421-8f8b81d3edbb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  },
-  {
-    id: 5,
-    title: "Downtown Penthouse",
-    location: "Faisalabad, Pakistan",
-    price: "Rs 52,000,000",
-    beds: 3,
-    baths: 3,
-    area: "2,200 sq ft",
-    image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1084&q=80"
-  },
-  {
-    id: 6,
-    title: "Historic Townhouse",
-    location: "Multan, Pakistan",
-    price: "Rs 35,600,000",
-    beds: 4,
-    baths: 2,
-    area: "2,800 sq ft",
-    image: "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-  }
-]
 
 // Image gallery data
 const galleryImages = [
@@ -118,6 +56,12 @@ const locations = [
 ]
 
 export default function HomePage() {
+  // Add Convex query for properties
+  const properties = useQuery(api.properties.getAllProperties) || [];
+  
+  // Use the first 6 properties as featured properties
+  const featuredProperties = properties.slice(0, 6);
+  
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState<string[]>([])
   const [showResults, setShowResults] = useState(false)
@@ -312,7 +256,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProperties.map((property, index) => (
               <motion.div
-                key={property.id}
+                key={property._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -320,25 +264,25 @@ export default function HomePage() {
               >
                 <div className="relative h-64 overflow-hidden">
                   <img
-                    src={property.image}
+                    src={property.images[0]}
                     alt={property.title}
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   />
                   <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                    {property.price}
+                    ${property.price.toLocaleString()}{property.purpose === 'rent' ? '/mo' : ''}
                   </div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-foreground">{property.title}</h3>
                   <div className="flex items-center text-muted-foreground mb-4">
                     <MapPin className="h-4 w-4 mr-1" />
-                    <span className="text-sm">{property.location}</span>
+                    <span className="text-sm">{property.city}</span>
                   </div>
                   <div className="flex justify-between items-center border-t pt-4">
                     <div className="flex gap-4 text-sm text-muted-foreground">
-                      <div><span className="font-medium text-foreground">{property.beds}</span> beds</div>
-                      <div><span className="font-medium text-foreground">{property.baths}</span> baths</div>
-                      <div><span className="font-medium text-foreground">{property.area}</span></div>
+                      <div><span className="font-medium text-foreground">{property.bedrooms}</span> beds</div>
+                      <div><span className="font-medium text-foreground">{property.bathrooms}</span> baths</div>
+                      <div><span className="font-medium text-foreground">{property.areaSize} sqft</span></div>
                     </div>
                     <Button variant="secondary" size="sm" className="rounded-full">
                       Details
