@@ -1,10 +1,49 @@
 "use client"
 
 import Link from "next/link"
-import { SignUp } from "@clerk/nextjs"
+import { SignUp, useAuth } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useState } from "react"
+import { useMutation } from "convex/react"
+import { api } from "@/convex/_generated/api"
+
+function SignUpWithConvex() {
+  const { isLoaded, userId } = useAuth();
+  const createUser = useMutation(api.users.createUser);
+
+  return (
+    <SignUp 
+      routing="hash"
+      appearance={{
+        variables: {
+          colorPrimary: 'hsl(145 3% 39%)',
+          colorText: 'hsl(145 3% 39%)',
+          colorInputBackground: 'hsl(0 0% 100%)',
+          colorInputText: 'hsl(145 3% 39%)',
+          borderRadius: '0.5rem'
+        },
+        elements: {
+          rootBox: 'w-full',
+          card: 'bg-background p-6 md:p-8',
+          headerTitle: 'text-2xl font-bold text-primary',
+          headerSubtitle: 'text-sm text-muted-foreground',
+          socialButtonsBlockButton: 'bg-input border border-border hover:bg-secondary text-foreground',
+          socialButtonsBlockButtonText: 'font-medium',
+          dividerText: 'text-xs text-muted-foreground',
+          formFieldLabel: 'text-sm font-medium text-foreground',
+          formFieldInput: 'rounded-lg border border-border focus:border-primary focus:ring-primary bg-input',
+          formButtonPrimary: 'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg py-2.5',
+          footerActionText: 'text-sm text-muted-foreground',
+          footerActionLink: 'text-primary hover:text-primary/90 font-medium',
+        }
+      }}
+      signInUrl="/sign-in"
+      redirectUrl="/"
+      afterSignUpUrl="/"
+    />
+  );
+}
 
 export default function SignUpPage() {
   const [videoError, setVideoError] = useState(false);
@@ -103,34 +142,7 @@ export default function SignUpPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="w-full max-w-md mt-16 md:mt-4"
         >
-          <SignUp 
-            routing="hash"
-            appearance={{
-              variables: {
-                colorPrimary: 'hsl(145 3% 39%)',
-                colorText: 'hsl(145 3% 39%)',
-                colorInputBackground: 'hsl(0 0% 100%)',
-                colorInputText: 'hsl(145 3% 39%)',
-                borderRadius: '0.5rem'
-              },
-              elements: {
-                rootBox: 'w-full',
-                card: 'bg-background p-6 md:p-8',
-                headerTitle: 'text-2xl font-bold text-primary',
-                headerSubtitle: 'text-sm text-muted-foreground',
-                socialButtonsBlockButton: 'bg-input border border-border hover:bg-secondary text-foreground',
-                socialButtonsBlockButtonText: 'font-medium',
-                dividerText: 'text-xs text-muted-foreground',
-                formFieldLabel: 'text-sm font-medium text-foreground',
-                formFieldInput: 'rounded-lg border border-border focus:border-primary focus:ring-primary bg-input',
-                formButtonPrimary: 'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg py-2.5',
-                footerActionText: 'text-sm text-muted-foreground',
-                footerActionLink: 'text-primary hover:text-primary/90 font-medium',
-              }
-            }}
-            signInUrl="/sign-in"
-            redirectUrl="/"
-          />
+          <SignUpWithConvex />
         </motion.div>
       </motion.div>
     </div>
