@@ -34,6 +34,10 @@ const routes = [
     href: "/virtual-tours",
   },
   {
+    label: "Our Services",
+    href: "/our-services",
+  },
+  {
     label: "Properties",
     href: "/properties",
   },
