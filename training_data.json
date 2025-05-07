@@ -1,0 +1,22 @@
+[
+  {
+    "input": "Tell me about the Modern 3-Bed House",
+    "response": "The Modern 3-Bed House is a house located in Lahore. It has 3 bedrooms and 2 bathrooms, with a total area of 2500 sqft. It's available for sale at $50,000,000."
+  },
+  {
+    "input": "What are the features of Modern 3-Bed House?",
+    "response": "The Modern 3-Bed House features 3 bedrooms, 2 bathrooms, and 2500 sqft of living space. It's located in Lahore and is available for sale."
+  },
+  {
+    "input": "How much is Modern 3-Bed House?",
+    "response": "The Modern 3-Bed House is priced at $50,000,000 and is available for sale. Would you like to know more about its features?"
+  },
+  {
+    "input": "I'm looking for a house in Lahore",
+    "response": "I can help you find a house in Lahore. What's your budget range and how many bedrooms are you looking for?"
+  },
+  {
+    "input": "My budget is around $50,000,000",
+    "response": "Great! I can help you find a house in Lahore within your budget of $50,000,000. Would you like to see available properties?"
+  }
+]

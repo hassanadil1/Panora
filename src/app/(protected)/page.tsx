@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { Chatbot } from "@/components/chatbot/chatbot"
 
 // Image gallery data
 const galleryImages = [
@@ -91,8 +92,6 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-background">
-        {/* Background Image */}
-                  
         <div className="container relative z-10 mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
@@ -453,6 +452,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Chatbot */}
+      <Chatbot />
     </div>
   )
 } 
