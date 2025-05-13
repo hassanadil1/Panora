@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import { ConvexHttpClient } from 'convex/browser'
 import { api } from '@/convex/_generated/api'
+import fs from 'fs'
+import path from 'path'
+import { parse } from 'csv-parse/sync'
 
 // Initialize Convex client
 const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
@@ -149,7 +152,8 @@ function extractPropertyFeatures(text: string): Features {
 }
 
 // Helper function to filter properties based on extracted features
-function filterProperties(properties: any[], features: any) {
+function filterProperties(properties: any[], features: any) 
+{
   return properties.filter(property => {
     let match = true
     if (features.bedrooms && property.bedrooms < features.bedrooms) match = false
@@ -163,7 +167,8 @@ function filterProperties(properties: any[], features: any) {
     if (features.maxArea && property.areaSize > features.maxArea) match = false
     
     // Check amenities if specified
-    if (features.amenities.length > 0) {
+    if (features.amenities.length > 0) 
+      {
       const propertyAmenities = property.amenities || []
       if (!features.amenities.every((amenity: string) => propertyAmenities.includes(amenity))) {
         match = false
@@ -332,10 +337,124 @@ function generateNaturalResponse(properties: any[], features: any) {
   return response
 }
 
+// Helper function to load and parse the property prediction data
+function loadPredictionData() {
+  try {
+    // Read the CSV file
+    const filePath = path.join(process.cwd(), 'test_data_with_predictions.csv')
+    const fileContent = fs.readFileSync(filePath, 'utf8')
+    
+    // Parse the CSV data
+    const records = parse(fileContent, {
+      columns: true,
+      skip_empty_lines: true
+    })
+    
+    return records
+  } catch (error) {
+    console.error('Error loading prediction data:', error)
+    return []
+  }
+}
+
+// Helper function to find properties in the prediction data
+function findPropertiesInPredictionData(query: string) {
+  const predictionData = loadPredictionData()
+  
+  // Extract key parameters from query
+  const bedroomsMatch = query.match(/(\d+)\s*bedrooms?/i)
+  const bathroomsMatch = query.match(/(\d+)\s*bathrooms?/i)
+  const locationMatch = query.match(/(?:in|at)\s+([A-Za-z0-9\-]+)/i)
+  const areaSizeMatch = query.match(/(\d+(?:\.\d+)?)\s*(?:marla|kanal)/i)
+  
+  // Apply filters based on query parameters
+  return predictionData.filter((property: any) => {
+    let match = true
+    
+    // Filter by bedrooms if specified
+    if (bedroomsMatch && parseInt(bedroomsMatch[1]) !== parseInt(property.bedrooms)) {
+      match = false
+    }
+    
+    // Filter by bathrooms if specified
+    if (bathroomsMatch && parseInt(bathroomsMatch[1]) !== parseInt(property.bathrooms)) {
+      match = false
+    }
+    
+    // Filter by location if specified
+    if (locationMatch) {
+      const queryLocation = locationMatch[1].toLowerCase()
+      if (!property.location.toLowerCase().includes(queryLocation)) {
+        match = false
+      }
+    }
+    
+    // Filter by area size if specified (approximate match)
+    if (areaSizeMatch) {
+      const queryArea = parseFloat(areaSizeMatch[1])
+      const propertyArea = parseFloat(property.area_size)
+      // Allow for some flexibility in area matching
+      if (Math.abs(queryArea - propertyArea) > 2) {
+        match = false
+      }
+    }
+    
+    return match
+  })
+}
+
+// Helper function to generate response for property prediction queries
+function generatePredictionResponse(query: string) {
+  const properties = findPropertiesInPredictionData(query)
+  
+  if (properties.length === 0) {
+    return "I couldn't find any property predictions matching your criteria. Could you please try with different specifications or a different location?"
+  }
+  
+  let response = "Based on my analysis, here are the property details with predicted prices:\n\n"
+  
+  properties.slice(0, 5).forEach((property: any) => {
+    const actualPrice = parseInt(property.actual_price).toLocaleString()
+    const predictedPrice = parseInt(property.predicted_price).toLocaleString()
+    const difference = Math.abs(parseInt(property.actual_price) - parseInt(property.predicted_price))
+    const percentDiff = ((difference / parseInt(property.actual_price)) * 100).toFixed(2)
+    
+    response += `- ${property.bedrooms} bedroom, ${property.bathrooms} bathroom property in ${property.location}, ${property.city}\n`
+    response += `  Area: ${property.area_size} marla\n`
+    response += `  Actual Price: Rs. ${actualPrice}\n`
+    response += `  Predicted Price: Rs. ${predictedPrice}\n`
+    response += `  Difference: ${percentDiff}%\n\n`
+  })
+  
+  if (properties.length > 5) {
+    response += `There are ${properties.length - 5} more properties matching your criteria.\n\n`
+  }
+  
+  response += "Would you like more specific details or information about properties in a different location?"
+  
+  return response
+}
+
+// Helper function to check if a query is related to property predictions
+function isPredictionQuery(query: string) {
+  const predictionKeywords = [
+    'predict', 'prediction', 'estimate', 'worth', 'value', 'price prediction',
+    'how much', 'property value', 'market value', 'predicted price'
+  ]
+  
+  return predictionKeywords.some(keyword => query.toLowerCase().includes(keyword))
+}
+
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json()
     const lastMessage = messages[messages.length - 1].content.toLowerCase()
+
+    // Check if query is related to property predictions
+    if (isPredictionQuery(lastMessage)) {
+      const response = generatePredictionResponse(lastMessage)
+      return NextResponse.json({ message: response })
+    }
 
     // Get all properties from the database
     const properties = await convex.query(api.properties.getAllProperties)
@@ -356,12 +475,14 @@ export async function POST(req: Request) {
                 "3. Search for specific property types and locations\n" +
                 "4. Filter by amenities and features\n" +
                 "5. Sort and compare properties\n" +
-                "6. Provide price recommendations\n\n" +
+                "6. Provide price recommendations\n" +
+                "7. Predict property values based on location and features\n\n" +
                 "Try asking me things like:\n" +
                 "- 'Find a house for a family of 4 in Lahore'\n" +
                 "- 'Show me budget-friendly apartments with 2 bedrooms'\n" +
                 "- 'What's available in DHA with a garden?'\n" +
-                "- 'Find properties suitable for a small family'"
+                "- 'Find properties suitable for a small family'\n" +
+                "- 'Predict the price of a 4 bedroom house in E-7 Islamabad'"
     } else if (lastMessage.includes('price') && lastMessage.includes('recommend')) {
       const priceInfo = getPriceRecommendations(properties, features)
       if (priceInfo) {
@@ -386,4 +507,4 @@ export async function POST(req: Request) {
       { status: 500 }
     )
   }
-} 
+}
