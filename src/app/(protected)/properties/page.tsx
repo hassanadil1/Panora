@@ -66,12 +66,16 @@ import { toast } from "sonner"
 
 // Property types
 const propertyTypes = [
-  { name: "Rooms", icon: <Home className="h-5 w-5" /> },
-  { name: "Townhouse", icon: <Building className="h-5 w-5" /> }, 
-  { name: "Apartment", icon: <Building className="h-5 w-5" /> },
-  { name: "Villa", icon: <Home className="h-5 w-5" /> },
-  { name: "Tinyhouse", icon: <Home className="h-5 w-5" /> },
-  { name: "Cottage", icon: <Home className="h-5 w-5" /> }
+  { name: "Home", icon: <Home className="h-5 w-5" /> },
+  { name: "Flat", icon: <Building className="h-5 w-5" /> }, 
+  { name: "Portion", icon: <Building className="h-5 w-5" /> },
+  { name: "Farm", icon: <Home className="h-5 w-5" /> }
+]
+
+// Property purposes
+const propertyPurposes = [
+  { name: "Rent", icon: <Calendar className="h-5 w-5" /> },
+  { name: "Sell", icon: <DollarSign className="h-5 w-5" /> }
 ]
 
 // Amenities
@@ -181,6 +185,9 @@ export default function PropertiesPage() {
   const [propertiesOpen, setPropertiesOpen] = useState(true)
   const [searchQuery, setSearchQuery] = useState("")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [selectedPurpose, setSelectedPurpose] = useState<string | null>(null)
+  const [selectedType, setSelectedType] = useState<string | null>(null)
+  const [selectedCity, setSelectedCity] = useState<string | null>(null)
 
   useEffect(() => {
     if (!mapContainer.current || !properties || properties.length === 0) return;
@@ -707,7 +714,7 @@ export default function PropertiesPage() {
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="outline" size="sm" className="rounded-full">
-              Home Type
+              Property Type
               <Home className="ml-1 h-4 w-4" />
             </Button>
           </PopoverTrigger>
@@ -716,12 +723,53 @@ export default function PropertiesPage() {
               {propertyTypes.map((type, i) => (
                 <button 
                   key={i}
-                  className="flex flex-col items-center justify-center p-3 border rounded-lg hover:border-primary transition-colors"
+                  className={cn(
+                    "flex flex-col items-center justify-center p-3 border rounded-lg transition-colors",
+                    selectedType === type.name.toLowerCase() 
+                      ? "border-primary bg-primary/5" 
+                      : "hover:border-primary"
+                  )}
+                  onClick={() => setSelectedType(
+                    selectedType === type.name.toLowerCase() ? null : type.name.toLowerCase()
+                  )}
                 >
                   <div className="p-2 rounded-full bg-muted mb-1">
                     {type.icon}
                   </div>
                   <span className="text-xs">{type.name}</span>
+                </button>
+              ))}
+            </div>
+          </PopoverContent>
+        </Popover>
+        
+        {/* Add Purpose Dropdown */}
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="rounded-full">
+              Purpose
+              <DollarSign className="ml-1 h-4 w-4" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-60 p-3">
+            <div className="grid grid-cols-2 gap-2">
+              {propertyPurposes.map((purpose, i) => (
+                <button 
+                  key={i}
+                  className={cn(
+                    "flex flex-col items-center justify-center p-3 border rounded-lg transition-colors",
+                    selectedPurpose === purpose.name.toLowerCase() 
+                      ? "border-primary bg-primary/5" 
+                      : "hover:border-primary"
+                  )}
+                  onClick={() => setSelectedPurpose(
+                    selectedPurpose === purpose.name.toLowerCase() ? null : purpose.name.toLowerCase()
+                  )}
+                >
+                  <div className="p-2 rounded-full bg-muted mb-1">
+                    {purpose.icon}
+                  </div>
+                  <span className="text-xs">{purpose.name}</span>
                 </button>
               ))}
             </div>
@@ -794,12 +842,45 @@ export default function PropertiesPage() {
                 {propertyTypes.map((type, i) => (
                   <button 
                     key={i}
-                    className="flex flex-col items-center justify-center p-3 border rounded-lg hover:border-primary transition-colors"
+                    className={cn(
+                      "flex flex-col items-center justify-center p-3 border rounded-lg transition-colors",
+                      selectedType === type.name.toLowerCase() 
+                        ? "border-primary bg-primary/5" 
+                        : "hover:border-primary"
+                    )}
+                    onClick={() => setSelectedType(
+                      selectedType === type.name.toLowerCase() ? null : type.name.toLowerCase()
+                    )}
                   >
                     <div className="p-2 rounded-full bg-muted mb-1">
                       {type.icon}
                     </div>
                     <span className="text-xs">{type.name}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="border-t px-4 py-4">
+              <h2 className="font-semibold mb-4">Purpose</h2>
+              <div className="grid grid-cols-2 gap-2">
+                {propertyPurposes.map((purpose, i) => (
+                  <button 
+                    key={i}
+                    className={cn(
+                      "flex flex-col items-center justify-center p-3 border rounded-lg transition-colors",
+                      selectedPurpose === purpose.name.toLowerCase() 
+                        ? "border-primary bg-primary/5" 
+                        : "hover:border-primary"
+                    )}
+                    onClick={() => setSelectedPurpose(
+                      selectedPurpose === purpose.name.toLowerCase() ? null : purpose.name.toLowerCase()
+                    )}
+                  >
+                    <div className="p-2 rounded-full bg-muted mb-1">
+                      {purpose.icon}
+                    </div>
+                    <span className="text-xs">{purpose.name}</span>
                   </button>
                 ))}
               </div>
@@ -876,43 +957,53 @@ export default function PropertiesPage() {
             </div>
             
             <div className="border-t px-4 py-4">
-              <h2 className="font-semibold mb-4">Specialty Housing</h2>
-              <div className="space-y-2">
-                <div className="flex items-center">
-                  <input type="checkbox" id="senior" className="mr-2" />
-                  <label htmlFor="senior">Senior Living</label>
+              <h2 className="font-semibold mb-4">Bedrooms & Bathrooms</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm text-muted-foreground mb-2 block">Bedrooms</label>
+                  <Select value={bedsCount} onValueChange={setBedsCount}>
+                    <SelectTrigger className="w-full">
+                      <span className="flex items-center">
+                        <Bed className="mr-1 h-3.5 w-3.5" />
+                        <span>{bedsCount === "Any" ? "Any" : `${bedsCount} Beds`}</span>
+                      </span>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Any">Any</SelectItem>
+                      <SelectItem value="1">1 Bed</SelectItem>
+                      <SelectItem value="2">2 Beds</SelectItem>
+                      <SelectItem value="3">3 Beds</SelectItem>
+                      <SelectItem value="4">4 Beds</SelectItem>
+                      <SelectItem value="5+">5+ Beds</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
-                <div className="flex items-center">
-                  <input type="checkbox" id="student" className="mr-2" />
-                  <label htmlFor="student">Student Housing</label>
-                </div>
-                <div className="flex items-center">
-                  <input type="checkbox" id="income" className="mr-2" />
-                  <label htmlFor="income">Income Restricted</label>
+                
+                <div>
+                  <label className="text-sm text-muted-foreground mb-2 block">Bathrooms</label>
+                  <Select value={bathsCount} onValueChange={setBathsCount}>
+                    <SelectTrigger className="w-full">
+                      <span className="flex items-center">
+                        <Bath className="mr-1 h-3.5 w-3.5" />
+                        <span>{bathsCount === "Any" ? "Any" : `${bathsCount} Baths`}</span>
+                      </span>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Any">Any</SelectItem>
+                      <SelectItem value="1">1 Bath</SelectItem>
+                      <SelectItem value="2">2 Baths</SelectItem>
+                      <SelectItem value="3">3 Baths</SelectItem>
+                      <SelectItem value="4+">4+ Baths</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </div>
             
-            <div className="border-t px-4 py-4">
-              <h2 className="font-semibold mb-4">Move-in Date</h2>
-              <Input 
-                type="date" 
-                className="w-full" 
-              />
-            </div>
-            
-            <div className="border-t px-4 py-4">
-              <h2 className="font-semibold mb-4">Conveniences</h2>
-              <div className="space-y-3">
-                {amenities.map((amenity, i) => (
-                  <div key={i} className="flex items-center">
-                    <Button variant="outline" size="sm" className="rounded-md mr-2 w-8 h-8 p-0">
-                      {amenity.icon}
-                    </Button>
-                    <span className="text-sm">{amenity.name}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="border-t p-4">
+              <Button className="w-full">
+                Apply Filters
+              </Button>
             </div>
           </div>
           
