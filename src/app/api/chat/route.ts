@@ -755,7 +755,8 @@ function generatePredictionResponse(query: string) {
     
     // Get predicted price and handle negative values
     let predictedPriceValue = parseInt(property.predicted_price);
-    if (predictedPriceValue <= 0) {
+    if (predictedPriceValue <= 0) 
+    {
       predictedPriceValue = 1000000; // 1 million if negative
     }
     

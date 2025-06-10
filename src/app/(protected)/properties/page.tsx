@@ -7,8 +7,8 @@ import { Id } from "@/convex/_generated/dataModel";
 import { 
   MapPin, Filter, Home, Building, Search, Bath, Bed, CheckSquare, 
   Wifi, Tv, MountainSnow, Waves, PawPrint, User, MenuIcon, Heart, 
-  ChevronLeft, DollarSign, Grid2X2, Calendar, 
-  Sliders, Star, X, ChevronsDown, ArrowDownUp, Square, 
+  ChevronLeft, Grid2X2, Calendar, 
+  Star, X, ChevronsDown, ArrowDownUp, Square, 
   ChevronRight, SquareDot, MapIcon as MapIconLucide, ListIcon as ListIconLucide
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -64,6 +64,25 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { useClerk } from "@clerk/nextjs"
 import { toast } from "sonner"
 
+// Currency conversion rate (1 USD = 280 PKR approximately)
+const USD_TO_PKR = 280;
+
+// Helper function to format price in PKR
+const formatPricePKR = (usdPrice: number) => {
+  const pkrPrice = usdPrice * USD_TO_PKR;
+  return new Intl.NumberFormat('en-PK', {
+    style: 'currency',
+    currency: 'PKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(pkrPrice);
+};
+
+// Helper function to convert USD range to PKR for filtering
+const convertUSDRangeToPKR = (usdRange: number[]) => {
+  return usdRange.map(price => price * USD_TO_PKR);
+};
+
 // Property types
 const propertyTypes = [
   { name: "Home", icon: <Home className="h-5 w-5" /> },
@@ -75,7 +94,7 @@ const propertyTypes = [
 // Property purposes
 const propertyPurposes = [
   { name: "Rent", icon: <Calendar className="h-5 w-5" /> },
-  { name: "Sell", icon: <DollarSign className="h-5 w-5" /> }
+  { name: "Sell", icon: <Grid2X2 className="h-5 w-5" /> }
 ]
 
 // Amenities
@@ -92,8 +111,25 @@ const amenities = [
 
 // Main component that doesn't use the useSidebar hook
 export default function PropertiesPage() {
-  // Get properties
-  const properties = useQuery(api.properties.getAllProperties) || []
+  // Get properties with loading and error states
+  const allProperties = useQuery(api.properties.getAllProperties);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Handle loading and error states
+  useEffect(() => {
+    if (allProperties === undefined) {
+      setIsLoading(true);
+      setError(null);
+    } else if (allProperties === null) {
+      setIsLoading(false);
+      setError("Failed to fetch properties");
+    } else {
+      setIsLoading(false);
+      setError(null);
+      console.log('Properties loaded:', allProperties.length);
+    }
+  }, [allProperties]);
   
   // Get user data
   const { user } = useClerk()
@@ -164,6 +200,7 @@ export default function PropertiesPage() {
 
   const [viewMode, setViewMode] = useState<'map' | 'list' | 'split'>('split')
   const [selectedProperty, setSelectedProperty] = useState<string | null>(null)
+  const [hoveredProperty, setHoveredProperty] = useState<string | null>(null)
   const [viewport, setViewport] = useState({
     latitude: 31.4697,
     longitude: 74.3991,
@@ -173,10 +210,12 @@ export default function PropertiesPage() {
   const mapContainer = useRef<HTMLDivElement>(null)
   const map = useRef<mapboxgl.Map | null>(null)
   const popupRefs = useRef<{[key: string]: mapboxgl.Popup}>({})
-  const [priceRange, setPriceRange] = useState([200, 1200])
-  const [minPriceInput, setMinPriceInput] = useState(`$${priceRange[0]}`)
-  const [maxPriceInput, setMaxPriceInput] = useState(`$${priceRange[1]}`)
-  const [areaRange, setAreaRange] = useState([500, 5000])
+  
+  // Initialize with wider ranges
+  const [priceRange, setPriceRange] = useState([20000, 1000000]) // PKR values (20K to 1M PKR)
+  const [minPriceInput, setMinPriceInput] = useState(`PKR ${priceRange[0].toLocaleString()}`)
+  const [maxPriceInput, setMaxPriceInput] = useState(`PKR ${priceRange[1].toLocaleString()}`)
+  const [areaRange, setAreaRange] = useState([0, 10000]) // Wider area range
   const [minAreaInput, setMinAreaInput] = useState(`${areaRange[0]}`)
   const [maxAreaInput, setMaxAreaInput] = useState(`${areaRange[1]}`)
   const [bedsCount, setBedsCount] = useState<string>("Any")
@@ -189,8 +228,87 @@ export default function PropertiesPage() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [selectedCity, setSelectedCity] = useState<string | null>(null)
 
+  // Filter properties based on all active filters
+  const filteredProperties = (allProperties || []).filter(property => {
+    // Ensure property has required fields
+    if (!property || !property.price || !property.areaSize) {
+      console.log('Filtering out property due to missing required fields:', property);
+      return false;
+    }
+
+    // Search query filter (location/city)
+    if (searchQuery.trim() !== "") {
+      const searchLower = searchQuery.toLowerCase().trim();
+      const cityMatch = property.city?.toLowerCase().includes(searchLower);
+      const titleMatch = property.title?.toLowerCase().includes(searchLower);
+      
+      if (!cityMatch && !titleMatch) {
+        return false;
+      }
+    }
+
+    // Price range filter (only if changed from initial values)
+    const propertyPricePKR = property.price * USD_TO_PKR;
+    if (priceRange[0] !== 20000 || priceRange[1] !== 1000000) {
+      if (propertyPricePKR < priceRange[0] || propertyPricePKR > priceRange[1]) {
+        return false;
+      }
+    }
+
+    // Area range filter (only if changed from initial values)
+    if (areaRange[0] !== 0 || areaRange[1] !== 10000) {
+      if (property.areaSize < areaRange[0] || property.areaSize > areaRange[1]) {
+        return false;
+      }
+    }
+
+    // Bedrooms filter (only if not "Any")
+    if (bedsCount !== "Any") {
+      const bedsNumber = bedsCount === "5+" ? 5 : parseInt(bedsCount);
+      if (bedsCount === "5+") {
+        if (property.bedrooms < bedsNumber) return false;
+      } else {
+        if (property.bedrooms !== bedsNumber) return false;
+      }
+    }
+
+    // Bathrooms filter (only if not "Any")
+    if (bathsCount !== "Any") {
+      const bathsNumber = bathsCount === "4+" ? 4 : parseInt(bathsCount);
+      if (bathsCount === "4+") {
+        if (property.bathrooms < bathsNumber) return false;
+      } else {
+        if (property.bathrooms !== bathsNumber) return false;
+      }
+    }
+
+    // Property type filter (only if selected)
+    if (selectedType) {
+      if (property.type?.toLowerCase() !== selectedType) {
+        return false;
+      }
+    }
+
+    // Property purpose filter (only if selected)
+    if (selectedPurpose) {
+      if (property.purpose?.toLowerCase() !== selectedPurpose) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  // Debug logging for filtered results
   useEffect(() => {
-    if (!mapContainer.current || !properties || properties.length === 0) return;
+    console.log('Filtered properties:', filteredProperties);
+  }, [filteredProperties]);
+
+  // Use filtered properties for display
+  const properties = filteredProperties;
+  
+  useEffect(() => {
+    if (!mapContainer.current) return;
     
     // Initialize the map only once
     if (!map.current) {
@@ -203,11 +321,8 @@ export default function PropertiesPage() {
       (mapboxgl as any).prewarm = false; // Disable session warming
       
       try {
-        // Use the first property's location for the map center or default to Lahore
-        const centerProperty = properties[0];
-        const center = centerProperty 
-          ? [centerProperty.location.longitude, centerProperty.location.latitude]
-          : [viewport.longitude, viewport.latitude];
+        // Use default center for Lahore
+        const center = [viewport.longitude, viewport.latitude];
         
         // Disable sending anonymous usage data to Mapbox
         const mapboxMap = new mapboxgl.Map({
@@ -287,119 +402,219 @@ export default function PropertiesPage() {
       } catch (error) {
         console.error("Failed to initialize map:", error);
       }
-    } else if (map.current) {
-      // Trigger resize when the component re-renders
-      // This helps in cases where the map container size has changed
-      map.current.resize();
-    }
-    
-    // Update markers and popups when the map or selected property changes
-    if (map.current && mapLoaded) {
-      // Clean up existing markers on rerender
-      const markersToRemove = document.querySelectorAll('.mapboxgl-marker');
-      markersToRemove.forEach(marker => marker.remove());
-      
-      // Clear existing popups
-      Object.values(popupRefs.current).forEach(popup => popup.remove());
-      popupRefs.current = {};
-      
-      // Add markers for each property
-      properties.forEach(property => {
-        const markerEl = document.createElement('div');
-        markerEl.className = 'custom-marker';
-        
-        // Create image container
-        const markerContent = document.createElement('div');
-        markerContent.className = 'relative';
-        
-        // Add property image
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'w-16 h-16 rounded-full border-2 border-primary overflow-hidden shadow-lg';
-        
-        const img = document.createElement('img');
-        img.src = property.images[0];
-        img.className = 'w-full h-full object-cover';
-        imgContainer.appendChild(img);
-        
-        // Add price badge
-        const priceEl = document.createElement('div');
-        priceEl.className = 'absolute -bottom-2 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md';
-        priceEl.textContent = `$${property.price}`;
-        
-        markerContent.appendChild(imgContainer);
-        markerContent.appendChild(priceEl);
-        markerEl.appendChild(markerContent);
-        
-        // Create marker and add to map - ensure coordinates are in the correct format
-        const marker = new mapboxgl.Marker(markerEl)
-          .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
-          .addTo(map.current!);
-        
-        // Handle marker click
-        markerEl.addEventListener('click', () => {
-          setSelectedProperty(property._id === selectedProperty ? null : property._id);
-        });
-        
-        // Show popup for selected property
-        if (selectedProperty === property._id) {
-          const popupContent = document.createElement('div');
-          popupContent.className = 'p-2 w-60';
-          
-          const img = document.createElement('img');
-          img.src = property.images[0];
-          img.alt = property.title;
-          img.className = 'w-full h-32 object-cover rounded-md mb-2';
-          
-          const title = document.createElement('h3');
-          title.className = 'font-bold';
-          title.textContent = property.title;
-          
-          const location = document.createElement('p');
-          location.className = 'text-sm text-muted-foreground';
-          location.textContent = property.city;
-          
-          const details = document.createElement('div');
-          details.className = 'flex justify-between items-center mt-2';
-          
-          const rating = document.createElement('div');
-          rating.className = 'flex items-center gap-1 text-sm';
-          rating.innerHTML = `<svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>4.8</span>`;
-          
-          const price = document.createElement('p');
-          price.className = 'font-bold';
-          price.innerHTML = `$${property.price}<span class="text-sm font-normal text-muted-foreground">${property.purpose === 'rent' ? '/mo' : ''}</span>`;
-          
-          details.appendChild(rating);
-          details.appendChild(price);
-          
-          popupContent.appendChild(img);
-          popupContent.appendChild(title);
-          popupContent.appendChild(location);
-          popupContent.appendChild(details);
-          
-          // Create and store the popup reference
-          const popup = new mapboxgl.Popup({ closeButton: false, closeOnClick: false })
-            .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
-            .setDOMContent(popupContent)
-            .addTo(map.current!);
-          
-          popupRefs.current[property._id] = popup;
-        }
-      });
     }
     
     // Cleanup function
     return () => {
-      if (map.current) {
-        map.current.remove();
-        map.current = null;
-      }
+      // Don't remove map here, let it persist
     };
-  }, [viewMode, selectedProperty, mapLoaded, properties]);
+  }, [viewMode]); // Only re-run when view mode changes
+
+  // Separate useEffect for handling markers and popups
+  useEffect(() => {
+    if (!map.current || !mapLoaded || !properties || properties.length === 0) return;
+    
+    // Clean up existing markers on rerender
+    const markersToRemove = document.querySelectorAll('.mapboxgl-marker');
+    markersToRemove.forEach(marker => marker.remove());
+    
+    // Clear existing popups
+    Object.values(popupRefs.current).forEach(popup => popup.remove());
+    popupRefs.current = {};
+    
+    // Add markers for each property
+    properties.forEach(property => {
+      const markerEl = document.createElement('div');
+      markerEl.className = 'custom-marker';
+      
+      // Create image container
+      const markerContent = document.createElement('div');
+      markerContent.className = 'relative';
+      
+      // Add property image
+      const imgContainer = document.createElement('div');
+      imgContainer.className = 'w-16 h-16 rounded-full border-2 border-primary overflow-hidden shadow-lg';
+      
+      const img = document.createElement('img');
+      img.src = property.images[0];
+      img.className = 'w-full h-full object-cover';
+      imgContainer.appendChild(img);
+      
+      // Add price badge
+      const priceEl = document.createElement('div');
+      priceEl.className = 'absolute -bottom-2 left-1/2 transform -translate-x-1/2 px-2 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-md';
+      priceEl.textContent = formatPricePKR(property.price);
+      
+      markerContent.appendChild(imgContainer);
+      markerContent.appendChild(priceEl);
+      markerEl.appendChild(markerContent);
+      
+      // Create marker and add to map - ensure coordinates are in the correct format
+      const marker = new mapboxgl.Marker(markerEl)
+        .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
+        .addTo(map.current!);
+      
+      // Handle marker click
+      markerEl.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedProperty(property._id === selectedProperty ? null : property._id);
+      });
+      
+      // Handle marker hover
+      markerEl.addEventListener('mouseenter', () => {
+        setHoveredProperty(property._id);
+      });
+      
+      markerEl.addEventListener('mouseleave', () => {
+        setHoveredProperty(null);
+      });
+    });
+    
+  }, [mapLoaded, properties, selectedProperty, hoveredProperty]); // Dependencies for markers and popups
+
+  // Separate useEffect for popups
+  useEffect(() => {
+    if (!map.current || !mapLoaded) return;
+
+    // Clear existing popups
+    Object.values(popupRefs.current).forEach(popup => popup.remove());
+    popupRefs.current = {};
+
+    // Show popup for hovered property (preview)
+    if (hoveredProperty && properties) {
+      const property = properties.find(p => p._id === hoveredProperty);
+      if (property) {
+        const popupContent = document.createElement('div');
+        popupContent.className = 'p-3 w-64';
+        
+        const img = document.createElement('img');
+        img.src = property.images[0];
+        img.alt = property.title;
+        img.className = 'w-full h-32 object-cover rounded-md mb-2';
+        
+        const title = document.createElement('h3');
+        title.className = 'font-bold text-sm';
+        title.textContent = property.title;
+        
+        const location = document.createElement('p');
+        location.className = 'text-xs text-muted-foreground mb-2';
+        location.textContent = property.city;
+        
+        const details = document.createElement('div');
+        details.className = 'flex justify-between items-center';
+        
+        const rating = document.createElement('div');
+        rating.className = 'flex items-center gap-1 text-xs';
+        rating.innerHTML = `<svg class="h-3 w-3 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>4.8</span>`;
+        
+        const price = document.createElement('p');
+        price.className = 'font-bold text-sm';
+        price.innerHTML = `${formatPricePKR(property.price)}<span class="text-xs font-normal text-muted-foreground">${property.purpose === 'rent' ? '/mo' : ''}</span>`;
+        
+        details.appendChild(rating);
+        details.appendChild(price);
+        
+        popupContent.appendChild(img);
+        popupContent.appendChild(title);
+        popupContent.appendChild(location);
+        popupContent.appendChild(details);
+        
+        // Create and store the popup reference
+        const popup = new mapboxgl.Popup({ 
+          closeButton: false, 
+          closeOnClick: false,
+          anchor: 'bottom',
+          offset: [0, -10]
+        })
+          .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
+          .setDOMContent(popupContent)
+          .addTo(map.current!);
+        
+        popupRefs.current[property._id] = popup;
+      }
+    }
+    
+    // Show detailed popup for selected property
+    if (selectedProperty && properties) {
+      const property = properties.find(p => p._id === selectedProperty);
+      if (property) {
+        const popupContent = document.createElement('div');
+        popupContent.className = 'p-3 w-72';
+        
+        const img = document.createElement('img');
+        img.src = property.images[0];
+        img.alt = property.title;
+        img.className = 'w-full h-40 object-cover rounded-md mb-3';
+        
+        const title = document.createElement('h3');
+        title.className = 'font-bold mb-1';
+        title.textContent = property.title;
+        
+        const location = document.createElement('p');
+        location.className = 'text-sm text-muted-foreground mb-2';
+        location.textContent = property.city;
+        
+        const propertyDetails = document.createElement('div');
+        propertyDetails.className = 'flex gap-4 text-sm mb-3';
+        propertyDetails.innerHTML = `
+          <div class="flex items-center"><svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>${property.bedrooms}</div>
+          <div class="flex items-center"><svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 2v4h8V2M8 6v4h8V6m0 4v4H8v-4m8 4v4H8v-4"></path></svg>${property.bathrooms}</div>
+          <div class="flex items-center"><svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>${property.areaSize} sqft</div>
+        `;
+        
+        const details = document.createElement('div');
+        details.className = 'flex justify-between items-center';
+        
+        const rating = document.createElement('div');
+        rating.className = 'flex items-center gap-1 text-sm';
+        rating.innerHTML = `<svg class="h-4 w-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>4.8</span>`;
+        
+        const price = document.createElement('p');
+        price.className = 'font-bold';
+        price.innerHTML = `${formatPricePKR(property.price)}<span class="text-sm font-normal text-muted-foreground">${property.purpose === 'rent' ? '/mo' : ''}</span>`;
+        
+        const viewButton = document.createElement('button');
+        viewButton.className = 'w-full mt-3 px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90';
+        viewButton.textContent = 'View Details';
+        viewButton.onclick = () => {
+          window.open(`/properties/${property._id}`, '_blank');
+        };
+        
+        details.appendChild(rating);
+        details.appendChild(price);
+        
+        popupContent.appendChild(img);
+        popupContent.appendChild(title);
+        popupContent.appendChild(location);
+        popupContent.appendChild(propertyDetails);
+        popupContent.appendChild(details);
+        popupContent.appendChild(viewButton);
+        
+        // Create and store the popup reference
+        const popup = new mapboxgl.Popup({ 
+          closeButton: true, 
+          closeOnClick: false,
+          anchor: 'bottom',
+          offset: [0, -10]
+        })
+          .setLngLat([property.location.longitude, property.location.latitude] as [number, number])
+          .setDOMContent(popupContent)
+          .addTo(map.current!);
+        
+        // Handle popup close
+        popup.on('close', () => {
+          setSelectedProperty(null);
+        });
+        
+        popupRefs.current[property._id + '_selected'] = popup;
+      }
+    }
+  }, [hoveredProperty, selectedProperty, mapLoaded, properties]);
 
   useEffect(() => {
-    setMinPriceInput(`$${priceRange[0]}`)
-    setMaxPriceInput(`$${priceRange[1]}`)
+    setMinPriceInput(`PKR ${priceRange[0].toLocaleString()}`)
+    setMaxPriceInput(`PKR ${priceRange[1].toLocaleString()}`)
   }, [priceRange])
 
   useEffect(() => {
@@ -408,28 +623,28 @@ export default function PropertiesPage() {
   }, [areaRange])
 
   const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, '')
+    const value = e.target.value.replace(/[^\d]/g, '') // Remove all non-digit characters
     if (value) {
       const numValue = parseInt(value)
-      setMinPriceInput(`$${numValue}`)
+      setMinPriceInput(`PKR ${numValue.toLocaleString()}`)
       if (numValue < priceRange[1]) {
         setPriceRange([numValue, priceRange[1]])
       }
     } else {
-      setMinPriceInput('$')
+      setMinPriceInput('PKR ')
     }
   }
 
   const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/\D/g, '')
+    const value = e.target.value.replace(/[^\d]/g, '') // Remove all non-digit characters
     if (value) {
       const numValue = parseInt(value)
-      setMaxPriceInput(`$${numValue}`)
+      setMaxPriceInput(`PKR ${numValue.toLocaleString()}`)
       if (numValue > priceRange[0]) {
         setPriceRange([priceRange[0], numValue])
       }
     } else {
-      setMaxPriceInput('$')
+      setMaxPriceInput('PKR ')
     }
   }
 
@@ -463,80 +678,90 @@ export default function PropertiesPage() {
     const isFavorited = favoritesMap.get(property._id);
     
     return (
-      <Link 
-        href={`/properties/${property._id}`} 
+      <div
         key={property._id}
-        className="block"
+        className={cn(
+          "relative rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md cursor-pointer",
+          selectedProperty === property._id ? "ring-2 ring-primary" : "",
+          hoveredProperty === property._id ? "shadow-lg" : ""
+        )} 
+        onMouseEnter={() => setHoveredProperty(property._id)}
+        onMouseLeave={() => setHoveredProperty(null)}
+        onClick={() => window.open(`/properties/${property._id}`, '_blank')}
       >
-        <div 
-          className={cn(
-            "relative rounded-xl border overflow-hidden transition-all duration-200 hover:shadow-md",
-            selectedProperty === property._id ? "ring-2 ring-primary" : ""
-          )} 
-          onMouseEnter={() => setSelectedProperty(property._id)}
-          onMouseLeave={() => setSelectedProperty(null)}
-        >
-          <div className="relative h-64 overflow-hidden">
-            <img 
-              src={property.images[0]} 
-              alt={property.title}
-              className="object-cover w-full h-full"
+        <div className="relative h-64 overflow-hidden">
+          <img 
+            src={property.images[0]} 
+            alt={property.title}
+            className="object-cover w-full h-full"
+          />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
+            onClick={(e) => toggleFavorite(e, property._id)}
+          >
+            <Heart 
+              className={cn(
+                "h-4 w-4", 
+                isFavorited 
+                  ? "fill-red-500 text-red-500" 
+                  : "text-muted-foreground"
+              )} 
             />
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="absolute right-2 top-2 h-8 w-8 rounded-full bg-white/80 hover:bg-white"
-              onClick={(e) => toggleFavorite(e, property._id)}
-            >
-              <Heart 
-                className={cn(
-                  "h-4 w-4", 
-                  isFavorited 
-                    ? "fill-red-500 text-red-500" 
-                    : "text-muted-foreground"
-                )} 
-              />
-            </Button>
+          </Button>
+        </div>
+        <div className="p-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-medium line-clamp-1">{property.title}</h3>
+            <div className="flex items-center">
+              <Star className="h-4 w-4 fill-primary text-primary" />
+              <span className="ml-1 text-sm">4.8</span>
+            </div>
           </div>
-          <div className="p-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-medium line-clamp-1">{property.title}</h3>
-              <div className="flex items-center">
-                <Star className="h-4 w-4 fill-primary text-primary" />
-                <span className="ml-1 text-sm">4.8</span>
-              </div>
+          <div className="mt-1 text-sm text-muted-foreground flex items-center">
+            <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground/70" />
+            <span className="truncate">{property.city}</span>
+          </div>
+          <div className="mt-3 flex items-center gap-2 text-sm">
+            <div className="flex items-center">
+              <Bed className="h-4 w-4 mr-1" />
+              <span>{property.bedrooms}</span>
             </div>
-            <div className="mt-1 text-sm text-muted-foreground flex items-center">
-              <MapPin className="h-3.5 w-3.5 mr-1 text-muted-foreground/70" />
-              <span className="truncate">{property.city}</span>
+            <div className="flex items-center">
+              <Bath className="h-4 w-4 mr-1" />
+              <span>{property.bathrooms}</span>
             </div>
-            <div className="mt-3 flex items-center gap-2 text-sm">
-              <div className="flex items-center">
-                <Bed className="h-4 w-4 mr-1" />
-                <span>{property.bedrooms}</span>
-              </div>
-              <div className="flex items-center">
-                <Bath className="h-4 w-4 mr-1" />
-                <span>{property.bathrooms}</span>
-              </div>
-              <div className="flex items-center">
-                <Square className="h-4 w-4 mr-1" />
-                <span>{property.areaSize} sqft</span>
-              </div>
+            <div className="flex items-center">
+              <Square className="h-4 w-4 mr-1" />
+              <span>{property.areaSize} sqft</span>
             </div>
-            <div className="mt-3 flex items-center justify-between">
-              <div className="font-medium">
-                ${property.price.toLocaleString()}
-                <span className="text-xs text-muted-foreground font-normal">
-                  {property.purpose === 'rent' ? '/mo' : ''}
-                </span>
-              </div>
+          </div>
+          <div className="mt-3 flex items-center justify-between">
+            <div className="font-medium">
+              {formatPricePKR(property.price)}
+              <span className="text-xs text-muted-foreground font-normal">
+                {property.purpose === 'rent' ? '/mo' : ''}
+              </span>
             </div>
           </div>
         </div>
-      </Link>
+      </div>
     )
   }
+
+  // Cleanup useEffect for component unmount
+  useEffect(() => {
+    return () => {
+      // Cleanup when component unmounts
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
+      Object.values(popupRefs.current).forEach(popup => popup.remove());
+      popupRefs.current = {};
+    };
+  }, []);
 
   // Add a separate effect to handle resize and view mode changes
   useEffect(() => {
@@ -592,7 +817,7 @@ export default function PropertiesPage() {
           <PopoverTrigger asChild>
             <Button variant="outline" size="sm" className="rounded-full">
               Price
-              <DollarSign className="ml-1 h-4 w-4" />
+              <Grid2X2 className="ml-1 h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80 p-4">
@@ -601,9 +826,9 @@ export default function PropertiesPage() {
               <Slider
                 defaultValue={priceRange}
                 value={priceRange}
-                min={100}
-                max={2000}
-                step={50}
+                min={20000}
+                max={1000000}
+                step={10000}
                 onValueChange={(value) => setPriceRange(value as number[])}
                 className="mb-6"
               />
@@ -645,7 +870,7 @@ export default function PropertiesPage() {
               <Slider
                 defaultValue={areaRange}
                 value={areaRange}
-                min={100}
+                min={0}
                 max={10000}
                 step={100}
                 onValueChange={(value) => setAreaRange(value as number[])}
@@ -748,7 +973,7 @@ export default function PropertiesPage() {
           <PopoverTrigger asChild>
             <Button variant="outline" size="sm" className="rounded-full">
               Purpose
-              <DollarSign className="ml-1 h-4 w-4" />
+              <Grid2X2 className="ml-1 h-4 w-4" />
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-60 p-3">
@@ -887,16 +1112,16 @@ export default function PropertiesPage() {
             </div>
             
             <div className="border-t px-4 py-4">
-              <h2 className="font-semibold mb-4">Price Range</h2>
+              <h2 className="font-semibold mb-4">Price Range (PKR)</h2>
               <div className="text-sm text-muted-foreground flex justify-between mb-2">
                 <span>Monthly</span>
-                <span>${priceRange[0]} - ${priceRange[1]}</span>
+                <span>PKR {priceRange[0].toLocaleString()} - PKR {priceRange[1].toLocaleString()}</span>
               </div>
               <Slider
                 value={priceRange}
-                min={100}
-                max={2000}
-                step={50}
+                min={20000}
+                max={1000000}
+                step={10000}
                 onValueChange={(value) => setPriceRange(value as number[])}
                 className="mb-4"
               />
@@ -929,7 +1154,7 @@ export default function PropertiesPage() {
               </div>
               <Slider
                 value={areaRange}
-                min={100}
+                min={0}
                 max={10000}
                 step={100}
                 onValueChange={(value) => setAreaRange(value as number[])}
@@ -1048,7 +1273,9 @@ export default function PropertiesPage() {
             >
               <div className="p-4">
                 <div className="flex justify-between items-center mb-4">
-                  <h2 className="text-lg font-semibold">Available Properties</h2>
+                  <h2 className="text-lg font-semibold">
+                    Available Properties {!isLoading && !error && `(${(allProperties || []).length})`}
+                  </h2>
                   <div className="flex items-center gap-2">
                     <span className="text-sm text-muted-foreground">Sort:</span>
                     <Button variant="outline" size="sm">
@@ -1056,10 +1283,103 @@ export default function PropertiesPage() {
                     </Button>
                   </div>
                 </div>
+
+                {/* Active Filters */}
+                {(searchQuery || 
+                  priceRange[0] !== 20000 || 
+                  priceRange[1] !== 1000000 ||
+                  areaRange[0] !== 0 ||
+                  areaRange[1] !== 10000 ||
+                  bedsCount !== "Any" ||
+                  bathsCount !== "Any" ||
+                  selectedType ||
+                  selectedPurpose) && (
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {searchQuery && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Search className="h-3 w-3" />
+                        {searchQuery}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setSearchQuery("")} />
+                      </Badge>
+                    )}
+                    {(priceRange[0] !== 20000 || priceRange[1] !== 1000000) && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Grid2X2 className="h-3 w-3" />
+                        {`${formatPricePKR(priceRange[0])} - ${formatPricePKR(priceRange[1])}`}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setPriceRange([20000, 1000000])} />
+                      </Badge>
+                    )}
+                    {(areaRange[0] !== 0 || areaRange[1] !== 10000) && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Square className="h-3 w-3" />
+                        {`${areaRange[0]} - ${areaRange[1]} sqft`}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setAreaRange([0, 10000])} />
+                      </Badge>
+                    )}
+                    {bedsCount !== "Any" && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Bed className="h-3 w-3" />
+                        {`${bedsCount} Beds`}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setBedsCount("Any")} />
+                      </Badge>
+                    )}
+                    {bathsCount !== "Any" && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Bath className="h-3 w-3" />
+                        {`${bathsCount} Baths`}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setBathsCount("Any")} />
+                      </Badge>
+                    )}
+                    {selectedType && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        <Home className="h-3 w-3" />
+                        {selectedType}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setSelectedType(null)} />
+                      </Badge>
+                    )}
+                    {selectedPurpose && (
+                      <Badge variant="secondary" className="flex items-center gap-1">
+                        {selectedPurpose === 'rent' ? <Calendar className="h-3 w-3" /> : <Grid2X2 className="h-3 w-3" />}
+                        {selectedPurpose}
+                        <X className="h-3 w-3 ml-1 cursor-pointer" onClick={() => setSelectedPurpose(null)} />
+                      </Badge>
+                    )}
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-xs"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setPriceRange([20000, 1000000]);
+                        setAreaRange([0, 10000]);
+                        setBedsCount("Any");
+                        setBathsCount("Any");
+                        setSelectedType(null);
+                        setSelectedPurpose(null);
+                      }}
+                    >
+                      Clear All
+                    </Button>
+                  </div>
+                )}
                 
-                <div className="grid grid-cols-1 gap-4">
-                  {properties.map(property => renderPropertyCard(property))}
-                </div>
+                {isLoading ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">Loading properties...</p>
+                  </div>
+                ) : error ? (
+                  <div className="text-center py-8">
+                    <p className="text-red-500">{error}</p>
+                  </div>
+                ) : (allProperties || []).length === 0 ? (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground">No properties found matching your criteria.</p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 gap-4">
+                    {(allProperties || []).map(property => renderPropertyCard(property))}
+                  </div>
+                )}
               </div>
             </div>
           )}

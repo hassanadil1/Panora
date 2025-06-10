@@ -11,6 +11,20 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Chatbot } from "@/components/chatbot/chatbot"
 
+// Currency conversion rate (1 USD = 280 PKR approximately)
+const USD_TO_PKR = 280;
+
+// Helper function to format price in PKR
+const formatPricePKR = (usdPrice: number) => {
+  const pkrPrice = usdPrice * USD_TO_PKR;
+  return new Intl.NumberFormat('en-PK', {
+    style: 'currency',
+    currency: 'PKR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(pkrPrice);
+};
+
 // Image gallery data
 const galleryImages = [
   {
@@ -268,7 +282,7 @@ export default function HomePage() {
                     className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                   />
                   <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
-                    ${property.price.toLocaleString()}{property.purpose === 'rent' ? '/mo' : ''}
+                    {formatPricePKR(property.price)}{property.purpose === 'rent' ? '/mo' : ''}
                   </div>
                 </div>
                 <div className="p-6">

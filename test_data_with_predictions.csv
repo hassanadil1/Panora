@@ -1,188 +1,1451 @@
 property_type,location,city,bedrooms,baths,area,price,area_numeric,property_type_encoded,location_encoded,city_encoded,predicted_price
-Flat,DHA Defence,Karachi,3,2,4.4 Marla,7800000,4.4,0,65,2,10861546.42
-Flat,DHA Defence,Karachi,3,3,6.7 Marla,22500000,6.7,0,65,2,15670375.6
-Flat,Clifton,Karachi,4,4,18.4 Marla,104000000,18.4,0,61,2,39934298.7
-Flat,DHA Defence,Karachi,2,2,7.3 Marla,30000000,7.3,0,65,2,17502513.93
-Flat,DHA Defence,Karachi,4,4,11.7 Marla,53000000,11.7,0,65,2,25630278.56
-Flat,DHA Defence,Karachi,4,5,11.7 Marla,55000000,11.7,0,65,2,25595947.92
-Flat,Gulistan-e-Jauhar,Karachi,3,3,7.6 Marla,8000000,7.6,0,114,2,15168383.42
-Flat,DHA Defence,Karachi,3,3,5.6 Marla,15000000,5.6,0,65,2,13354081.78
-Flat,DHA Defence,Karachi,3,4,9.1 Marla,22500000,9.1,0,65,2,20689776.95
-Flat,DHA Defence,Karachi,3,4,8 Marla,32500000,8,0,65,2,18373483.12
-Flat,Gulistan-e-Jauhar,Karachi,3,3,7.6 Marla,8000000,7.6,0,114,2,15168383.42
-Flat,Bath Island,Karachi,3,5,10.3 Marla,50000000,10.3,0,44,2,24209658.73
-Flat,DHA Defence,Karachi,3,4,8.1 Marla,22500000,8.1,0,65,2,18584055.29
-Flat,Gulshan-e-Iqbal Town,Karachi,3,4,8.9 Marla,13000000,8.9,0,118,2,17675805.91
-Flat,Gulistan-e-Jauhar,Karachi,3,3,10.7 Marla,11500000,10.7,0,114,2,21696120.56
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4790000,4.2,0,40,2,12197808.26
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6000000,4.2,0,40,2,12197808.26
-Flat,Gulshan-e-Iqbal Town,Karachi,3,2,7.3 Marla,18000000,7.3,0,118,2,14375312.52
-Flat,Defence View Society,Karachi,2,2,4.7 Marla,12400000,4.7,0,66,2,11978716.36
-Flat,Cantt,Karachi,3,2,6.7 Marla,9500000,6.7,0,53,2,16291761.34
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4800000,4.2,0,40,2,12197808.26
-Flat,Gadap Town,Karachi,2,2,3.3 Marla,3650000,3.3,0,100,2,7367383.244
-Flat,DHA Defence,Karachi,3,0,5.1 Marla,11000000,5.1,0,65,2,12404212.85
-Flat,Gulshan-e-Iqbal Town,Karachi,2,2,3.3 Marla,4050000,3.3,0,118,2,6486800.588
-Flat,Federal B Area,Karachi,3,2,1.8 Kanal,4700000,36,0,89,2,76228240.61
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.8 Marla,4666000,5.8,0,88,2,13218742.49
-Flat,Fazaia Housing Scheme,Karachi,3,4,9.8 Marla,7960000,9.8,0,88,2,21038593.16
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Gulistan-e-Jauhar,Karachi,2,2,1.9 Marla,3300000,1.9,0,114,2,3734475.302
-Flat,Gulistan-e-Jauhar,Karachi,2,2,4 Marla,3700000,4,0,114,2,8156490.784
-Flat,Gulistan-e-Jauhar,Karachi,2,2,4 Marla,6000000,4,0,114,2,8156490.784
-Flat,Gulistan-e-Jauhar,Karachi,1,1,2.2 Marla,2600000,2.2,0,114,2,4934897.134
-Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4 Marla,6000000,4,0,118,2,7960805.749
-Flat,Sea View Apartments,Karachi,3,3,10.2 Marla,50000000,10.2,0,233,2,14821629.95
-Flat,North Nazimabad,Karachi,2,2,4.8 Marla,8500000,4.8,0,196,2,5829524.901
-Flat,DHA Defence,Karachi,3,3,6.4 Marla,12900000,6.4,0,65,2,15038659.1
-Flat,Gulistan-e-Jauhar,Karachi,3,3,6 Marla,6200000,6,0,114,2,11799228.77
-Flat,North Nazimabad,Karachi,3,3,7.6 Marla,17500000,7.6,0,196,2,11156840.21
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.8 Marla,4666000,5.8,0,88,2,13218742.49
-Flat,Fazaia Housing Scheme,Karachi,3,4,9.8 Marla,7960000,9.8,0,88,2,21038593.16
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.2 Marla,3763000,5.2,0,88,2,11955309.5
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.7 Marla,4090000,5.7,0,88,2,13008170.33
-Flat,Fazaia Housing Scheme,Karachi,3,4,6.7 Marla,4797000,6.7,0,88,2,14510856.02
-Flat,Fazaia Housing Scheme,Karachi,3,4,7.1 Marla,5136000,7.1,0,88,2,15353144.68
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.8 Marla,4666000,5.8,0,88,2,13218742.49
-Flat,Fazaia Housing Scheme,Karachi,3,4,9.8 Marla,7960000,9.8,0,88,2,21038593.16
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.2 Marla,3763000,5.2,0,88,2,11955309.5
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.7 Marla,4090000,5.7,0,88,2,13008170.33
-Flat,Fazaia Housing Scheme,Karachi,3,4,6.7 Marla,4797000,6.7,0,88,2,14510856.02
-Flat,Northern Bypass,Karachi,3,4,7.1 Marla,5136000,7.1,0,197,2,10020727.49
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4800000,4.2,0,40,2,12197808.26
-Flat,Malir,Karachi,1,1,1.8 Marla,2200000,1.8,0,168,2,1450860.503
-Flat,Gulistan-e-Jauhar,Karachi,4,6,12 Marla,14500000,12,0,114,2,23796192.11
-Flat,Cantt,Karachi,3,3,9.8 Marla,40000000,9.8,0,53,2,22785167.84
-Flat,Nazimabad,Karachi,2,2,4.7 Marla,6600000,4.7,0,192,2,5814637.77
-Flat,Jamshed Town,Karachi,3,3,7.1 Marla,17000000,7.1,0,142,2,12745727.35
-Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5 Marla,7500000,5,0,118,2,9497822.073
-Flat,Gulistan-e-Jauhar,Karachi,2,2,3.8 Marla,4500000,3.8,0,114,2,7735346.452
-Flat,Gulistan-e-Jauhar,Karachi,1,1,2 Marla,2500000,2,0,114,2,4513752.802
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.8 Marla,4666000,5.8,0,88,2,13218742.49
-Flat,Fazaia Housing Scheme,Karachi,3,4,9.8 Marla,7960000,9.8,0,88,2,21038593.16
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.2 Marla,3763000,5.2,0,88,2,11955309.5
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.7 Marla,4090000,5.7,0,88,2,13008170.33
-Flat,Fazaia Housing Scheme,Karachi,3,4,6.7 Marla,4797000,6.7,0,88,2,14510856.02
-Flat,Fazaia Housing Scheme,Karachi,3,4,7.1 Marla,5136000,7.1,0,88,2,15353144.68
-Flat,Gulistan-e-Jauhar,Karachi,3,3,10.2 Marla,12000000,10.2,0,114,2,20643259.73
-Flat,Cantt,Karachi,3,3,11.4 Marla,32000000,11.4,0,53,2,26154322.5
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5100000,4.2,0,40,2,12197808.26
-Flat,Jamshed Town,Karachi,3,4,6.7 Marla,25500000,6.7,0,142,2,11869108.05
-Flat,Gulistan-e-Jauhar,Karachi,2,2,4.2 Marla,5200000,4.2,0,114,2,8577635.115
-Flat,Liaquatabad,Karachi,11,10,3.6 Marla,10500000,3.6,0,165,2,-264799.4492
-Flat,Gulshan-e-Iqbal Town,Karachi,3,3,8 Marla,17500000,8,0,118,2,15814987.05
-Flat,Jamshed Town,Karachi,5,3,9.3 Marla,20000000,9.3,0,142,2,16309565.59
-Flat,Garden West,Karachi,3,4,6 Marla,7000000,6,0,102,2,12351953.24
-Flat,Gulistan-e-Jauhar,Karachi,3,3,6 Marla,6500000,6,0,114,2,11799228.77
-Flat,DHA Defence,Karachi,4,4,14.2 Marla,82500000,14.2,0,65,2,30894582.7
-Flat,Clifton,Karachi,2,2,5.9 Marla,20500000,5.9,0,61,2,14750188.64
-Flat,Clifton,Karachi,3,3,8.7 Marla,27000000,8.7,0,61,2,20077503.95
-Flat,DHA Defence,Karachi,1,1,5.8 Marla,27000000,5.8,0,65,2,14912636.78
-Flat,DHA Defence,Karachi,1,1,5.8 Marla,27000000,5.8,0,65,2,14912636.78
-Flat,DHA Defence,Karachi,1,1,5.8 Marla,27000000,5.8,0,65,2,14912636.78
-Flat,DHA Defence,Karachi,2,3,9.1 Marla,37000000,9.1,0,65,2,21258482.28
-Flat,DHA Defence,Karachi,2,3,9.1 Marla,37000000,9.1,0,65,2,21258482.28
-Flat,DHA Defence,Karachi,2,3,9.1 Marla,37000000,9.1,0,65,2,21258482.28
-Flat,DHA Defence,Karachi,3,4,10.9 Marla,47000000,10.9,0,65,2,24480075.93
-Flat,DHA Defence,Karachi,3,4,10.9 Marla,47000000,10.9,0,65,2,24480075.93
-Flat,DHA Defence,Karachi,3,4,10.9 Marla,47000000,10.9,0,65,2,24480075.93
-Flat,DHA Defence,Karachi,3,4,10.9 Marla,47000000,10.9,0,65,2,24480075.93
-Flat,DHA Defence,Karachi,4,5,11.8 Marla,50000000,11.8,0,65,2,25806520.09
-Flat,DHA Defence,Karachi,4,5,11.8 Marla,50000000,11.8,0,65,2,25806520.09
-Flat,DHA Defence,Karachi,4,5,11.8 Marla,50000000,11.8,0,65,2,25806520.09
-Flat,DHA Defence,Karachi,4,5,11.8 Marla,50000000,11.8,0,65,2,25806520.09
-Flat,Clifton,Karachi,4,5,19.1 Marla,108000000,19.1,0,61,2,41373973.23
-Flat,Gulberg Town,Karachi,1,0,1.2 Marla,1800000,1.2,0,112,2,2961348.626
-Flat,DHA Defence,Karachi,2,2,4.7 Marla,10300000,4.7,0,65,2,12027637.62
-Flat,DHA Defence,Karachi,3,3,6.5 Marla,14000000,6.5,0,65,2,15249231.27
-Flat,DHA Defence,Karachi,2,2,4.7 Marla,10300000,4.7,0,65,2,12027637.62
-Flat,DHA Defence,Karachi,3,3,6.5 Marla,14000000,6.5,0,65,2,15249231.27
-Flat,DHA Defence,Karachi,3,3,6.5 Marla,14000000,6.5,0,65,2,15249231.27
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.8 Marla,4666000,5.8,0,88,2,13218742.49
-Flat,Fazaia Housing Scheme,Karachi,3,4,9.8 Marla,7960000,9.8,0,88,2,21038593.16
-Flat,Northern Bypass,Karachi,2,3,6.3 Marla,6422000,6.3,0,197,2,8904855.496
-Flat,Northern Bypass,Karachi,3,4,9.6 Marla,9743000,9.6,0,197,2,15285031.63
-Flat,DHA Defence,Karachi,4,4,13.8 Marla,66000000,13.8,0,65,2,30052294.04
-Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4.2 Marla,4800000,4.2,0,118,2,8381950.081
-Flat,Fazaia Housing Scheme,Karachi,2,3,5.8 Marla,4666000,5.8,0,88,2,13184411.86
-Flat,Fazaia Housing Scheme,Karachi,4,5,12.5 Marla,10100000,12.5,0,88,2,26155336.3
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.7 Marla,4090000,5.7,0,88,2,13008170.33
-Flat,Fazaia Housing Scheme,Karachi,3,4,6.7 Marla,4797000,6.7,0,88,2,14510856.02
-Flat,Northern Bypass,Karachi,3,4,7.1 Marla,5136000,7.1,0,197,2,10020727.49
-Flat,Gadap Town,Karachi,2,1,8.1 Marla,2120000,8.1,0,100,2,17509177.84
-Flat,Federal B Area,Karachi,3,3,6 Marla,8500000,6,0,89,2,13022260.23
-Flat,DHA Defence,Karachi,3,3,4.7 Marla,12000000,4.7,0,65,2,11458932.28
-Flat,DHA Defence,Karachi,0,0,4.2 Marla,7500000,4.2,0,65,2,12112187.46
-Flat,North Karachi,Karachi,3,2,3.2 Marla,4000000,3.2,0,195,2,1974916.805
-Flat,Aisha Manzil,Karachi,0,0,2.6 Marla,4000000,2.6,0,10,2,11433702.03
-Flat,Gadap Town,Karachi,3,3,6.2 Marla,6850000,6.2,0,100,2,12905270.72
-Flat,Jamshed Road,Karachi,0,0,5.6 Marla,9500000,5.6,0,141,2,11342182.12
-Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5.3 Marla,5200000,5.3,0,118,2,10129538.57
-Flat,Gulshan-e-Iqbal Town,Karachi,3,0,7.1 Marla,9200000,7.1,0,118,2,14022829.46
-Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5.4 Marla,7500000,5.4,0,118,2,10340110.74
-Flat,North Nazimabad,Karachi,2,2,4 Marla,6000000,4,0,196,2,4144947.574
-Flat,Gizri,Karachi,3,2,7.1 Marla,4000000,7.1,0,107,2,14492302.03
-Flat,Gulistan-e-Jauhar,Karachi,3,3,6 Marla,10000000,6,0,114,2,11799228.77
-Flat,Gulshan-e-Iqbal Town,Karachi,2,1,2 Marla,2100000,2,0,118,2,3783693.066
-Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,3800000,4.2,0,40,2,12197808.26
-Flat,North Nazimabad,Karachi,3,0,5.8 Marla,6000000,5.8,0,196,2,7469533.125
-Flat,Anda Mor Road,Karachi,2,2,3.6 Marla,2700000,3.6,0,20,2,11912800.43
-Flat,Cantt,Karachi,3,3,10 Marla,30000000,10,0,53,2,23206312.18
-Flat,Clifton,Karachi,3,3,8.2 Marla,26000000,8.2,0,61,2,19024643.12
-Flat,Gizri,Karachi,2,0,5.6 Marla,8500000,5.6,0,107,2,11936755.51
-Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5.3 Marla,7000000,5.3,0,118,2,10129538.57
-Flat,Fazaia Housing Scheme,Karachi,2,2,5.2 Marla,3763000,5.2,0,88,2,11955309.5
-Flat,Delhi Colony,Karachi,3,2,3.2 Marla,2700000,3.2,0,67,2,8236837.913
-Flat,Jinnah Avenue,Karachi,3,3,8.3 Marla,12500000,8.3,0,146,2,15076908.3
-Flat,Gulistan-e-Jauhar,Karachi,4,4,8.9 Marla,9300000,8.9,0,114,2,17337116.24
-Flat,Gulistan-e-Jauhar,Karachi,3,3,6 Marla,6500000,6,0,114,2,11799228.77
-Flat,North Karachi,Karachi,4,0,4 Marla,4800000,4,0,195,2,3193780.698
-Flat,Federal B Area,Karachi,3,2,4.5 Marla,6000000,4.5,0,89,2,9898008.378
-Flat,Saddar Town,Karachi,2,0,2.9 Marla,2500000,2.9,0,223,2,576441.0337
-Flat,Mozang,Lahore,2,2,3 Marla,3200000,3,0,181,3,-2602244.009
-Flat,Garden Town,Lahore,0,0,7 Marla,22500000,7,0,101,3,10871753.99
-Flat,Askari,Lahore,3,3,10.1 Marla,13000000,10.1,0,24,3,19460312.04
-Flat,Askari,Lahore,2,2,6 Marla,7000000,6,0,24,3,11395558.57
-Flat,Bahria Town,Lahore,1,1,2 Marla,5100000,2,0,39,3,2807558.396
-Flat,Askari,Lahore,3,4,10 Marla,19000000,10,0,24,3,19215409.24
-Flat,Faisal Town,Lahore,3,3,5 Marla,6000000,5,0,85,3,5736934.803
-Flat,Askari,Lahore,3,3,10 Marla,14500000,10,0,24,3,19249739.87
-Flat,Askari,Lahore,4,5,11 Marla,14500000,11,0,24,3,20752425.56
-Flat,Askari,Lahore,3,4,10 Marla,19700000,10,0,24,3,19215409.24
-Flat,Khayaban-e-Amin,Lahore,2,2,5 Marla,3600000,5,0,154,3,2930073.291
-Flat,DHA Defence,Lahore,3,3,9.8 Marla,38000000,9.8,0,65,3,16822823.94
-Flat,Askari,Lahore,3,3,11.4 Marla,13500000,11.4,0,24,3,22197750.19
-Flat,Askari,Lahore,3,3,11.4 Marla,13700000,11.4,0,24,3,22197750.19
-Flat,Bahria Town,Lahore,1,1,2.2 Marla,5000000,2.2,0,39,3,3228702.728
-Flat,DHA Defence,Lahore,3,0,9 Marla,14500000,9,0,65,3,15241238.51
-Flat,DHA Defence,Lahore,3,0,7.1 Marla,28300000,7.1,0,65,3,11240367.36
-Flat,Airline Housing Society,Lahore,1,1,2.4 Marla,2000000,2.4,0,6,3,5264248.595
-Flat,Askari,Lahore,3,3,10 Marla,11700000,10,0,24,3,19249739.87
-Flat,Eden,Lahore,2,2,3 Marla,2500000,3,0,75,3,2583409.408
-Flat,Bahria Town,Lahore,1,1,2.8 Marla,5000000,2.8,0,39,3,4492135.723
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,3.8 Marla,4800000,3.8,0,41,4,1124726.058
-Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,5.5 Marla,7500000,5.5,0,41,4,4135747.543
-Flat,Askari 7,Rawalpindi,3,4,10 Marla,10500000,10,0,34,4,13350907.85
-Flat,Askari 7,Rawalpindi,3,0,10 Marla,16000000,10,0,34,4,13488230.38
-Flat,Askari 4,Rawalpindi,3,4,10 Marla,11500000,10,0,33,4,13399829.11
-Flat,Askari 1,Rawalpindi,3,0,10 Marla,11500000,10,0,25,4,13928521.71
-Flat,Askari 3,Rawalpindi,3,4,10 Marla,9800000,10,0,32,4,13448750.36
-Flat,Askari 2,Rawalpindi,3,4,10 Marla,9800000,10,0,31,4,13497671.62
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,1.5 Marla,3000000,1.5,0,41,4,-3718433.755
-Flat,Askari 1,Rawalpindi,3,3,10.7 Marla,10000000,10.7,0,25,4,15299534.97
-Flat,Askari 14,Rawalpindi,3,4,10 Marla,11500000,10,0,30,4,13546592.88
-Flat,Askari 14,Rawalpindi,3,4,10 Marla,11000000,10,0,30,4,13546592.88
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,1.3 Marla,1500000,1.3,0,41,4,-4139578.087
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,2 Marla,4000000,2,0,41,4,-2665572.926
-Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,4 Marla,5500000,4,0,41,4,977165.0554
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,3.2 Marla,3500000,3.2,0,41,4,-138706.9365
-Flat,Liaquat Bagh,Rawalpindi,2,1,2 Marla,2200000,2,0,164,4,-9217262.442
-Flat,Bahria Town Rawalpindi,Rawalpindi,3,3,4.7 Marla,7500000,4.7,0,41,4,1882464.881
-Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,4 Marla,6000000,4,0,41,4,977165.0554
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,2.9 Marla,3800000,2.9,0,41,4,-770423.4339
-Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,1.8 Marla,2700000,1.8,0,41,4,-3086717.258
-Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,3 Marla,2600000,3,0,41,4,-1128556.603
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,20000000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,6 Marla,15000000,6,1,34,2,25715915.24
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,15000000,8,1,34,2,31227655.8
+Flat,Bahria Town Karachi,Karachi,2,0,4.2 Marla,6500000,4.2,0,34,2,10828581.65
+Flat,Bahria Town Karachi,Karachi,2,0,5.1 Marla,6700000,5.1,0,34,2,13308864.9
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10700000,10,0,34,2,26619629.62
+House,Islamabad Expressway,Islamabad,5,5,10 Marla,16500000,10,1,0,1,44552465.9
+House,B-17,Islamabad,4,4,5 Marla,950000,5,1,30,1,29645651.06
+House,G-15,Islamabad,5,6,8 Marla,18500000,8,1,86,1,34486896.69
+House,E-11,Islamabad,5,5,8 Marla,40000000,8,1,63,1,35585843.41
+House,DHA Defence,Islamabad,3,3,8 Marla,8500000,8,1,59,1,36840637.86
+Flat,G-15,Islamabad,3,3,10 Marla,8000000,10,0,86,1,30264869.84
+House,Kuri Road,Islamabad,5,5,14.2 Marla,20000000,14.2,1,148,1,48010890.51
+House,G-8,Islamabad,4,4,14 Marla,39000000,14,1,88,1,51267798.63
+House,F-8,Islamabad,9,10,3.6 Kanal,700000,72,1,76,1,209340114.9
+House,Bahria Town,Islamabad,3,3,10 Marla,45000,10,1,33,1,43778202.71
+House,F-8,Islamabad,4,4,2 Kanal,350000,40,1,76,1,123578498.7
+Flat,E-11,Islamabad,2,2,5.3 Marla,36000,5.3,0,63,1,19091304.05
+House,E-11,Islamabad,4,4,7 Marla,150000,7,1,63,1,33347691.56
+Lower Portion,E-11,Islamabad,3,3,500 Kanal,115000,10000,0,63,1,27562670286
+House,F-8,Islamabad,10,10,4 Kanal,1800000,80,1,76,1,230706999.4
+Lower Portion,G-10,Islamabad,2,2,9.3 Marla,45000,9.3,0,83,1,29017997.26
+Upper Portion,G-10,Islamabad,2,2,9.3 Marla,45000,9.3,0,83,1,29017997.26
+Flat,E-11,Islamabad,2,2,3.3 Marla,27000,3.3,0,63,1,13579563.49
+Room,G-13,Islamabad,0,0,4.4 Marla,12000,4.4,0,85,1,16439990.95
+House,F-8,Islamabad,8,9,1.3 Kanal,600000,26,1,76,1,83087800.41
+Upper Portion,F-8,Islamabad,3,3,1 Kanal,120000,20,0,76,1,58371966.61
+Lower Portion,I-10,Islamabad,2,2,9.8 Marla,35500,9.8,0,117,1,28531392.94
+Upper Portion,E-11,Islamabad,3,3,8 Marla,40000,8,0,63,1,26014435.37
+Upper Portion,G-13,Islamabad,0,0,4.4 Marla,24000,4.4,0,85,1,16439990.95
+House,I-14,Islamabad,2,3,5 Marla,22000,5,1,119,1,25962741.09
+House,Soan Garden,Islamabad,3,3,10 Marla,35000,10,1,229,1,33029681.14
+Lower Portion,G-13,Islamabad,0,0,4.4 Marla,32000,4.4,0,85,1,16439990.95
+House,River Garden,Islamabad,2,3,7 Marla,26000,7,1,0,1,38000369.74
+House,F-7,Islamabad,8,9,1 Kanal,350000,20,1,75,1,66607418.12
+Lower Portion,G-9,Islamabad,2,2,10 Marla,55000,10,0,89,1,30618070.08
+House,I-10,Islamabad,2,1,6.7 Marla,25000,6.7,1,117,1,30432680.58
+Upper Portion,G-9,Islamabad,2,2,6 Marla,50000,6,0,89,1,19594588.96
+House,F-7,Islamabad,4,5,2 Kanal,300000,40,1,75,1,123795697.5
+Upper Portion,G-9,Islamabad,4,4,6 Marla,95000,6,0,89,1,18559152.09
+Upper Portion,G-9,Islamabad,2,2,6 Marla,48000,6,0,89,1,19594588.96
+Upper Portion,I-10,Islamabad,2,2,6.7 Marla,33000,6.7,0,117,1,19988195.07
+House,DHA Defence,Islamabad,6,6,1 Kanal,85000,20,1,59,1,68357925.93
+Flat,F-11,Islamabad,3,3,11.3 Marla,74000,11.3,0,72,1,34615252.74
+Upper Portion,G-8,Islamabad,2,2,6 Marla,35000,6,0,88,1,19649428.35
+House,Tench Bhata,Rawalpindi,5,5,0 Marla,5000000,0,1,0,4,-2496903.289
+House,Misryal Road,Rawalpindi,0,0,5 Marla,4800000,5,1,165,4,4822539.984
+House,Misryal Road,Rawalpindi,0,0,3.5 Marla,3200000,3.5,1,165,4,688734.5618
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,3 Marla,2500000,3,0,35,4,-5202360.896
+House,Bahria Town Rawalpindi,Rawalpindi,5,7,7 Marla,14500000,7,1,35,4,15199528.6
+House,Peshawar Road,Rawalpindi,2,2,4 Marla,7000000,4,1,198,4,-778467.2223
+House,Bahria Town Rawalpindi,Rawalpindi,3,5,5 Marla,10500000,5,1,35,4,10723224.9
+House,Sher Zaman Colony,Rawalpindi,5,5,5 Marla,8500000,5,1,0,4,11282448.12
+House,Bahria Town Rawalpindi,Rawalpindi,3,4,7 Marla,9000000,7,1,35,4,16072606.08
+House,Bahria Town Rawalpindi,Rawalpindi,4,4,7 Marla,45000,7,1,35,4,15392528.26
+House,Bahria Town Rawalpindi,Rawalpindi,3,3,18 Marla,45000,18,1,35,4,46224819.79
+Lower Portion,Bahria Town Rawalpindi,Rawalpindi,3,4,15 Marla,60000,15,0,35,4,27512723.43
+House,Bahria Town,Lahore,3,3,5 Marla,11500000,5,1,33,3,17005073.72
+House,Bahria Town,Lahore,3,3,5 Marla,10000000,5,1,33,3,17005073.72
+Flat,Bahria Town,Lahore,1,1,2.2 Marla,4500000,2.2,0,33,3,-282771.1046
+Flat,Bahria Town,Lahore,1,1,2.2 Marla,3500000,2.2,0,33,3,-282771.1046
+House,DHA Defence,Lahore,4,4,1 Kanal,61000000,20,1,59,3,56399585.21
+House,Bahria Town,Lahore,3,3,5 Marla,10500000,5,1,33,3,17005073.72
+House,Bahria Town,Lahore,3,3,5 Marla,12000000,5,1,33,3,17005073.72
+House,Wapda Town,Lahore,2,3,10 Marla,17000000,10,1,244,3,19893390.44
+House,DHA Defence,Lahore,5,6,1 Kanal,75000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,8,10,2 Kanal,95000000,40,1,33,3,111196660.2
+House,Bahria Town,Lahore,4,6,8 Marla,17500000,8,1,33,3,25079684.9
+House,Bahria Town,Lahore,4,5,10 Marla,22000000,10,1,33,3,30429066.08
+House,Bahria Town,Lahore,6,8,12 Marla,26000000,12,1,33,3,35067729.16
+House,DHA Defence,Lahore,5,6,1 Kanal,55000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,69000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,41000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,5 Marla,17500000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,5,6,1 Kanal,52500000,20,1,59,3,56044226.17
+House,Johar Town,Lahore,4,4,5 Marla,4000000,5,1,136,3,10838897.52
+House,DHA Defence,Lahore,4,4,10 Marla,30000000,10,1,59,3,28840882.4
+House,Wapda Town,Lahore,4,5,14.2 Marla,21500000,14.2,1,244,3,30432608.76
+House,Bahria Town,Lahore,5,7,10 Marla,23000000,10,1,33,3,30073707.03
+House,Bahria Town,Lahore,5,7,10 Marla,24500000,10,1,33,3,30073707.03
+House,Bahria Town,Lahore,3,3,5 Marla,10500000,5,1,33,3,17005073.72
+House,Bahria Town,Lahore,3,3,5 Marla,9800000,5,1,33,3,17005073.72
+House,Bahria Town,Lahore,4,4,8 Marla,15600000,8,1,33,3,24754966.13
+House,Bahria Town,Lahore,4,4,8 Marla,15600000,8,1,33,3,24754966.13
+House,Bahria Town,Lahore,3,3,8 Marla,12000000,8,1,33,3,25272684.56
+House,Bahria Town,Lahore,5,5,10 Marla,18000000,10,1,33,3,29748988.26
+House,Bahria Town,Lahore,5,5,1 Kanal,38000000,20,1,33,3,57307691.07
+House,Bahria Town,Lahore,5,5,1 Kanal,35000000,20,1,33,3,57307691.07
+House,Bahria Town,Lahore,3,4,6 Marla,8800000,6,1,33,3,19923303.38
+House,DHA Defence,Lahore,5,6,1.5 Kanal,90000000,30,1,59,3,83602928.98
+House,Johar Town,Lahore,4,4,5 Marla,13500000,5,1,136,3,10838897.52
+Upper Portion,Bahria Town,Lahore,2,2,5 Marla,32000,5,0,33,3,6915947.25
+House,Bahria Town,Lahore,5,7,12 Marla,26000000,12,1,33,3,35585447.59
+House,Johar Town,Lahore,5,4,6 Marla,13300000,6,1,136,3,12914689.99
+House,Punjab Coop Housing Society,Lahore,5,5,6 Marla,9900000,6,1,0,3,20535207.19
+House,Bahria Town,Lahore,5,7,10 Marla,23000000,10,1,33,3,30073707.03
+House,Bahria Town,Lahore,4,3,5 Marla,11500000,5,1,33,3,16324995.9
+House,Bahria Town,Lahore,5,7,10 Marla,22000000,10,1,33,3,30073707.03
+House,Punjab Small Industries Colony,Lahore,3,3,3 Marla,6600000,3,1,201,3,2280314.669
+House,Bahria Town,Lahore,3,6,5 Marla,11000000,5,1,33,3,17492151.87
+House,Johar Town,Lahore,5,6,10 Marla,25000000,10,1,136,3,24262889.88
+House,Alfalah Town,Lahore,3,3,3 Marla,6500000,3,1,16,3,12425602.88
+House,Eden,Lahore,2,2,3 Marla,4300000,3,1,67,3,10146512.13
+House,Bahria Town,Lahore,5,6,1 Kanal,40000000,20,1,33,3,57470050.46
+House,DHA Defence,Lahore,5,6,1 Kanal,56000000,20,1,59,3,56044226.17
+House,Punjab Small Industries Colony,Lahore,5,6,14 Marla,19800000,14,1,201,3,31721810.28
+House,Punjab Small Industries Colony,Lahore,5,6,14 Marla,21000000,14,1,201,3,31721810.28
+House,Punjab Small Industries Colony,Lahore,3,4,14 Marla,15500000,14,1,201,3,32757247.15
+House,Punjab Small Industries Colony,Lahore,3,4,7 Marla,10400000,7,1,201,3,13466155.18
+House,Punjab Small Industries Colony,Lahore,3,4,7 Marla,10300000,7,1,201,3,13466155.18
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11400000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12400000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13400000,10,0,34,2,26619629.62
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,12000000,8,1,34,2,31714733.96
+Flat,North Nazimabad,Karachi,3,3,7.6 Marla,15500000,7.6,0,183,2,11834470.98
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4.2 Marla,7500000,4.2,0,108,2,7095185.137
+Flat,Gulistan-e-Jauhar,Karachi,3,3,6 Marla,10500000,6,0,104,2,11757390.79
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,13500000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,13600000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,13700000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,13800000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,13900000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,14100000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,14300000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,14500000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,14700000,10,1,34,2,37226474.52
+House,Bahria Town Karachi,Karachi,3,3,10 Marla,15000000,10,1,34,2,37226474.52
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,10900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11400000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,11900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12400000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12800000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,12900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13000000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13200000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13400000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13600000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,13900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,14100000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,14300000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,14500000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,14700000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,14900000,10,0,34,2,26619629.62
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,15000000,10,0,34,2,26619629.62
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,3.3 Marla,5000000,3.3,0,108,2,4614901.884
+Flat,DHA Defence,Karachi,3,4,8 Marla,25000000,8,0,59,2,19899263.55
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6100000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,0,6 Marla,13500000,6,1,34,2,25715915.24
+House,Bahria Town Karachi,Karachi,3,0,6 Marla,14000000,6,1,34,2,25715915.24
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,18500000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,21000000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,12000000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,12500000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,13500000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,14000000,8,1,34,2,31227655.8
+House,Bahria Town Karachi,Karachi,3,0,8 Marla,6600000,8,1,34,2,31227655.8
+House,DHA Defence,Karachi,3,3,4 Marla,36500000,4,1,59,2,19320267.94
+Flat,Scheme 33,Karachi,0,0,9.6 Marla,1,9.6,0,219,2,16925148.59
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5400000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,5 Marla,8500000,5,1,34,2,23447123.11
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6400000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,9800000,8,1,34,2,31714733.96
+House,Bahria Town Karachi,Karachi,3,3,14 Marla,14500000,14,1,34,2,48249955.64
+Flat,Civil Lines,Karachi,3,3,8.9 Marla,32500000,8.9,0,0,2,25452711.77
+Penthouse,Shah Faisal Town,Karachi,2,2,2.2 Marla,3200000,2.2,0,0,2,7506099.315
+Flat,Gulshan-e-Iqbal Town,Karachi,3,3,6.4 Marla,14000000,6.4,0,108,2,12640381.32
+Lower Portion,DHA Defence,Karachi,4,4,1.1 Kanal,160000,22,0,59,2,57801369.67
+Flat,DHA Defence,Karachi,2,2,4.2 Marla,45000,4.2,0,59,2,9782315.529
+Room,DHA Defence,Karachi,1,1,1 Kanal,80000,20,0,59,2,53842784.41
+Upper Portion,Khayaban-e-Ittehad Road,Karachi,4,4,1 Kanal,120000,20,0,0,2,55525153.46
+House,DHA Defence,Karachi,4,4,1 Kanal,230000,20,1,59,2,62896474.01
+Lower Portion,DHA Defence,Karachi,3,3,1 Kanal,130000,20,0,59,2,52807347.54
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4 Marla,25000,4,0,108,2,6544011.081
+House,DHA Defence,Karachi,4,5,1 Kanal,175000,20,1,59,2,63058833.39
+Flat,DHA Defence,Karachi,3,3,12.9 Marla,105000,12.9,0,59,2,33240668.54
+Upper Portion,DHA Defence,Karachi,2,2,1 Kanal,110000,20,0,59,2,53325065.97
+Upper Portion,Jamshed Town,Karachi,3,2,4 Marla,35000,4,0,131,2,4602627.161
+Flat,DHA Defence,Karachi,2,2,4.2 Marla,60000,4.2,0,59,2,9782315.529
+Flat,DHA Defence,Karachi,2,2,4.2 Marla,45000,4.2,0,59,2,9782315.529
+House,DHA Defence,Karachi,5,6,1 Kanal,270000,20,1,59,2,62541114.96
+Flat,Gulistan-e-Jauhar,Karachi,3,3,7.8 Marla,42000,7.8,0,104,2,16717957.3
+Flat,DHA Defence,Karachi,4,4,11.1 Marla,75000,11.1,0,59,2,27762383.6
+Flat,DHA Defence,Karachi,2,2,2 Marla,28000,2,0,59,2,3719400.91
+Flat,Clifton,Karachi,3,3,10.2 Marla,77000,10.2,0,55,2,26019176.37
+Flat,Gulshan-e-Iqbal Town,Karachi,3,3,7.6 Marla,65000,7.6,0,108,2,15947425.66
+House,DHA Defence,Karachi,5,6,1 Kanal,300000,20,1,59,2,62541114.96
+House,DHA Defence,Karachi,6,5,1.2 Kanal,270000,24,1,59,2,72722158.88
+Flat,DHA Defence,Karachi,0,1,3.1 Marla,60000,3.1,0,59,2,7948654.47
+Flat,DHA Defence,Karachi,3,3,5.3 Marla,50000,5.3,0,59,2,12296054.41
+House,DHA Defence,Karachi,5,6,1 Kanal,375000,20,1,59,2,62541114.96
+Lower Portion,DHA Defence,Karachi,3,4,1.3 Kanal,175000,26,0,59,2,69504928.61
+Flat,DHA Defence,Karachi,2,2,4.4 Marla,45000,4.4,0,59,2,10333489.58
+House,Airport Avenue Housing Society,Islamabad,4,4,6 Marla,8000000,6,1,0,1,34046703.21
+House,F-7,Islamabad,5,5,1.3 Kanal,140000000,26,1,75,1,84533435.72
+Flat,Gulberg,Islamabad,1,2,3.5 Marla,6500000,3.5,0,102,1,12672078.93
+House,H-13,Islamabad,2,3,5 Marla,7300000,5,1,0,1,32488629.18
+House,E-11,Islamabad,4,5,10 Marla,35000000,10,1,63,1,41777661.79
+House,F-11,Islamabad,9,9,1.3 Kanal,95000000,26,1,72,1,82627080.18
+Flat,G-15,Islamabad,3,3,10.4 Marla,8000000,10.4,0,86,1,31367217.95
+House,Lehtarar Road,Islamabad,3,3,3 Marla,3800000,3,1,151,1,18016062.04
+House,G-13,Islamabad,4,5,4.4 Marla,16500000,4.4,1,85,1,25138321.51
+House,F-10,Islamabad,7,7,1 Kanal,75000000,20,1,71,1,67182134.75
+House,E-11,Islamabad,4,5,6 Marla,23500000,6,1,63,1,30754180.66
+Upper Portion,PWD Housing Scheme,Islamabad,2,3,9 Marla,25000,9,0,189,1,22540619.61
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,45000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,41000,20,0,59,1,59304236.33
+House,DHA Defence,Islamabad,4,4,10 Marla,71000,10,1,59,1,41834659.99
+Lower Portion,Bahria Town,Islamabad,3,3,1 Kanal,68000,20,0,33,1,60730060.62
+Upper Portion,DHA Defence,Islamabad,2,2,10 Marla,33000,10,0,59,1,32263251.95
+Lower Portion,G-11,Islamabad,2,2,5 Marla,26000,5,0,84,1,17112915.65
+House,F-10,Islamabad,7,8,1.2 Kanal,325000,24,1,71,1,78367975.26
+Upper Portion,E-11,Islamabad,2,3,8 Marla,45000,8,0,63,1,26694513.19
+House,E-11,Islamabad,4,4,10 Marla,110000,10,1,63,1,41615302.4
+Upper Portion,G-11,Islamabad,3,2,6 Marla,38000,6,0,84,1,19188708.12
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,36000,20,0,59,1,59304236.33
+House,F-10,Islamabad,3,3,1.3 Kanal,125000,26,1,71,1,85788230.17
+Lower Portion,G-15,Islamabad,2,3,8 Marla,28000,8,0,86,1,25433207.09
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,37000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,42000,20,0,59,1,59304236.33
+Flat,G-15,Islamabad,3,3,10.4 Marla,23000,10.4,0,86,1,31367217.95
+House,F-6,Islamabad,4,4,16 Marla,120000,16,1,74,1,57547290.74
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,45000,20,0,59,1,59304236.33
+House,National Police Foundation,Islamabad,4,5,10 Marla,60000,10,1,174,1,35690488.86
+Upper Portion,DHA Defence,Islamabad,3,4,1 Kanal,55000,20,0,59,1,59466595.72
+Upper Portion,DHA Defence,Islamabad,4,4,1 Kanal,44000,20,0,59,1,58786517.9
+House,G-6,Islamabad,6,7,4 Kanal,370000,80,1,0,1,237108026.5
+House,Pakistan Town,Islamabad,4,4,5 Marla,35000,5,1,192,1,20761668.95
+House,G-13,Islamabad,7,7,10 Marla,110000,10,1,85,1,38855680.4
+Upper Portion,DHA Defence,Islamabad,3,4,1 Kanal,47000,20,0,59,1,59466595.72
+Upper Portion,G-13,Islamabad,3,3,10 Marla,40000,10,0,85,1,30319709.23
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,50000,20,0,59,1,59304236.33
+Lower Portion,PWD Housing Scheme,Islamabad,3,3,12 Marla,40000,12,0,189,1,30128152.64
+House,G-11,Islamabad,4,4,7 Marla,90000,7,1,84,1,32196064.25
+Lower Portion,DHA Defence,Islamabad,3,3,1 Kanal,35000,20,0,59,1,59304236.33
+Upper Portion,G-11,Islamabad,3,3,14.2 Marla,62000,14.2,0,84,1,41949203.81
+Lower Portion,PWD Housing Scheme,Islamabad,2,2,10 Marla,24000,10,0,189,1,25134130.51
+House,Bahria Town,Lahore,5,6,10 Marla,14000000,10,1,33,3,29911347.64
+House,Punjab Small Industries Colony,Lahore,1,2,5 Marla,5700000,5,1,201,3,8989851.483
+Flat,Al-Kabir Town,Lahore,1,1,2.9 Marla,3350000,2.9,0,0,3,3456038.152
+House,Shah Kamal Road,Lahore,0,0,2.5 Marla,8000000,2.5,1,0,3,13478253.37
+House,DHA Defence,Lahore,3,4,5 Marla,13500000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,5,6,1 Kanal,47000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,54000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,4,4,10 Marla,39000000,10,1,59,3,28840882.4
+House,DHA Defence,Lahore,4,5,10 Marla,39000000,10,1,59,3,29003241.79
+House,Bahria Town,Lahore,3,3,8 Marla,13000000,8,1,33,3,25272684.56
+House,Bahria Town,Lahore,4,5,7 Marla,14500000,7,1,33,3,22161455.23
+House,Bahria Town,Lahore,6,8,12 Marla,25000000,12,1,33,3,35067729.16
+House,Adiala Road,Rawalpindi,2,2,5 Marla,6000000,5,1,2,4,12725924.62
+House,Chakri Road,Rawalpindi,2,2,7 Marla,4500000,7,1,50,4,15605374.19
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,1,3.5 Marla,5000000,3.5,0,35,4,-3986785.141
+Lower Portion,Bahria Town Rawalpindi,Rawalpindi,3,3,10 Marla,32000,10,0,35,4,13571012.64
+House,Bahria Town Rawalpindi,Rawalpindi,2,2,5 Marla,25000,5,1,35,4,10916224.56
+House,Askari 14,Rawalpindi,5,6,18 Marla,80000,18,1,27,4,45790457.47
+House,Bahria Town,Lahore,9,0,1.1 Kanal,37000000,22,1,33,3,59287323.43
+House,Bahria Town,Lahore,4,5,10 Marla,25500000,10,1,33,3,30429066.08
+House,Bahria Town,Lahore,4,6,8 Marla,17000000,8,1,33,3,25079684.9
+House,Nasheman-e-Iqbal,Lahore,5,6,10 Marla,13000000,10,1,0,3,31721047.7
+Flat,Bahria Town,Lahore,1,1,2.7 Marla,4400000,2.7,0,33,3,1095164.036
+House,Al-Kabir Town,Lahore,3,4,3 Marla,6200000,3,1,0,3,13465392.6
+House,Bahria Town,Lahore,5,6,11 Marla,27000000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,4,5,8 Marla,14000000,8,1,33,3,24917325.51
+House,Bahria Town,Lahore,5,5,10 Marla,18000000,10,1,33,3,29748988.26
+House,Bahria Town,Lahore,6,6,1 Kanal,45000000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,3,4,5 Marla,11000000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,3,4,5 Marla,10000000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,10 Marla,20500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,3,4,8 Marla,13000000,8,1,33,3,25435043.95
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,3,4,5 Marla,10800000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,6,8 Marla,14000000,8,1,33,3,24399607.08
+House,Bahria Town,Lahore,6,6,1 Kanal,38000000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,4,5,10 Marla,22000000,10,1,33,3,30429066.08
+House,Bahria Town,Lahore,2,3,5 Marla,10500000,5,1,33,3,17685151.53
+House,Bahria Town,Lahore,5,6,12 Marla,24000000,12,1,33,3,35423088.21
+House,Bahria Town,Lahore,3,4,5 Marla,13500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,11 Marla,23500000,11,1,33,3,32667217.92
+House,Gulshan-e-Ravi,Lahore,4,4,4 Marla,9500000,4,1,111,3,9454012.134
+House,Wapda Town,Lahore,5,5,10 Marla,23500000,10,1,244,3,18177875.76
+House,Bahria Town,Lahore,5,6,10 Marla,25000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,5,10 Marla,22500000,10,1,33,3,29748988.26
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,5,10 Marla,17500000,10,1,33,3,29748988.26
+House,Eden,Lahore,3,4,12 Marla,21500000,12,1,67,3,34593985.62
+House,Sanda,Lahore,4,2,5 Marla,10000000,5,1,0,3,17972336.57
+House,Sukh Chayn Gardens,Lahore,6,7,1 Kanal,38000000,20,1,0,3,58762032.08
+House,Bahria Town,Lahore,2,3,5 Marla,10000000,5,1,33,3,17685151.53
+House,Bahria Town,Lahore,2,3,5 Marla,11000000,5,1,33,3,17685151.53
+House,DHA Defence,Lahore,5,6,1 Kanal,56000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,63500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,4,5,9 Marla,24000000,9,1,59,3,26247371.5
+House,DHA Defence,Lahore,5,6,1 Kanal,44000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,62000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,59500000,20,1,59,3,56044226.17
+House,Ghous Garden,Lahore,3,3,5 Marla,6000000,5,1,0,3,18814773.78
+House,DHA Defence,Lahore,3,4,10 Marla,42000000,10,1,59,3,29520960.22
+House,DHA Defence,Lahore,5,6,1 Kanal,63000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,5 Marla,13500000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,3,4,5 Marla,19000000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,5,6,1 Kanal,40000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,57500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,6,10 Marla,20500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,6,6,1 Kanal,52500000,20,1,33,3,56789972.64
+House,DHA Defence,Lahore,4,5,10 Marla,41000000,10,1,59,3,29003241.79
+Flat,Clifton,Karachi,3,3,5.8 Marla,25000000,5.8,0,55,2,13893347.13
+Flat,Gadap Town,Karachi,0,0,2 Marla,1700000,2,0,92,2,2945137.716
+House,Gadap Town,Karachi,0,0,4.8 Marla,8000000,4.8,1,92,2,21268419.4
+House,Gadap Town,Karachi,0,0,9.6 Marla,15000000,9.6,1,92,2,34496596.75
+House,North Karachi,Karachi,0,0,3.2 Marla,6000000,3.2,1,182,2,11923481.33
+House,North Karachi,Karachi,0,0,3.2 Marla,5600000,3.2,1,182,2,11923481.33
+House,North Karachi,Karachi,0,0,7.2 Marla,16000000,7.2,1,182,2,22946962.46
+House,Gadap Town,Karachi,0,0,4.8 Marla,15500000,4.8,1,92,2,21268419.4
+House,Gadap Town,Karachi,0,0,4.8 Marla,15500000,4.8,1,92,2,21268419.4
+House,DHA Defence,Karachi,4,4,1 Kanal,95000000,20,1,59,2,62896474.01
+Flat,Clifton,Karachi,3,3,8 Marla,35000000,8,0,55,2,19956261.75
+Lower Portion,Gulistan-e-Jauhar,Karachi,4,4,16 Marla,26500000,16,0,104,2,38798375.17
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4100000,4.2,0,34,2,11153300.42
+Flat,Clifton,Karachi,3,3,7.1 Marla,27500000,7.1,0,55,2,17475978.49
+Flat,DHA Defence,Karachi,3,4,7.6 Marla,25000000,7.6,0,59,2,18796915.44
+House,Bahria Town Karachi,Karachi,0,0,8 Marla,18500000,8,1,34,2,33267889.25
+House,Korangi,Karachi,3,2,8 Marla,16000000,8,1,0,2,33416914.03
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,12000000,8,1,34,2,31714733.96
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4 Marla,8500000,4,0,108,2,6544011.081
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,12500000,8,1,34,2,31714733.96
+Flat,Bahria Town Karachi,Karachi,3,3,10 Marla,9960000,10,0,34,2,26619629.62
+Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5.1 Marla,10500000,5.1,0,108,2,9057749.958
+Flat,DHA Defence,Karachi,3,3,6.9 Marla,13500000,6.9,0,59,2,16705446.86
+House,Bahria Town Karachi,Karachi,3,3,14 Marla,15600000,14,1,34,2,48249955.64
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5750000,4.2,0,34,2,11153300.42
+Flat,Gulistan-e-Jauhar,Karachi,2,2,4 Marla,7500000,4,0,104,2,6763368.664
+Flat,Gulistan-e-Jauhar,Karachi,3,3,6.7 Marla,10000000,6.7,0,104,2,13686499.99
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6300000,4.2,0,34,2,11153300.42
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5150000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,11800000,8,1,34,2,31714733.96
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6150000,4.2,0,34,2,11153300.42
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5600000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,9.4 Marla,9500000,9.4,1,34,2,35572952.35
+House,Bahria Town Karachi,Karachi,3,3,14 Marla,14500000,14,1,34,2,48249955.64
+House,Gulistan-e-Jauhar,Karachi,6,6,9.6 Marla,30000000,9.6,1,104,2,30732213.41
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5900000,4.2,0,34,2,11153300.42
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6200000,4.2,0,34,2,11153300.42
+Flat,Gulistan-e-Jauhar,Karachi,3,3,3 Kanal,9500000,60,0,104,2,160574386
+Flat,Pakistan Chowk,Karachi,2,2,3.6 Marla,5200000,3.6,0,0,2,11364317.71
+House,Super Highway,Karachi,3,3,4.8 Marla,100000,4.8,1,0,2,24760488.51
+Flat,North Nazimabad,Karachi,2,3,3.3 Marla,6500000,3.3,0,183,2,664306.5893
+Upper Portion,DHA Defence,Karachi,3,3,1 Kanal,80000,20,0,59,2,52807347.54
+Lower Portion,Gadap Town,Karachi,0,0,4.8 Marla,20000,4.8,0,92,2,10661574.5
+Lower Portion,Gadap Town,Karachi,0,0,9.6 Marla,32000,9.6,0,92,2,23889751.85
+Lower Portion,Gulistan-e-Jauhar,Karachi,1,1,2.4 Marla,16000,2.4,0,104,2,2871694.647
+Flat,DHA Defence,Karachi,2,2,2.2 Marla,26000,2.2,0,59,2,4270574.966
+Flat,Sea View Apartments,Karachi,3,4,12 Marla,120000,12,0,0,2,34158269.02
+Flat,North Nazimabad,Karachi,3,3,7.1 Marla,50000,7.1,0,183,2,10456535.84
+Flat,Sea View Apartments,Karachi,3,4,12 Marla,145000,12,0,0,2,34158269.02
+Flat,DHA Defence,Karachi,3,3,4.9 Marla,50000,4.9,0,59,2,11193706.29
+House,Sea View Apartments,Karachi,3,4,12 Marla,105000,12,1,0,2,44765113.92
+Flat,North Nazimabad,Karachi,2,2,4 Marla,35000,4,0,183,2,2431056.401
+Upper Portion,North Nazimabad,Karachi,3,3,12 Marla,55000,12,0,183,2,23960300.22
+Upper Portion,Scheme 33,Karachi,2,2,4.8 Marla,22000,4.8,0,219,2,2661534.379
+Flat,Gulistan-e-Jauhar,Karachi,3,2,5.3 Marla,30000,5.3,0,104,2,9665922.212
+Upper Portion,Gadap Town,Karachi,4,4,16 Marla,45000,16,0,92,2,39456447.92
+Flat,Gulshan-e-Iqbal Town,Karachi,3,3,5.6 Marla,30000,5.6,0,108,2,10435685.1
+Upper Portion,Scheme 33,Karachi,3,3,9.6 Marla,40000,9.6,0,219,2,15371993.3
+Flat,Gulistan-e-Jauhar,Karachi,4,4,10.7 Marla,46000,10.7,0,104,2,24192262.68
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,4.4 Marla,22000,4.4,0,108,2,7646359.194
+Flat,DHA Defence,Karachi,3,3,8 Marla,50000,8,0,59,2,19736904.16
+House,North Karachi,Karachi,2,2,4.8 Marla,23000,4.8,1,182,2,15297436.92
+Flat,North Nazimabad,Karachi,3,4,6 Marla,45000,6,0,183,2,7587437.916
+House,North Karachi,Karachi,2,2,4.8 Marla,19000,4.8,1,182,2,15297436.92
+House,I-8,Islamabad,10,10,12 Marla,65000000,12,1,121,1,40840047.42
+House,G-13,Islamabad,5,7,7 Marla,30000000,7,1,85,1,31948225.19
+House,Tarlai,Islamabad,4,6,5 Marla,11000000,5,1,234,1,18783133.1
+House,G-13,Islamabad,7,7,14.2 Marla,57500000,14.2,1,85,1,50430335.58
+House,Ali Pur,Islamabad,3,2,5 Marla,3800000,5,1,0,1,31646191.98
+House,G-13,Islamabad,5,5,8 Marla,70000,8,1,85,1,34379376.7
+House,Kuri Road,Islamabad,2,2,5 Marla,13000,5,1,148,1,24210039.22
+Lower Portion,Pakistan Town,Islamabad,2,2,10 Marla,30000,10,0,192,1,24969612.32
+House,CBR Town,Islamabad,2,3,7 Marla,26000,7,1,44,1,35587436.33
+House,G-13,Islamabad,4,4,4 Marla,50000,4,1,85,1,23873614.01
+House,G-13,Islamabad,4,4,4 Marla,50000,4,1,85,1,23873614.01
+House,G-13,Islamabad,5,5,7 Marla,75000,7,1,85,1,31623506.42
+House,G-13,Islamabad,5,5,7 Marla,80000,7,1,85,1,31623506.42
+House,G-13,Islamabad,6,6,10 Marla,85000,10,1,85,1,39373398.83
+House,G-13,Islamabad,6,6,10 Marla,90000,10,1,85,1,39373398.83
+House,G-13,Islamabad,6,6,12 Marla,100000,12,1,85,1,44885139.39
+House,G-13,Islamabad,6,6,12 Marla,110000,12,1,85,1,44885139.39
+House,G-13,Islamabad,6,6,1 Kanal,120000,20,1,85,1,66932101.64
+House,G-13,Islamabad,6,6,1 Kanal,130000,20,1,85,1,66932101.64
+House,G-13,Islamabad,4,4,4 Marla,55000,4,1,85,1,23873614.01
+House,G-13,Islamabad,4,4,4 Marla,53000,4,1,85,1,23873614.01
+House,G-13,Islamabad,5,5,7 Marla,78000,7,1,85,1,31623506.42
+House,G-13,Islamabad,5,5,7 Marla,80000,7,1,85,1,31623506.42
+House,G-13,Islamabad,6,6,10 Marla,78000,10,1,85,1,39373398.83
+House,G-13,Islamabad,6,6,10 Marla,90000,10,1,85,1,39373398.83
+House,G-13,Islamabad,6,6,12 Marla,90000,12,1,85,1,44885139.39
+House,G-13,Islamabad,6,6,12 Marla,93000,12,1,85,1,44885139.39
+House,G-13,Islamabad,6,6,1 Kanal,110000,20,1,85,1,66932101.64
+House,G-13,Islamabad,6,6,1 Kanal,120000,20,1,85,1,66932101.64
+Upper Portion,G-13,Islamabad,2,2,4 Marla,25000,4,0,85,1,14302205.98
+Lower Portion,G-13,Islamabad,2,2,4 Marla,25000,4,0,85,1,14302205.98
+Upper Portion,G-13,Islamabad,3,3,7 Marla,40000,7,0,85,1,22052098.39
+Lower Portion,G-13,Islamabad,3,3,7 Marla,40000,7,0,85,1,22052098.39
+Upper Portion,G-13,Islamabad,3,3,10 Marla,45000,10,0,85,1,30319709.23
+Lower Portion,G-13,Islamabad,3,3,10 Marla,45000,10,0,85,1,30319709.23
+Upper Portion,G-13,Islamabad,3,3,12 Marla,47000,12,0,85,1,35831449.79
+Lower Portion,G-13,Islamabad,3,3,12 Marla,48000,12,0,85,1,35831449.79
+Upper Portion,G-13,Islamabad,3,3,1 Kanal,60000,20,0,85,1,57878412.04
+Lower Portion,G-13,Islamabad,3,3,1 Kanal,65000,20,0,85,1,57878412.04
+Upper Portion,G-13,Islamabad,2,2,4 Marla,25000,4,0,85,1,14302205.98
+Lower Portion,G-13,Islamabad,2,2,4 Marla,26000,4,0,85,1,14302205.98
+Upper Portion,G-13,Islamabad,3,3,7 Marla,37000,7,0,85,1,22052098.39
+Lower Portion,G-13,Islamabad,3,3,7 Marla,38000,7,0,85,1,22052098.39
+Upper Portion,G-13,Islamabad,3,3,10 Marla,43000,10,0,85,1,30319709.23
+House,G-13,Islamabad,7,7,4 Marla,75000,4,1,85,1,22320458.71
+Lower Portion,G-13,Islamabad,3,3,10 Marla,45000,10,0,85,1,30319709.23
+Upper Portion,G-13,Islamabad,3,3,12 Marla,50000,12,0,85,1,35831449.79
+Lower Portion,G-13,Islamabad,3,3,12 Marla,52000,12,0,85,1,35831449.79
+Upper Portion,G-13,Islamabad,3,3,7 Marla,34000,7,0,85,1,22052098.39
+Lower Portion,G-13,Islamabad,2,2,4 Marla,25000,4,0,85,1,14302205.98
+Upper Portion,G-13,Islamabad,2,2,4 Marla,24000,4,0,85,1,14302205.98
+Lower Portion,G-13,Islamabad,2,2,4 Marla,25000,4,0,85,1,14302205.98
+Upper Portion,G-13,Islamabad,3,3,7 Marla,38000,7,0,85,1,22052098.39
+Lower Portion,G-13,Islamabad,3,3,7 Marla,39000,7,0,85,1,22052098.39
+Upper Portion,G-13,Islamabad,3,3,10 Marla,43000,10,0,85,1,30319709.23
+Lower Portion,G-13,Islamabad,3,3,10 Marla,44000,10,0,85,1,30319709.23
+Upper Portion,G-13,Islamabad,3,3,12 Marla,52000,12,0,85,1,35831449.79
+Lower Portion,G-13,Islamabad,3,3,12 Marla,51000,12,0,85,1,35831449.79
+Upper Portion,G-13,Islamabad,3,3,1 Kanal,63000,20,0,85,1,57878412.04
+Lower Portion,G-13,Islamabad,3,3,1 Kanal,62000,20,0,85,1,57878412.04
+Flat,Soan Garden,Islamabad,1,1,2.4 Marla,10500,2.4,0,229,1,2513658.972
+House,Soan Garden,Islamabad,3,3,10 Marla,35000,10,1,229,1,33029681.14
+House,Soan Garden,Islamabad,3,3,7 Marla,26000,7,1,229,1,24762070.3
+House,Soan Garden,Islamabad,4,4,1 Kanal,45000,20,1,229,1,60070665.52
+Upper Portion,G-11,Islamabad,3,3,1 Kanal,85000,20,0,84,1,57933251.44
+Upper Portion,G-11,Islamabad,2,2,8 Marla,38000,8,0,84,1,25380526.5
+House,Soan Garden,Islamabad,4,5,6 Marla,37000,6,1,229,1,21650840.97
+Upper Portion,G-11,Islamabad,3,3,1 Kanal,70000,20,0,84,1,57933251.44
+House,Soan Garden,Islamabad,8,9,1 Kanal,85000,20,1,229,1,58162151.18
+Upper Portion,G-13,Islamabad,3,3,8 Marla,35000,8,0,85,1,24807968.67
+Flat,F-11,Islamabad,3,3,12 Marla,70000,12,0,72,1,36544361.94
+House,Pakistan Town,Islamabad,3,3,10 Marla,28000,10,1,192,1,35058738.78
+House,Soan Garden,Islamabad,2,3,7 Marla,18000,7,1,229,1,25442148.12
+Upper Portion,National Police Foundation O-9,Islamabad,3,3,1 Kanal,40000,20,0,175,1,52942866.43
+House,Soan Garden,Islamabad,2,3,6 Marla,23000,6,1,229,1,22686277.84
+Flat,Diplomatic Enclave,Islamabad,2,2,8.4 Marla,110000,8.4,0,62,1,27689341.32
+House,Soan Garden,Islamabad,2,2,10 Marla,27000,10,1,229,1,33547399.58
+House,Soan Garden,Islamabad,6,6,1 Kanal,55000,20,1,229,1,59035228.66
+Flat,Soan Garden,Islamabad,2,2,4 Marla,15500,4,0,229,1,6405332.989
+Flat,Diplomatic Enclave,Islamabad,2,2,7.1 Marla,135000,7.1,0,62,1,24106709.95
+Flat,Soan Garden,Islamabad,2,2,2 Marla,12000,2,0,229,1,893592.4266
+House,River Garden,Islamabad,2,3,7 Marla,24000,7,1,0,1,38000369.74
+House,PWD Housing Scheme,Islamabad,2,3,10 Marla,32000,10,1,189,1,35903334.79
+House,PWD Housing Scheme,Islamabad,2,3,10 Marla,25000,10,1,189,1,35903334.79
+House,F-7,Islamabad,6,8,2.4 Kanal,1400000,48,1,75,1,144969582.2
+House,National Police Foundation,Islamabad,2,2,10 Marla,28000,10,1,174,1,36563566.34
+House,F-8,Islamabad,8,9,2 Kanal,1500000,40,1,76,1,121669984.4
+House,DHA Defence,Lahore,5,6,1 Kanal,59500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,6,10 Marla,20000000,10,1,33,3,29911347.64
+House,DHA Defence,Lahore,5,6,2 Kanal,110000000,40,1,59,3,111161631.8
+House,DHA Defence,Lahore,3,4,5 Marla,18000000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,4,5,13 Marla,34000000,13,1,59,3,37270852.63
+House,DHA Defence,Lahore,5,6,1 Kanal,47500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,4,5,10 Marla,30500000,10,1,59,3,29003241.79
+House,Ghous Garden,Lahore,3,4,4 Marla,5500000,4,1,0,3,16221262.88
+House,Sui Gas Housing Society,Lahore,5,6,1 Kanal,42500000,20,1,0,3,59279750.51
+House,Bahria Town,Lahore,3,4,8 Marla,10800000,8,1,33,3,25435043.95
+House,Bahria Town,Lahore,5,7,10 Marla,18100000,10,1,33,3,30073707.03
+House,DHA Defence,Lahore,5,6,1 Kanal,48000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,3,4,5 Marla,11500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,6,7,1 Kanal,33500000,20,1,33,3,56952332.02
+House,Bahria Town,Lahore,6,6,1 Kanal,45000000,20,1,33,3,56789972.64
+House,DHA Defence,Lahore,5,6,1 Kanal,41000000,20,1,59,3,56044226.17
+House,Chaklala Scheme,Rawalpindi,7,6,9.1 Marla,20000000,9.1,1,49,4,18696589.63
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,1,3.5 Marla,14000,3.5,0,35,4,-3986785.141
+House,Bahria Town,Lahore,5,6,11 Marla,24500000,11,1,33,3,32667217.92
+House,Canal Garden,Lahore,4,4,5 Marla,12000000,5,1,45,3,15829282.53
+House,DHA Defence,Lahore,5,6,1 Kanal,35500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,4,5,10 Marla,41000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,5,6,1 Kanal,57500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,6,11 Marla,25500000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,5,6,10 Marla,22500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,6,10 Marla,17500000,10,1,33,3,29911347.64
+Lower Portion,DHA Defence,Lahore,2,2,10 Marla,50000,10,0,59,3,19269474.37
+House,Bahria Town,Lahore,5,6,11 Marla,27000000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,3,4,5 Marla,13500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,10 Marla,18000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,6,10 Marla,20000000,10,1,33,3,29911347.64
+House,DHA Defence,Lahore,4,5,10 Marla,32500000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,5,6,1 Kanal,190000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,52500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,5 Marla,16000000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,7,8,1.2 Kanal,82500000,24,1,59,3,66032270.43
+House,DHA Defence,Lahore,5,6,1 Kanal,45000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,7,7,2 Kanal,70000000,40,1,33,3,111389659.8
+House,Bahria Town,Lahore,5,5,1 Kanal,39000000,20,1,33,3,57307691.07
+House,DHA Defence,Lahore,5,6,1 Kanal,40000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,4,5,11 Marla,23000000,11,1,33,3,33184936.36
+House,Bahria Town,Lahore,4,6,8 Marla,17500000,8,1,33,3,25079684.9
+House,Bahria Town,Lahore,4,5,10 Marla,21000000,10,1,33,3,30429066.08
+House,Bahria Town,Lahore,2,3,5 Marla,10500000,5,1,33,3,17685151.53
+House,DHA Defence,Lahore,5,6,1 Kanal,45000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,95000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,2 Kanal,129000000,40,1,59,3,111161631.8
+House,Grand Avenues Housing Scheme,Lahore,2,2,5 Marla,4200000,5,1,0,3,19332492.21
+House,Bahria Town,Lahore,6,6,1 Kanal,47500000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,6,6,1 Kanal,41000000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,5,6,11 Marla,20000000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,5,6,10 Marla,23500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,6,10 Marla,23500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,4,5,7 Marla,14500000,7,1,33,3,22161455.23
+House,Bahria Town,Lahore,4,5,8 Marla,14000000,8,1,33,3,24917325.51
+House,DHA Defence,Lahore,5,6,1 Kanal,49500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,40000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,50000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,87500000,20,1,59,3,56044226.17
+Flat,Clifton,Karachi,3,3,8.9 Marla,35000000,8.9,0,55,2,22436545
+House,New Karachi,Karachi,2,2,2.4 Marla,5100000,2.4,1,180,2,8793027.036
+Flat,Gulshan-e-Iqbal Town,Karachi,3,3,6.7 Marla,23000000,6.7,0,108,2,13467142.41
+House,Scheme 33,Karachi,3,3,4.8 Marla,8000000,4.8,1,219,2,12750660.84
+Flat,Shahra-e-Liaquat,Karachi,2,3,4.2 Marla,7500000,4.2,0,0,2,13180199.26
+House,Korangi,Karachi,4,4,11.2 Marla,25000000,11.2,1,0,2,41880339.88
+House,Malir,Karachi,4,2,5.3 Marla,10000000,5.3,1,155,2,16795880.11
+House,North Karachi,Karachi,2,2,4.8 Marla,12600000,4.8,1,182,2,15297436.92
+House,Gulshan-e-Iqbal Town,Karachi,0,0,4.8 Marla,25000,4.8,1,108,2,20390989.07
+Lower Portion,Gulistan-e-Jauhar,Karachi,3,3,8.8 Marla,42000,8.8,0,104,2,19473827.58
+Flat,Bahria Town Karachi,Karachi,2,3,4.2 Marla,18000,4.2,0,34,2,11315659.81
+Flat,Bahria Town Karachi,Karachi,4,5,11.8 Marla,40000,11.8,0,34,2,31224837.08
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,30000,8,1,34,2,31877093.34
+House,Bahria Town Karachi,Karachi,3,4,6.1 Marla,38000,6.1,1,34,2,26640939.81
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,50000,8,1,34,2,31877093.34
+Flat,Bahria Town Karachi,Karachi,3,4,8 Marla,35000,8,0,34,2,21270248.44
+House,Bahria Town Karachi,Karachi,3,4,6 Marla,25000,6,1,34,2,26365352.78
+Flat,Sea View Apartments,Karachi,3,3,10.7 Marla,125000,10.7,0,0,2,30413278.27
+Lower Portion,Gulistan-e-Jauhar,Karachi,3,3,9.6 Marla,37000,9.6,0,104,2,21678523.81
+Flat,Bath Island,Karachi,3,3,9.8 Marla,90000,9.8,0,38,2,25849097.98
+Lower Portion,Gulistan-e-Jauhar,Karachi,4,4,18 Marla,45000,18,0,104,2,44310115.74
+Room,DHA Defence,Karachi,0,0,1.8 Marla,15000,1.8,0,59,2,4203663.719
+Upper Portion,DHA Defence,Karachi,3,4,2.2 Marla,110000,2.2,0,59,2,3915215.919
+Lower Portion,Gulistan-e-Jauhar,Karachi,3,3,9.6 Marla,35000,9.6,0,104,2,21678523.81
+Flat,Sea View Apartments,Karachi,3,3,10.7 Marla,125000,10.7,0,0,2,30413278.27
+Upper Portion,DHA Defence,Karachi,1,1,0.4 Marla,22000,0.4,0,59,2,-172273.1076
+House,CBR Town,Islamabad,6,6,14 Marla,19900000,14,1,44,1,52645295.18
+House,G-13,Islamabad,0,0,4 Marla,17000000,4,1,85,1,25944487.74
+House,G-13,Islamabad,4,6,10.9 Marla,32500000,10.9,1,85,1,43213837.72
+House,Soan Garden,Islamabad,4,5,9 Marla,17000000,9,1,229,1,29918451.81
+House,Bahria Town,Islamabad,4,5,10.9 Marla,24000000,10.9,1,33,1,45903126.91
+House,Soan Garden,Islamabad,2,2,5 Marla,5900000,5,1,229,1,19768048.17
+House,G-10,Islamabad,6,0,14 Marla,45000000,14,1,83,1,49532402.43
+Flat,G-11,Islamabad,3,0,5.1 Marla,8600000,5.1,0,84,1,16383706.09
+House,Bahria Town,Islamabad,5,5,8 Marla,19500000,8,1,33,1,37231025.28
+House,Bahria Town,Islamabad,3,3,5 Marla,13500000,5,1,33,1,29998851.3
+House,Gulberg,Islamabad,4,4,7 Marla,12500000,7,1,102,1,31208955.12
+House,G-15,Islamabad,6,6,14.2 Marla,23500000,14.2,1,86,1,50893214.62
+Flat,E-11,Islamabad,4,4,8.9 Marla,26000000,8.9,0,63,1,27977000.19
+House,F-10,Islamabad,6,7,1 Kanal,75000000,20,1,71,1,67862212.57
+House,Bahria Town,Islamabad,4,5,5.2 Marla,14000000,5.2,1,33,1,30194666.31
+Upper Portion,B-17,Islamabad,3,3,1 Kanal,45000,20,0,30,1,60894578.81
+House,F-8,Islamabad,6,7,1.1 Kanal,850000,22,1,76,1,73099756.15
+Upper Portion,I-10,Islamabad,2,1,5 Marla,22000,5,0,117,1,15140856.21
+Upper Portion,I-10,Islamabad,2,1,4 Marla,23000,4,0,117,1,12384985.93
+House,F-6,Islamabad,4,4,12 Marla,140000,12,1,74,1,46523809.61
+Upper Portion,I-10,Islamabad,2,2,6 Marla,27500,6,0,117,1,18059085.87
+Lower Portion,Ghauri Town,Islamabad,2,2,5 Marla,20000,5,0,96,1,16454842.9
+Upper Portion,G-13,Islamabad,4,4,14 Marla,60000,14,0,85,1,40825471.92
+Upper Portion,Gulberg,Islamabad,3,3,1 Kanal,60000,20,0,102,1,56946142.32
+House,F-7,Islamabad,9,10,1.3 Kanal,400000,26,1,75,1,82624921.38
+House,F-8,Islamabad,3,4,1.3 Kanal,230000,26,1,76,1,85676392.58
+Lower Portion,Gulberg,Islamabad,3,3,1 Kanal,40000,20,0,102,1,56946142.32
+Lower Portion,Bahria Town,Islamabad,3,3,15 Marla,55000,15,0,33,1,46950709.22
+House,G-13,Islamabad,3,3,10 Marla,47000,10,1,85,1,40926554.13
+Upper Portion,G-13,Islamabad,3,3,12 Marla,48000,12,0,85,1,35831449.79
+Lower Portion,G-13,Islamabad,3,3,10 Marla,42000,10,0,85,1,30319709.23
+Flat,E-11,Islamabad,1,1,2 Marla,23000,2,0,63,1,10514650.55
+Lower Portion,G-13,Islamabad,2,2,7 Marla,36000,7,0,85,1,22569816.82
+Upper Portion,G-13,Islamabad,4,4,1 Kanal,62000,20,0,85,1,57360693.61
+Flat,F-11,Islamabad,2,2,7.1 Marla,60000,7.1,0,72,1,23558315.99
+Flat,F-11,Islamabad,3,3,12.4 Marla,65000,12.4,0,72,1,37646710.05
+Flat,F-11,Islamabad,1,1,5.6 Marla,47000,5.6,0,72,1,19942229
+House,F-8,Islamabad,5,6,1.1 Kanal,260000,22,1,76,1,73617474.59
+Lower Portion,E-11,Islamabad,4,3,14 Marla,50000,14,0,63,1,41869579.24
+Lower Portion,E-11,Islamabad,4,4,1 Kanal,55000,20,0,63,1,58567160.32
+House,F-8,Islamabad,5,6,1.6 Kanal,400000,32,1,76,1,101176177.4
+Lower Portion,G-11,Islamabad,2,2,7 Marla,46000,7,0,84,1,22624656.22
+Upper Portion,Bahria Town,Islamabad,3,4,1 Kanal,80000,20,0,33,1,60892420.01
+House,Canal Garden,Lahore,2,2,5 Marla,7200000,5,1,45,3,16864719.4
+House,Bahria Town,Lahore,5,7,11 Marla,24500000,11,1,33,3,32829577.31
+House,Bahria Town,Lahore,5,7,11 Marla,24500000,11,1,33,3,32829577.31
+House,Bahria Town,Lahore,5,7,10 Marla,19500000,10,1,33,3,30073707.03
+House,Bahria Town,Lahore,5,7,12 Marla,24500000,12,1,33,3,35585447.59
+House,State Life Housing Society,Lahore,4,4,10 Marla,33000000,10,1,230,3,19463345.73
+House,DHA Defence,Lahore,3,4,5 Marla,19000000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,6,7,1 Kanal,47000000,20,1,59,3,55526507.73
+House,DHA Defence,Lahore,5,6,1 Kanal,49000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,5 Marla,22500000,5,1,59,3,15741608.81
+House,Garden Town,Lahore,5,6,10 Marla,33000000,10,1,93,3,26620983.9
+House,Bahria Town,Lahore,3,5,5 Marla,12500000,5,1,33,3,17329792.49
+House,DHA Defence,Lahore,3,4,5 Marla,14500000,5,1,59,3,15741608.81
+House,Bahria Town,Lahore,5,7,8 Marla,17000000,8,1,33,3,24561966.47
+House,Allama Iqbal Town,Lahore,5,6,11 Marla,35000000,11,1,17,3,33544648.26
+House,Ferozepur Road,Lahore,2,2,3 Marla,1600000,3,1,82,3,9323921.195
+House,DHA Defence,Lahore,4,4,10 Marla,35000000,10,1,59,3,28840882.4
+House,DHA Defence,Lahore,4,5,10 Marla,38000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,5,6,2 Kanal,160000000,40,1,59,3,111161631.8
+House,State Life Housing Society,Lahore,5,6,1 Kanal,38000000,20,1,230,3,46666689.49
+House,DHA Defence,Lahore,5,6,1 Kanal,30000000,20,1,59,3,56044226.17
+House,Ferozepur Road,Lahore,2,2,3 Marla,1600000,3,1,82,3,9323921.195
+House,Grand Avenues Housing Scheme,Lahore,3,3,5 Marla,5000000,5,1,0,3,18814773.78
+House,Ferozepur Road,Lahore,2,2,3 Marla,2200000,3,1,82,3,9323921.195
+House,Ferozepur Road,Lahore,2,2,3 Marla,1600000,3,1,82,3,9323921.195
+House,PCSIR Housing Scheme,Lahore,5,5,1 Kanal,47500000,20,1,188,3,48807584.73
+House,DHA Defence,Lahore,0,0,1 Kanal,41000000,20,1,59,3,58470458.94
+Farm House,Cantt,Lahore,3,4,7 Kanal,32500000,140,0,47,3,377835324.6
+House,Harbanspura Road,Lahore,4,6,5 Marla,8500000,5,1,115,3,12315243.6
+House,Harbanspura Road,Lahore,2,2,2 Marla,2300000,2,1,115,3,4758350.854
+House,Al Faisal Town,Lahore,4,5,3 Marla,6300000,3,1,9,3,12454119.6
+House,Ashiana-e-Quaid Housing Scheme,Lahore,2,2,2 Marla,2500000,2,1,21,3,9913254.054
+Flat,Johar Town,Lahore,1,1,2.8 Marla,2250000,2.8,0,136,3,-4277706.697
+House,Al Faisal Town,Lahore,2,3,3 Marla,6000000,3,1,9,3,13489556.47
+House,Allama Iqbal Town,Lahore,7,7,1 Kanal,37000000,20,1,17,3,57149684.54
+House,Audit & Accounts Housing Society,Lahore,3,2,4 Marla,7500000,4,1,29,3,14306201.63
+House,Allama Iqbal Road,Lahore,6,0,2.5 Marla,8000000,2.5,1,0,3,9397786.461
+House,Habibullah Road,Lahore,3,0,3 Marla,9000000,3,1,0,3,12815955.06
+House,Garhi Shahu,Lahore,5,0,8.5 Marla,16000000,8.5,1,0,3,26613085.97
+House,Mughalpura,Lahore,5,0,5.5 Marla,11000000,5.5,1,169,3,9077617.243
+House,Habibullah Road,Lahore,0,0,14 Marla,12500000,14,1,0,3,45170761.6
+House,Garhi Shahu,Lahore,3,0,2.8 Marla,9200000,2.8,1,0,3,12264781
+House,Habibullah Road,Lahore,4,0,8 Marla,25000000,8,1,0,3,25915228.64
+House,Habibullah Road,Lahore,4,0,10 Marla,28000000,10,1,0,3,31426969.21
+House,Habibullah Road,Lahore,3,0,3 Marla,9200000,3,1,0,3,12815955.06
+House,Al Rehman Garden,Lahore,4,0,5 Marla,12500000,5,1,12,3,16989545.05
+House,State Life Housing Society,Lahore,3,0,5 Marla,12500000,5,1,230,3,5714634.599
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,5 Marla,5100000,5,0,35,4,309379.6663
+House,Bahria Town Rawalpindi,Rawalpindi,0,0,13 Marla,26000000,13,1,35,4,33998623.68
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,1 Kanal,43500000,20,1,35,4,50863482.87
+House,Army Officers Colony,Rawalpindi,6,7,1.6 Kanal,75000000,32,1,0,4,85335586.67
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,12 Marla,24000000,12,1,35,4,28816520.62
+Lower Portion,Aria Mohalla,Rawalpindi,2,2,4 Marla,17000,4,0,0,4,-527111.7641
+Lower Portion,Gulraiz Housing Scheme,Rawalpindi,3,3,10 Marla,32000,10,0,105,4,9732254.938
+Flat,Askari 14,Rawalpindi,3,3,10 Marla,38000,10,0,27,4,14009727.81
+Upper Portion,Bahria Town Rawalpindi,Rawalpindi,3,4,1 Kanal,50000,20,0,35,4,41292074.84
+Upper Portion,Bahria Town Rawalpindi,Rawalpindi,3,4,1 Kanal,45000,20,0,35,4,41292074.84
+House,DHA Defence,Lahore,5,0,1 Kanal,46000000,20,1,59,3,55070069.85
+House,Sui Gas Housing Society,Lahore,5,0,1 Kanal,45000000,20,1,0,3,58305594.2
+House,Sui Gas Housing Society,Lahore,6,0,1 Kanal,46000000,20,1,0,3,57625516.38
+House,Sui Gas Housing Society,Lahore,5,0,1 Kanal,35000000,20,1,0,3,58305594.2
+House,Sundar,Lahore,3,0,3 Marla,2500000,3,1,0,3,12815955.06
+House,Rehan Garden,Lahore,6,0,1 Kanal,22500000,20,1,0,3,57625516.38
+House,Rehan Garden,Lahore,5,0,10 Marla,15000000,10,1,0,3,30746891.39
+Flat,Mohafiz Town,Lahore,4,0,5 Marla,10000000,5,0,0,3,7040772.902
+House,Audit & Accounts Housing Society,Lahore,3,0,16 Marla,16000000,16,1,29,3,47051926.24
+House,Audit & Accounts Housing Society,Lahore,3,0,16 Marla,13500000,16,1,29,3,47051926.24
+House,DHA Defence,Lahore,7,8,1 Kanal,61500000,20,1,59,3,55008789.3
+House,Tajpura,Lahore,1,0,2 Marla,1900000,2,1,0,3,11420240.41
+House,Tajpura,Lahore,2,0,1.5 Marla,2800000,1.5,1,0,3,9362227.452
+House,Main Canal Bank Road,Lahore,2,0,2 Marla,1500000,2,1,0,3,10740162.59
+House,Tajpura,Lahore,1,0,2 Marla,1900000,2,1,0,3,11420240.41
+House,Tajpura,Lahore,2,0,1.5 Marla,2800000,1.5,1,0,3,9362227.452
+House,Allama Iqbal Town,Lahore,4,0,10 Marla,22500000,10,1,17,3,30494699.48
+House,Allama Iqbal Town,Lahore,4,0,10 Marla,25000000,10,1,17,3,30494699.48
+House,Allama Iqbal Town,Lahore,4,0,5 Marla,12500000,5,1,17,3,16715348.07
+Flat,Allama Iqbal Town,Lahore,2,0,3 Marla,4000000,3,0,17,3,1956918.249
+House,Allama Iqbal Town,Lahore,6,0,1 Kanal,45000000,20,1,17,3,56693246.66
+House,Allama Iqbal Town,Lahore,4,0,10 Marla,16500000,10,1,17,3,30494699.48
+House,Sami Town,Lahore,3,0,3 Marla,5500000,3,1,0,3,12815955.06
+House,Taj Bagh Scheme,Lahore,4,0,8 Marla,15000000,8,1,0,3,25915228.64
+House,New Canal Park,Lahore,4,0,10 Marla,16000000,10,1,0,3,31426969.21
+House,Bahria Town,Lahore,3,0,5 Marla,12500000,5,1,33,3,16517995.56
+House,Bahria Town,Lahore,3,0,5 Marla,12500000,5,1,33,3,16517995.56
+House,Bahria Town,Lahore,5,0,10 Marla,21000000,10,1,33,3,28937191.33
+House,Bahria Town,Lahore,5,0,10 Marla,23000000,10,1,33,3,28937191.33
+House,Nasheman-e-Iqbal,Lahore,4,0,10 Marla,14000000,10,1,0,3,31426969.21
+House,Nasheman-e-Iqbal,Lahore,3,0,10 Marla,13500000,10,1,0,3,32107047.03
+House,Township,Lahore,4,0,10 Marla,15500000,10,1,236,3,18484871.81
+House,Nasheman-e-Iqbal,Lahore,8,0,2 Kanal,42500000,40,1,0,3,111382766.4
+House,Bahria Town,Lahore,5,7,10 Marla,16500000,10,1,33,3,30073707.03
+House,Valencia Housing Society,Lahore,5,5,2 Kanal,65000000,40,1,240,3,101073341.8
+House,Eden,Lahore,5,0,10 Marla,21000000,10,1,67,3,27072651.87
+House,Eden,Lahore,5,0,10 Marla,22000000,10,1,67,3,27072651.87
+House,Eden,Lahore,5,0,1 Kanal,36500000,20,1,67,3,54631354.69
+House,Eden,Lahore,5,0,1 Kanal,35000000,20,1,67,3,54631354.69
+House,Eden,Lahore,5,0,1 Kanal,37000000,20,1,67,3,54631354.69
+House,Eden,Lahore,4,0,10 Marla,22500000,10,1,67,3,27752729.69
+House,Eden,Lahore,4,0,10 Marla,24000000,10,1,67,3,27752729.69
+House,Eden,Lahore,4,0,10 Marla,25000000,10,1,67,3,27752729.69
+House,Eden,Lahore,4,0,1 Kanal,35000000,20,1,67,3,55311432.51
+House,Eden,Lahore,4,0,10 Marla,24500000,10,1,67,3,27752729.69
+House,Pak Arab Housing Society,Lahore,3,0,5 Marla,11500000,5,1,191,3,7853371.032
+House,Pak Arab Housing Society,Lahore,4,0,5 Marla,14000000,5,1,191,3,7173293.214
+House,Pak Arab Housing Society,Lahore,3,0,5 Marla,12000000,5,1,191,3,7853371.032
+House,Pak Arab Housing Society,Lahore,5,0,10 Marla,21500000,10,1,191,3,20272566.8
+House,Pak Arab Housing Society,Lahore,5,0,10 Marla,24500000,10,1,191,3,20272566.8
+House,Shadab Garden,Lahore,3,0,2.8 Marla,5000000,2.8,1,0,3,12264781
+House,Shadab Garden,Lahore,3,0,3 Marla,5400000,3,1,0,3,12815955.06
+House,Shadab Garden,Lahore,3,0,4 Marla,6200000,4,1,0,3,15571825.34
+House,Shadab Garden,Lahore,3,0,6 Marla,6500000,6,1,0,3,21083565.9
+House,Shadab Garden,Lahore,3,0,5 Marla,9500000,5,1,0,3,18327695.62
+House,Bahria Town,Lahore,5,7,1 Kanal,47500000,20,1,33,3,57632409.84
+House,Airport Road,Lahore,3,4,4 Marla,7800000,4,1,8,3,15782547.71
+House,Sabzazar Scheme,Lahore,5,0,5 Marla,15500000,5,1,209,3,5506106.273
+House,Sabzazar Scheme,Lahore,4,0,5 Marla,12000000,5,1,209,3,6186184.091
+House,Sabzazar Scheme,Lahore,4,0,5 Marla,12500000,5,1,209,3,6186184.091
+House,Sabzazar Scheme,Lahore,5,0,1 Kanal,37500000,20,1,209,3,46844160.49
+House,Sabzazar Scheme,Lahore,5,0,1 Kanal,33500000,20,1,209,3,46844160.49
+House,Sabzazar Scheme,Lahore,4,0,10 Marla,16500000,10,1,209,3,19965535.5
+House,Allama Iqbal Town,Lahore,0,0,1 Kanal,32500000,20,1,17,3,60773713.57
+House,Sabzazar Scheme,Lahore,3,0,5 Marla,10000000,5,1,209,3,6866261.909
+House,Cricketer Villas,Lahore,3,4,4 Marla,7500000,4,1,56,3,13150256.72
+House,Sabzazar Scheme,Lahore,3,0,5 Marla,8500000,5,1,209,3,6866261.909
+House,Sabzazar Scheme,Lahore,3,0,3.5 Marla,7000000,3.5,1,209,3,2732456.487
+House,Sabzazar Scheme,Lahore,2,0,8 Marla,11000000,8,1,209,3,15813950.57
+House,Sabzazar Scheme,Lahore,0,0,3 Marla,8500000,3,1,209,3,3394754.801
+House,Sabzazar Scheme,Lahore,3,0,2.5 Marla,12500000,2.5,1,209,3,-23413.7941
+House,Sabzazar Scheme,Lahore,5,0,1 Kanal,13000000,20,1,209,3,46844160.49
+House,Super Town,Lahore,3,0,4 Marla,12500000,4,1,0,3,15571825.34
+House,Super Town,Lahore,3,0,3 Marla,10000000,3,1,0,3,12815955.06
+House,Eden,Lahore,4,0,8 Marla,14000000,8,1,67,3,22240989.13
+House,Iqbal Park,Lahore,4,0,8 Marla,14000000,8,1,126,3,19005464.78
+House,Fort Villas,Lahore,3,0,8 Marla,16500000,8,1,0,3,26595306.46
+House,DHA Defence,Lahore,3,0,5 Marla,11000000,5,1,59,3,15092171.27
+House,State Life Housing Society,Lahore,3,0,5 Marla,12500000,5,1,230,3,5714634.599
+House,State Life Housing Society,Lahore,4,0,10 Marla,12500000,10,1,230,3,18813908.19
+House,State Life Housing Society,Lahore,4,0,10 Marla,22000000,10,1,230,3,18813908.19
+House,State Life Housing Society,Lahore,5,0,1 Kanal,35000000,20,1,230,3,45692533.18
+House,Fort Villas,Lahore,4,0,10 Marla,23500000,10,1,0,3,31426969.21
+House,Eden,Lahore,3,0,7 Marla,12000000,7,1,67,3,20165196.67
+House,Model Town,Lahore,6,0,6 Kanal,300000000,120,1,167,3,324054365.4
+House,Bahria Town,Lahore,5,5,8 Marla,14000000,8,1,33,3,24237247.69
+House,Bahria Town,Lahore,4,5,7 Marla,14500000,7,1,33,3,22161455.23
+House,Bahria Town,Lahore,5,6,11 Marla,27000000,11,1,33,3,32667217.92
+Flat,Bahria Town,Lahore,1,1,2.7 Marla,4400000,2.7,0,33,3,1095164.036
+House,Bahria Town,Lahore,6,6,1 Kanal,45000000,20,1,33,3,56789972.64
+House,Tajpura,Lahore,4,0,4.5 Marla,3500000,4.5,1,0,3,16269682.66
+House,Al Faisal Town,Lahore,3,0,4.5 Marla,3500000,4.5,1,9,3,16456205.92
+House,Tajpura,Lahore,2,0,1 Marla,1200000,1,1,0,3,7984292.312
+House,Tajpura,Lahore,2,0,4 Marla,4500000,4,1,0,3,16251903.16
+House,Tajpura,Lahore,2,0,1.5 Marla,3000000,1.5,1,0,3,9362227.452
+House,Harbanspura,Lahore,4,0,4 Marla,6000000,4,1,114,3,8640056.405
+House,Tajpura,Lahore,3,0,2 Marla,5000000,2,1,0,3,10060084.77
+House,Tajpura,Lahore,4,0,5 Marla,9000000,5,1,0,3,17647617.8
+House,Tajpura,Lahore,5,0,5 Marla,13000000,5,1,0,3,16967539.98
+House,Tajpura,Lahore,4,0,5 Marla,9000000,5,1,0,3,17647617.8
+House,Tajpura,Lahore,3,0,2.5 Marla,4000000,2.5,1,0,3,11438019.92
+House,Tajpura,Lahore,3,0,4.5 Marla,4600000,4.5,1,0,3,16949760.48
+House,Fateh Garh,Lahore,9,0,10 Marla,11000000,10,1,79,3,23694267.85
+House,Upper Mall,Lahore,8,0,1.5 Kanal,50000000,30,1,238,3,70772287.37
+House,Qilla Gujjar Singh,Lahore,6,0,3.5 Marla,15000000,3.5,1,0,3,12153656.74
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,5,10 Marla,16500000,10,1,33,3,29748988.26
+House,Bin Qasim Town,Karachi,8,8,13.6 Marla,50000000,13.6,1,0,2,46423554.82
+Flat,Federal B Area,Karachi,3,3,5.8 Marla,16000000,5.8,0,81,2,12467522.84
+House,DHA Defence,Karachi,4,5,6 Marla,52500000,6,1,59,2,24476649.45
+Flat,Bahria Town Karachi,Karachi,1,1,2.7 Marla,1480000,2.7,0,34,2,7537213.433
+House,DHA Defence,Karachi,5,6,1 Kanal,102500000,20,1,59,2,62541114.96
+Flat,Bahria Town Karachi,Karachi,2,2,1.9 Kanal,4150000,38,0,34,2,104301715.9
+House,DHA Defence,Karachi,5,6,1 Kanal,90000000,20,1,59,2,62541114.96
+House,DHA Defence,Karachi,6,7,1.3 Kanal,130000000,26,1,59,2,78558618.21
+House,DHA Defence,Karachi,4,5,6 Marla,52500000,6,1,59,2,24476649.45
+House,DHA Defence,Karachi,4,5,4.8 Marla,42500000,4.8,1,59,2,21169605.12
+Flat,Bahria Town Karachi,Karachi,1,1,1.2 Kanal,1460000,24,0,34,2,66237250.42
+House,DHA Defence,Karachi,4,4,4 Marla,40000000,4,1,59,2,18802549.51
+House,DHA Defence,Karachi,4,5,1 Kanal,85000000,20,1,59,2,63058833.39
+Upper Portion,Gulistan-e-Jauhar,Karachi,3,3,12 Kanal,11500000,240,0,104,2,656631036.6
+Upper Portion,Federal B Area,Karachi,3,3,8 Marla,17000000,8,0,81,2,18530437.46
+Upper Portion,Gulshan-e-Iqbal Town,Karachi,4,4,9.6 Marla,17500000,9.6,0,108,2,20941447.79
+House,DHA Defence,Karachi,3,4,4 Marla,38000000,4,1,59,2,19482627.32
+House,DHA Defence,Karachi,4,5,4.8 Marla,40000000,4.8,1,59,2,21169605.12
+House,DHA Defence,Karachi,4,5,12 Marla,75000000,12,1,59,2,41011871.14
+House,Scheme 33,Karachi,1,0,2.4 Marla,1100000,2.4,1,219,2,7009649.649
+Flat,Gulshan-e-Iqbal Town,Karachi,0,0,6 Marla,12500000,6,0,108,2,13091188.51
+House,North Karachi,Karachi,5,5,4.8 Marla,12000000,4.8,1,182,2,13744281.62
+Flat,Bahria Town Karachi,Karachi,3,3,3.4 Kanal,38000,68,0,34,2,186460105.9
+House,Bahria Town Karachi,Karachi,3,3,6 Marla,40000,6,1,34,2,26202993.39
+Upper Portion,Gulistan-e-Jauhar,Karachi,3,3,18 Marla,45000,18,0,104,2,44827834.17
+House,PWD Housing Scheme,Islamabad,5,5,10 Kanal,12500000,200,1,189,1,557803173.6
+House,DHA Defence,Islamabad,3,4,8 Marla,8000000,8,1,59,1,37002997.24
+House,PWD Housing Scheme,Islamabad,5,5,5 Marla,9500000,5,1,189,1,20408468.7
+House,G-13,Islamabad,0,0,4.4 Marla,17000000,4.4,1,85,1,27046835.85
+House,G-13,Islamabad,0,0,4.4 Marla,14500000,4.4,1,85,1,27046835.85
+House,G-10,Islamabad,3,0,6.7 Marla,21000000,6.7,1,83,1,31454782.84
+House,G-11,Islamabad,0,0,4.4 Marla,16000000,4.4,1,84,1,27101675.25
+House,G-13,Islamabad,5,0,7 Marla,22500000,7,1,85,1,30811709.49
+House,D-12,Islamabad,5,0,4 Marla,18500000,4,1,0,1,27205447.29
+House,Pakistan Town,Islamabad,6,0,10 Marla,18500000,10,1,192,1,32531427.17
+House,Pakistan Town,Islamabad,3,0,10 Marla,13000000,10,1,192,1,34571660.63
+House,Pakistan Town,Islamabad,2,0,5 Marla,7500000,5,1,192,1,21472387.04
+House,Pakistan Town,Islamabad,2,0,8 Marla,10000000,8,1,192,1,29739997.88
+Flat,Pakistan Town,Islamabad,0,0,2.7 Marla,3000000,2.7,0,192,1,5887196.131
+Flat,Pakistan Town,Islamabad,2,0,2.7 Marla,3000000,2.7,0,192,1,4527040.495
+Flat,Pakistan Town,Islamabad,1,0,0.9 Marla,1650000,0.9,0,192,1,246551.8067
+Flat,Pakistan Town,Islamabad,1,0,0.9 Marla,1650000,0.9,0,192,1,246551.8067
+House,Pakistan Town,Islamabad,8,0,1 Kanal,30000000,20,1,192,1,58729974.35
+House,Pakistan Town,Islamabad,6,0,1 Kanal,25000000,20,1,192,1,60090129.99
+House,Pakistan Town,Islamabad,3,0,10 Marla,12500000,10,1,192,1,34571660.63
+House,Pakistan Town,Islamabad,0,0,10 Marla,13000000,10,1,192,1,36611894.08
+House,PWD Housing Scheme,Islamabad,0,0,14.2 Marla,19000000,14.2,1,189,1,48351067.45
+House,National Police Foundation,Islamabad,6,0,10 Marla,15500000,10,1,174,1,33518536.3
+House,Korang Town,Islamabad,0,0,5 Marla,8000000,5,1,146,1,25355154.88
+House,Korang Town,Islamabad,4,0,9.3 Marla,19000000,9.3,1,146,1,34485085.82
+House,Korang Town,Islamabad,8,0,1 Kanal,36000000,20,1,146,1,61252586.55
+House,Korang Town,Islamabad,0,0,12.1 Marla,18000000,12.1,1,146,1,44921833.88
+House,Pakistan Town,Islamabad,0,0,1 Kanal,17500000,20,1,192,1,64170596.9
+House,Pakistan Town,Islamabad,6,7,1 Kanal,25000000,20,1,192,1,61226645.69
+House,FECHS,Islamabad,2,0,7 Marla,8500000,7,1,0,1,37513291.58
+House,PWD Housing Scheme,Islamabad,5,0,14.2 Marla,17000000,14.2,1,189,1,44950678.36
+House,PWD Housing Scheme,Islamabad,4,0,5 Marla,11000000,5,1,189,1,20276749.59
+House,PWD Housing Scheme,Islamabad,4,0,5 Marla,11000000,5,1,189,1,20276749.59
+House,Pakistan Town,Islamabad,12,0,13 Marla,26000000,13,1,192,1,36718571.11
+House,Korang Town,Islamabad,2,0,6.7 Marla,8500000,6.7,1,146,1,28679978.72
+House,National Police Foundation,Islamabad,4,0,5 Marla,8500000,5,1,174,1,21099340.53
+Upper Portion,G-10,Islamabad,3,3,14.2 Marla,63000,14.2,0,83,1,42004043.2
+Upper Portion,Bahria Town,Islamabad,3,3,10 Marla,40000,10,0,33,1,33171357.81
+House,DHA Defence,Islamabad,7,8,1 Kanal,600000,20,1,59,1,68002566.89
+Lower Portion,Bahria Town,Islamabad,3,3,10 Marla,40000,10,0,33,1,33171357.81
+House,G-13,Islamabad,0,0,4.4 Marla,40000,4.4,1,85,1,27046835.85
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+House,G-13,Islamabad,0,0,4.4 Marla,55000,4.4,1,85,1,27046835.85
+Lower Portion,G-13,Islamabad,0,0,10.9 Marla,50000,10.9,0,85,1,34353147.78
+House,G-13,Islamabad,0,0,8 Marla,90000,8,1,85,1,36967968.86
+House,G-13,Islamabad,0,0,10.9 Marla,110000,10.9,1,85,1,44959992.68
+House,G-13,Islamabad,0,0,4.4 Marla,40000,4.4,1,85,1,27046835.85
+House,G-13,Islamabad,0,0,4.4 Marla,55000,4.4,1,85,1,27046835.85
+Lower Portion,G-13,Islamabad,0,0,10.9 Marla,50000,10.9,0,85,1,34353147.78
+House,G-13,Islamabad,0,0,8 Marla,90000,8,1,85,1,36967968.86
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,10000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,80000,24,0,121,1,68480830.22
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,85000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Lower Portion,G-13,Islamabad,3,3,12 Marla,50000,12,0,85,1,35831449.79
+House,Pakistan Town,Islamabad,4,0,5 Marla,40000,5,1,192,1,20112231.4
+House,Pakistan Town,Islamabad,0,0,5 Marla,40000,5,1,192,1,22832542.68
+House,Pakistan Town,Islamabad,0,0,5 Marla,40000,5,1,192,1,22832542.68
+Flat,Pakistan Town,Islamabad,0,0,2.5 Marla,11000,2.5,0,192,1,5336022.075
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,100000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,80000,24,0,121,1,68480830.22
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,85000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+House,Others,Islamabad,6,7,1 Kanal,550000,20,1,0,1,71755809.67
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,140000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,12.4 Marla,55000,12.4,1,121,1,47119579.86
+House,G-15,Islamabad,6,6,13 Marla,95000,13,1,86,1,47586170.28
+Upper Portion,Bahria Town,Islamabad,3,3,10 Marla,38000,10,0,33,1,33171357.81
+Upper Portion,G-15,Islamabad,2,2,8 Marla,26000,8,0,86,1,25270847.71
+Flat,G-15,Islamabad,2,2,3.1 Marla,15000,3.1,0,86,1,11767083.33
+House,G-13,Islamabad,5,5,8 Marla,90000,8,1,85,1,34379376.7
+House,F-7,Islamabad,5,6,1 Kanal,260000,20,1,75,1,68160573.42
+Upper Portion,G-8,Islamabad,2,1,10 Marla,36000,10,0,88,1,30510550.09
+Lower Portion,G-15,Islamabad,2,2,8 Marla,33000,8,0,86,1,25270847.71
+House,F-7,Islamabad,5,6,2 Kanal,300000,40,1,75,1,123277979
+House,F-7,Islamabad,5,6,2 Kanal,450000,40,1,75,1,123277979
+Upper Portion,E-11,Islamabad,4,4,1 Kanal,85000,20,0,63,1,58567160.32
+Lower Portion,G-15,Islamabad,3,3,13 Marla,42000,13,0,86,1,38532480.68
+House,F-7,Islamabad,6,7,1 Kanal,250000,20,1,75,1,67642854.99
+Lower Portion,G-15,Islamabad,0,0,7 Marla,28000,7,0,86,1,23550414.29
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,100000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,80000,24,0,121,1,68480830.22
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,85000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,F-8,Islamabad,2,2,1 Kanal,100000,20,0,76,1,58889685.04
+House,E-11,Islamabad,3,3,10 Marla,70000,10,1,63,1,42133020.84
+House,F-7,Islamabad,5,6,2.5 Kanal,280000,50,1,75,1,150836681.9
+House,F-7,Islamabad,5,6,1 Kanal,300000,20,1,75,1,68160573.42
+Flat,G-15,Islamabad,2,2,5.7 Marla,35000,5.7,0,86,1,18932346.06
+Flat,Pakistan Town,Islamabad,2,0,3 Marla,12000,3,0,192,1,5353801.579
+Upper Portion,Pakistan Town,Islamabad,2,0,5 Marla,18000,5,0,192,1,10865542.14
+Lower Portion,Pakistan Town,Islamabad,2,0,5 Marla,20000,5,0,192,1,10865542.14
+Flat,Korang Town,Islamabad,2,0,0.4 Marla,12000,0.4,0,146,1,711151.0518
+House,G-15,Islamabad,0,0,7 Marla,65000,7,1,86,1,34157259.19
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,100000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,80000,24,0,121,1,68480830.22
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,85000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Flat,G-15,Islamabad,3,3,8.6 Marla,45000,8.6,0,86,1,26406651.44
+House,F-7,Islamabad,10,10,2.4 Kanal,500000,48,1,75,1,142573989.7
+Upper Portion,G-13,Islamabad,3,3,14.2 Marla,55000,14.2,0,85,1,41894364.41
+House,DHA Defence,Lahore,5,6,1 Kanal,50000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,3,4,5 Marla,10000000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,5,10 Marla,20500000,10,1,33,3,29748988.26
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,3,4,5 Marla,10800000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,5,8 Marla,17000000,8,1,33,3,24237247.69
+House,Bahria Town,Lahore,5,6,11 Marla,22000000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,5,6,10 Marla,21000000,10,1,33,3,29911347.64
+House,Nawab Town,Lahore,0,0,4 Marla,8500000,4,1,178,3,7850646.35
+House,Bahria Town,Lahore,5,6,10 Marla,20000000,10,1,33,3,29911347.64
+House,Chakra Road,Rawalpindi,5,5,4 Marla,5500000,4,1,0,4,8526577.836
+House,Chakra Road,Rawalpindi,2,1,2.7 Marla,2600000,2.7,1,0,4,6334742.383
+House,Allahabad Road,Rawalpindi,4,3,5 Marla,13500000,5,1,0,4,11637807.16
+House,Westridge,Rawalpindi,4,4,1.4 Kanal,31000000,28,1,246,4,61694691.67
+House,Adiala Road,Rawalpindi,3,3,5 Marla,5500000,5,1,2,4,12208206.19
+House,Westridge,Rawalpindi,2,1,4 Marla,8000000,4,1,246,4,-3573117.603
+House,Islamabad Highway,Rawalpindi,2,2,3 Marla,3500000,3,1,127,4,359259.594
+House,Bahria Town Rawalpindi,Rawalpindi,5,5,10 Marla,23000000,10,1,35,4,23142420.67
+House,Range Road,Rawalpindi,0,0,5 Marla,12000000,5,1,0,4,13871040.28
+House,Gulraiz Housing Scheme,Rawalpindi,2,2,3 Marla,4500000,3,1,105,4,1565726.3
+House,Range Road,Rawalpindi,0,0,6 Marla,9500000,6,1,0,4,16626910.56
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,7 Marla,13500000,7,1,35,4,15037169.21
+House,Media Town,Rawalpindi,6,0,12.4 Marla,30000000,12.4,1,160,4,21409710.13
+House,Haji Chowk,Rawalpindi,5,0,5 Marla,9500000,5,1,0,4,10470651.19
+House,Muslim Town,Rawalpindi,0,0,2 Marla,6300000,2,1,172,4,-3828946.63
+House,Muslim Town,Rawalpindi,2,0,3 Marla,7000000,3,1,172,4,-2433231.985
+House,Muslim Town,Rawalpindi,2,0,3 Marla,6500000,3,1,172,4,-2433231.985
+House,Muslim Town,Rawalpindi,5,5,7 Marla,15000000,7,1,172,4,7361812.613
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,10 Marla,21500000,10,1,35,4,23304780.06
+Upper Portion,Range Road,Rawalpindi,0,0,10 Marla,25000,10,0,0,4,17043546.79
+House,Range Road,Rawalpindi,0,0,5 Marla,40000,5,1,0,4,13871040.28
+House,Range Road,Rawalpindi,0,0,3 Marla,30000,3,1,0,4,8359299.718
+Upper Portion,Range Road,Rawalpindi,0,0,5 Marla,18000,5,0,0,4,3264195.383
+Upper Portion,Range Road,Rawalpindi,0,0,7 Marla,25000,7,0,0,4,8775935.945
+Flat,Gulzar-e-Quaid Housing Society,Rawalpindi,2,1,2 Marla,10000,2,0,0,4,-6201211.712
+Lower Portion,Gulzar-e-Quaid Housing Society,Rawalpindi,2,2,5 Marla,16000,5,0,0,4,2228758.517
+Lower Portion,Bahria Town Rawalpindi,Rawalpindi,2,2,5 Marla,20000,5,0,35,4,309379.6663
+House,Khurram Colony,Rawalpindi,0,0,14 Marla,50000,14,1,0,4,38673872.81
+Lower Portion,Bahria Town Rawalpindi,Rawalpindi,2,2,7 Marla,25000,7,0,35,4,5821120.229
+House,Bahria Town,Lahore,5,6,8 Marla,14000000,8,1,33,3,24399607.08
+House,Bahria Town,Lahore,6,6,1 Kanal,38000000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,5,6,12 Marla,24000000,12,1,33,3,35423088.21
+House,DHA Defence,Lahore,6,7,1 Kanal,32500000,20,1,59,3,55526507.73
+House,Bahria Town,Lahore,3,4,5 Marla,13500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,5,6,10 Marla,22500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,5,10 Marla,17500000,10,1,33,3,29748988.26
+House,DHA Defence,Lahore,5,6,1 Kanal,47500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,6,11 Marla,23500000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,5,5,10 Marla,16000000,10,1,33,3,29748988.26
+House,Bahria Town,Lahore,5,6,10 Marla,16500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,5,6,10 Marla,22000000,10,1,33,3,29911347.64
+House,Izmir Town,Lahore,4,0,5 Marla,12000000,5,1,129,3,10573335.75
+House,Izmir Town,Lahore,3,0,5 Marla,12000000,5,1,129,3,11253413.57
+House,Izmir Town,Lahore,4,0,10 Marla,15000000,10,1,129,3,24352687.16
+House,Izmir Town,Lahore,3,0,5 Marla,10500000,5,1,129,3,11253413.57
+House,Bahria Town,Lahore,5,6,10 Marla,22500000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,6,6,1 Kanal,52500000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,3,4,5 Marla,11500000,5,1,33,3,17167433.1
+House,Askari,Lahore,5,5,17 Marla,40000000,17,1,22,3,49643313.58
+House,Bahria Town,Lahore,5,6,10 Marla,20000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,6,6,1 Kanal,45000000,20,1,33,3,56789972.64
+House,Bahria Town,Lahore,5,6,11 Marla,24500000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,5,6,11 Marla,25500000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,3,4,5 Marla,13500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,6,6,1 Kanal,47500000,20,1,33,3,56789972.64
+House,DHA Defence,Lahore,5,6,1 Kanal,49500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,6,11 Marla,20000000,11,1,33,3,32667217.92
+House,DHA Defence,Lahore,4,5,10 Marla,31000000,10,1,59,3,29003241.79
+House,Bahria Town,Lahore,4,5,8 Marla,14000000,8,1,33,3,24917325.51
+House,Bahria Town,Lahore,5,6,10 Marla,25000000,10,1,33,3,29911347.64
+House,DHA Defence,Lahore,4,5,10 Marla,32000000,10,1,59,3,29003241.79
+House,Bahria Town,Lahore,6,7,1 Kanal,33500000,20,1,33,3,56952332.02
+House,Bahria Town,Lahore,5,6,10 Marla,21000000,10,1,33,3,29911347.64
+House,Bahria Town,Lahore,3,5,5 Marla,11000000,5,1,33,3,17329792.49
+House,Shadab Garden,Lahore,3,0,3 Marla,5500000,3,1,0,3,12815955.06
+House,Shadab Garden,Lahore,5,0,10 Marla,12500000,10,1,0,3,30746891.39
+House,Shadab Garden,Lahore,5,0,5.5 Marla,9000000,5.5,1,0,3,18345475.12
+House,Shadab Garden,Lahore,5,0,6 Marla,12500000,6,1,0,3,19723410.26
+House,Pak Arab Housing Society,Lahore,5,0,5 Marla,10000000,5,1,191,3,6493215.396
+House,DHA Defence,Lahore,4,5,10 Marla,28500000,10,1,59,3,29003241.79
+House,Model Town,Lahore,5,0,1 Kanal,70000000,20,1,167,3,49147415.11
+House,Model Town,Lahore,2,0,1 Kanal,45000000,20,1,167,3,51187648.57
+House,Model Town,Lahore,5,0,1 Kanal,55000000,20,1,167,3,49147415.11
+House,Model Town,Lahore,5,0,2 Kanal,110000000,40,1,167,3,104264820.7
+House,Model Town,Lahore,5,0,3 Kanal,140000000,60,1,167,3,159382226.4
+House,Model Town,Lahore,2,0,10 Marla,18000000,10,1,167,3,23628945.75
+House,Model Town,Lahore,4,0,5 Marla,12000000,5,1,167,3,8489438.712
+House,DHA Defence,Lahore,3,4,10 Marla,25000000,10,1,59,3,29520960.22
+House,DHA Defence,Lahore,3,4,7 Marla,22000000,7,1,59,3,21253349.37
+House,DHA Defence,Lahore,4,5,10 Marla,27000000,10,1,59,3,29003241.79
+House,Tajpura,Lahore,2,0,1.5 Marla,3000000,1.5,1,0,3,9362227.452
+House,Scheme 33,Karachi,4,0,4.8 Marla,14000000,4.8,1,219,2,11583504.87
+House,Scheme 33,Karachi,4,0,4.8 Marla,15000000,4.8,1,219,2,11583504.87
+Flat,Scheme 33,Karachi,2,2,4.4 Marla,4800000,4.4,0,219,2,1559186.267
+Flat,Scheme 33,Karachi,3,3,6.2 Marla,6800000,6.2,0,219,2,6002034.34
+Flat,Scheme 33,Karachi,2,2,4.4 Marla,4800000,4.4,0,219,2,1559186.267
+House,Gadap Town,Karachi,3,3,8 Marla,16500000,8,1,92,2,28534049
+House,Bahria Town Karachi,Karachi,3,4,6.1 Marla,9200000,6.1,1,34,2,26640939.81
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4500000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,4,5,14 Marla,14500000,14,1,34,2,47894596.6
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,11000000,8,1,34,2,31877093.34
+House,Bahria Town Karachi,Karachi,3,4,5 Marla,5000000,5,1,34,2,23609482.5
+Flat,Bahria Town Karachi,Karachi,3,3,8 Marla,7000000,8,0,34,2,21107889.06
+Flat,Scheme 33,Karachi,2,2,4.4 Marla,4800000,4.4,0,219,2,1559186.267
+Flat,Jamshed Road,Karachi,2,0,5.6 Marla,10000000,5.6,0,0,2,16551339.5
+Flat,Jamshed Road,Karachi,2,0,2.7 Marla,5700000,2.7,0,0,2,8559315.684
+Flat,Jamshed Road,Karachi,2,0,2.2 Marla,4800000,2.2,0,0,2,7181380.544
+Flat,Jamshed Road,Karachi,2,0,2.2 Marla,4500000,2.2,0,0,2,7181380.544
+Flat,Jamshed Town,Karachi,3,0,5.6 Marla,16000000,5.6,0,131,2,8687300.84
+Flat,Jamshed Town,Karachi,3,0,5.6 Marla,10000000,5.6,0,131,2,8687300.84
+Flat,Bahria Town Karachi,Karachi,2,2,4.4 Marla,5200000,4.4,0,34,2,11704474.48
+House,Gadap Town,Karachi,2,2,3.2 Marla,1800000,3.2,1,92,2,15823590.09
+House,North Nazimabad,Karachi,0,0,9.3 Marla,29500000,9.3,1,183,2,28679450.66
+House,North Nazimabad,Karachi,0,0,17.6 Marla,47500000,17.6,1,183,2,51553173.99
+Flat,Jamshed Road,Karachi,2,0,4.4 Marla,7500000,4.4,0,0,2,13244295.16
+Flat,Jamshed Road,Karachi,2,0,2.9 Marla,5500000,2.9,0,0,2,9110489.741
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,6200000,4.2,0,34,2,11153300.42
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5400000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,12500000,8,1,34,2,31714733.96
+House,Bahria Town Karachi,Karachi,3,3,5 Marla,11400000,5,1,34,2,23447123.11
+House,G-13,Islamabad,5,5,4.4 Marla,17500000,4.4,1,85,1,24458243.69
+House,DHA Defence,Islamabad,3,3,8 Marla,8000000,8,1,59,1,36840637.86
+House,DHA Defence,Islamabad,2,2,5 Marla,3500000,5,1,59,1,29090745.44
+House,Park View City,Islamabad,4,4,5 Marla,15000000,5,1,0,1,31290832.93
+House,Pakistan Town,Islamabad,5,5,10 Marla,15000000,10,1,192,1,34023301.92
+House,H-13,Islamabad,6,0,7 Marla,16000000,7,1,0,1,34792980.31
+House,G-13,Islamabad,3,5,4.4 Marla,17000000,4.4,1,85,1,25818399.32
+Flat,G-15,Islamabad,3,3,8.7 Marla,14000000,8.7,0,86,1,26682238.47
+Flat,IJP Road,Islamabad,0,0,4.2 Marla,8000000,4.2,0,0,1,20550165.54
+House,DHA Defence,Islamabad,0,0,1 Kanal,46000000,20,1,59,1,71464236.53
+House,F-7,Islamabad,9,10,2 Kanal,1000000,40,1,75,1,121207105.3
+Flat,G-15,Islamabad,4,4,16 Marla,75000,16,0,86,1,46282373.09
+House,F-7,Islamabad,4,4,2 Kanal,450000,40,1,75,1,123633338.1
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,100000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Flat,G-15,Islamabad,1,1,2.8 Marla,22000,2.8,0,86,1,11458040.68
+House,F-7,Islamabad,6,7,2.1 Kanal,380000,42,1,75,1,128272001.2
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,60000,20,0,59,1,59304236.33
+House,DHA Defence,Islamabad,6,6,1 Kanal,160000,20,1,59,1,68357925.93
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,45000,20,0,59,1,59304236.33
+House,DHA Defence,Islamabad,5,5,10 Marla,80000,10,1,59,1,41316941.55
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,45000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,55000,20,0,59,1,59304236.33
+House,F-7,Islamabad,8,9,1 Kanal,450000,20,1,75,1,66607418.12
+House,G-6,Islamabad,11,10,2.8 Kanal,540000,56,1,0,1,168053828.9
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,70000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,12.4 Marla,145000,12.4,1,121,1,47119579.86
+Lower Portion,I-8,Islamabad,0,0,12.4 Marla,80000,12.4,0,121,1,36512734.96
+House,I-8,Islamabad,0,0,14.2 Marla,200000,14.2,1,121,1,52080146.36
+House,I-8,Islamabad,0,0,1.2 Kanal,150000,24,1,121,1,79087675.12
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,65000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,115000,24,0,121,1,68480830.22
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,55000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,58000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,100000,14.2,0,121,1,41473301.46
+House,I-8,Islamabad,0,0,14.2 Marla,150000,14.2,1,121,1,52080146.36
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,60000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,52000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,14.2 Marla,50000,14.2,0,121,1,41473301.46
+Upper Portion,I-8,Islamabad,0,0,1.2 Kanal,80000,24,0,121,1,68480830.22
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,85000,14.2,0,121,1,41473301.46
+Lower Portion,I-8,Islamabad,0,0,14.2 Marla,70000,14.2,0,121,1,41473301.46
+Room,F-8,Islamabad,1,1,2 Kanal,35000,40,0,76,1,114524809.1
+House,F-7,Islamabad,6,7,1.3 Kanal,450000,26,1,75,1,84178076.67
+Flat,G-15,Islamabad,2,2,2.9 Marla,18000,2.9,0,86,1,11215909.27
+House,F-7,Islamabad,4,4,1 Kanal,180000,20,1,75,1,68515932.47
+Flat,G-15,Islamabad,1,1,1.8 Marla,12000,1.8,0,86,1,8702170.394
+House,F-7,Islamabad,5,6,3.6 Kanal,450000,72,1,75,1,211465828
+Upper Portion,Bahria Town,Islamabad,3,3,10 Marla,40000,10,0,33,1,33171357.81
+Lower Portion,Bahria Town,Islamabad,3,3,10 Marla,40000,10,0,33,1,33171357.81
+House,G-11,Islamabad,5,5,8 Marla,85000,8,1,84,1,34434216.1
+House,F-7,Islamabad,5,6,2 Kanal,300000,40,1,75,1,123277979
+Upper Portion,F-10,Islamabad,3,3,500 Kanal,70000,10000,0,71,1,27562231571
+Lower Portion,E-11,Islamabad,4,4,14 Marla,52000,14,0,63,1,42031938.63
+Flat,DHA Defence,Islamabad,2,3,4.9 Marla,22000,4.9,0,59,1,18370672.9
+Upper Portion,I-8,Islamabad,3,3,14.2 Marla,80000,14.2,0,121,1,39920146.17
+House,Tajpura,Lahore,3,0,2 Marla,4000000,2,1,0,3,10060084.77
+House,Fateh Garh,Lahore,3,0,2.4 Marla,6500000,2.4,1,79,3,6830120.624
+House,Al-Hafeez Garden Road,Lahore,5,0,5 Marla,10000000,5,1,0,3,16967539.98
+House,Tajpura,Lahore,0,0,1.5 Marla,3200000,1.5,1,0,3,10722383.09
+House,College Road,Lahore,3,0,3.5 Marla,7500000,3.5,1,0,3,14193890.2
+House,DHA Defence,Lahore,4,5,10 Marla,28000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,4,5,10 Marla,26000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,4,5,10 Marla,31000000,10,1,59,3,29003241.79
+House,Johar Town,Lahore,5,6,5 Marla,16500000,5,1,136,3,10483538.48
+House,DHA Defence,Lahore,5,6,1 Kanal,41800000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,3,5,5 Marla,12500000,5,1,33,3,17329792.49
+House,DHA Defence,Lahore,5,6,1 Kanal,45000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,4,5,8 Marla,14000000,8,1,33,3,24917325.51
+Flat,Askari,Lahore,3,3,10 Marla,20500000,10,0,22,3,20780813.58
+House,Bahria Town,Lahore,3,5,5 Marla,11400000,5,1,33,3,17329792.49
+House,DHA Defence,Lahore,3,4,7 Marla,24000000,7,1,59,3,21253349.37
+House,Bahria Town,Lahore,5,6,11 Marla,27000000,11,1,33,3,32667217.92
+House,Bahria Town,Lahore,4,5,7 Marla,14500000,7,1,33,3,22161455.23
+House,New Muslim Town,Lahore,5,6,2 Kanal,80000000,40,1,0,3,114397156.1
+House,DHA Defence,Lahore,6,7,25 Kanal,75000000,500,1,59,3,1378344243
+House,DHA Defence,Lahore,3,4,7 Marla,25000000,7,1,59,3,21253349.37
+House,Bahria Town Rawalpindi,Rawalpindi,2,1,5 Marla,2900000,5,1,35,4,10753865.18
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,1,5 Marla,2900000,5,0,35,4,147020.2808
+House,Bahria Town Rawalpindi,Rawalpindi,2,1,5 Marla,2900000,5,1,35,4,10753865.18
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,1,5 Marla,2900000,5,0,35,4,147020.2808
+House,Bahria Town Rawalpindi,Rawalpindi,0,0,5 Marla,12000000,5,1,35,4,11951661.43
+House,Bahria Town Rawalpindi,Rawalpindi,0,0,10 Marla,21000000,10,1,35,4,25731012.84
+House,Allahabad Road,Rawalpindi,0,0,4 Marla,5500000,4,1,0,4,11115170
+House,Allahabad Road,Rawalpindi,0,0,3.5 Marla,6500000,3.5,1,0,4,9737234.859
+House,Allahabad Road,Rawalpindi,0,0,2.8 Marla,4000000,2.8,1,0,4,7808125.662
+House,Allahabad Road,Rawalpindi,0,0,4 Marla,5000000,4,1,0,4,11115170
+House,Allahabad Road,Rawalpindi,0,0,9 Marla,8500000,9,1,0,4,24894521.41
+House,Allahabad Road,Rawalpindi,0,0,5 Marla,11000000,5,1,0,4,13871040.28
+House,Allahabad Road,Rawalpindi,0,0,5 Marla,6000000,5,1,0,4,13871040.28
+House,Chakra Road,Rawalpindi,0,0,5.5 Marla,4000000,5.5,1,0,4,15248975.42
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,4.1 Marla,1247000,4.1,0,35,4,-2170903.587
+House,Airport Housing Society,Rawalpindi,0,0,5 Marla,7000000,5,1,7,4,13487164.51
+House,Airport Housing Society,Rawalpindi,0,0,5 Marla,9000000,5,1,7,4,13487164.51
+House,Adiala Road,Rawalpindi,2,0,5 Marla,4000000,5,1,2,4,12401205.85
+House,Samarzar Housing Society,Rawalpindi,0,0,5 Marla,4500000,5,1,0,4,13871040.28
+House,Samarzar Housing Society,Rawalpindi,0,0,5 Marla,5000000,5,1,0,4,13871040.28
+House,Samarzar Housing Society,Rawalpindi,2,0,5 Marla,2700000,5,1,0,4,12510884.64
+House,Adiala Road,Rawalpindi,2,0,5 Marla,4700000,5,1,2,4,12401205.85
+Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,2.2 Marla,665000,2.2,0,35,4,-6889338.689
+House,Gulshan Abad,Rawalpindi,7,0,10 Marla,13000000,10,1,106,4,17076871.01
+House,Gulshan Abad,Rawalpindi,7,0,1 Kanal,27500000,20,1,106,4,44635573.82
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,10 Marla,19500000,10,1,35,4,23304780.06
+House,Bahria Town Rawalpindi,Rawalpindi,3,3,5 Marla,9500000,5,1,35,4,10398506.13
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,4.1 Marla,1300000,4.1,0,35,4,-2170903.587
+House,Bahria Town Rawalpindi,Rawalpindi,5,7,10 Marla,20000000,10,1,35,4,23467139.44
+Upper Portion,Bahria Town Rawalpindi,Rawalpindi,3,3,1 Kanal,50000,20,0,35,4,41129715.45
+Upper Portion,Bahria Town Rawalpindi,Rawalpindi,3,4,1 Kanal,45000,20,0,35,4,41292074.84
+House,Bahria Town Rawalpindi,Rawalpindi,5,0,10 Marla,80000,10,1,35,4,22330623.75
+House,Bahria Town Rawalpindi,Rawalpindi,6,0,15 Marla,200000,15,1,35,4,35429897.33
+House,Bahria Town Rawalpindi,Rawalpindi,3,0,1 Kanal,60000,20,1,35,4,51249482.19
+Upper Portion,Westridge,Rawalpindi,0,0,1 Kanal,45000,20,0,246,4,31111758.25
+Lower Portion,Westridge,Rawalpindi,0,0,1 Kanal,55000,20,0,246,4,31111758.25
+Upper Portion,Westridge,Rawalpindi,0,0,1 Kanal,40000,20,0,246,4,31111758.25
+Lower Portion,Westridge,Rawalpindi,0,0,10 Marla,30000,10,0,246,4,3553055.437
+Upper Portion,Westridge,Rawalpindi,0,0,6 Marla,25000,6,0,246,4,-7470425.688
+Upper Portion,Peshawar Road,Rawalpindi,0,0,1 Kanal,50000,20,0,198,4,33744049.25
+Lower Portion,Peshawar Road,Rawalpindi,0,0,7 Marla,28000,7,0,198,4,-2082264.411
+Lower Portion,Peshawar Road,Rawalpindi,0,0,10 Marla,25000,10,0,198,4,6185346.432
+Lower Portion,Peshawar Road,Rawalpindi,0,0,7 Marla,22000,7,0,198,4,-2082264.411
+Upper Portion,Peshawar Road,Rawalpindi,0,0,8 Marla,26000,8,0,198,4,673605.8699
+House,Bahria Town,Lahore,6,6,1 Kanal,45000000,20,1,33,3,56789972.64
+House,DHA Defence,Lahore,6,7,2 Kanal,91000000,40,1,59,3,110643913.4
+Flat,Askari,Lahore,4,4,12 Marla,18000000,12,0,22,3,25774835.71
+House,Bahria Town,Lahore,3,5,5 Marla,11500000,5,1,33,3,17329792.49
+House,DHA Defence,Lahore,5,6,23 Kanal,55000000,460,1,59,3,1268627150
+House,DHA Defence,Lahore,5,6,1 Kanal,33000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,7 Marla,25000000,7,1,59,3,21253349.37
+House,Bahria Town,Lahore,5,6,8 Marla,14000000,8,1,33,3,24399607.08
+House,Johar Town,Lahore,5,6,5 Marla,16500000,5,1,136,3,10483538.48
+House,DHA Defence,Lahore,3,4,7 Marla,23000000,7,1,59,3,21253349.37
+House,DHA Defence,Lahore,5,6,1 Kanal,28000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,6,6,1 Kanal,38000000,20,1,33,3,56789972.64
+Flat,Askari,Lahore,3,3,10 Marla,11300000,10,0,22,3,20780813.58
+House,Bahria Town,Lahore,3,4,5 Marla,9200000,5,1,33,3,17167433.1
+House,DHA Defence,Lahore,5,6,1 Kanal,38000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,5 Marla,19000000,5,1,59,3,15741608.81
+House,DHA Defence,Lahore,5,7,1 Kanal,54000000,20,1,59,3,56206585.55
+House,Valencia Housing Society,Lahore,5,7,1 Kanal,42500000,20,1,240,3,46280654.92
+House,DHA Defence,Lahore,4,5,10 Marla,39000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,4,5,10 Marla,42000000,10,1,59,3,29003241.79
+House,DHA 11 Rahbar,Lahore,5,6,8 Marla,17000000,8,1,58,3,23028622.19
+House,DHA Defence,Lahore,5,6,1 Kanal,67500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,5,1 Kanal,52500000,20,1,59,3,55881866.78
+House,Bahria Town,Lahore,3,5,5 Marla,10700000,5,1,33,3,17329792.49
+House,Bahria Town Karachi,Karachi,3,3,9.4 Marla,9000000,9.4,1,34,2,35572952.35
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,12200000,8,1,34,2,31714733.96
+House,DHA Defence,Karachi,3,4,12.4 Marla,51000000,12.4,1,59,2,42631937.69
+Flat,Gulshan-e-Iqbal Town,Karachi,2,2,3.1 Marla,6000000,3.1,0,108,2,4063727.828
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,9800000,8,1,34,2,31877093.34
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,10700000,8,1,34,2,31877093.34
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4700000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,4,5 Marla,5000000,5,1,34,2,23609482.5
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,8500000,8,1,34,2,31877093.34
+Flat,Bahria Town Karachi,Karachi,3,3,8 Marla,7200000,8,0,34,2,21107889.06
+Flat,Gadap Town,Karachi,3,0,7.1 Marla,6500000,7.1,0,92,2,14959842.7
+Flat,Gadap Town,Karachi,2,0,4.4 Marla,3200000,4.4,0,92,2,8199070.754
+House,Gadap Town,Karachi,2,0,4.8 Marla,9000000,4.8,1,92,2,19908263.77
+Flat,Shaheed Millat Road,Karachi,3,3,3.2 Kanal,30000000,64,0,221,2,165181657.8
+Flat,Clifton,Karachi,6,7,16 Marla,42500000,16,0,55,2,40612428.09
+House,Gulshan-e-Iqbal Town,Karachi,6,7,1.1 Kanal,140000000,22,1,108,2,64848006.7
+Flat,Gulistan-e-Jauhar,Karachi,2,2,3.1 Marla,4500000,3.1,0,104,2,4283085.411
+Flat,Bahria Town Karachi,Karachi,3,3,8 Marla,10800000,8,0,34,2,21107889.06
+Flat,Bahria Town Karachi,Karachi,3,3,8 Marla,11500000,8,0,34,2,21107889.06
+Flat,Khalid Bin Walid Road,Karachi,4,4,5.4 Kanal,32500000,108,0,142,2,290254544
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5400000,4.2,0,34,2,11153300.42
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,11600000,8,1,34,2,31714733.96
+House,Bahria Town Karachi,Karachi,3,3,9.4 Marla,8800000,9.4,1,34,2,35572952.35
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,4800000,4.2,0,34,2,11153300.42
+Flat,North Nazimabad,Karachi,2,2,3.1 Marla,6500000,3.1,0,183,2,-49226.85253
+Flat,North Nazimabad,Karachi,2,2,4.9 Marla,6500000,4.9,0,183,2,4911339.654
+House,North Nazimabad,Karachi,9,4,8 Marla,42500000,8,1,183,2,19625556.47
+House,North Nazimabad,Karachi,0,0,9.3 Marla,29000000,9.3,1,183,2,28679450.66
+Flat,North Nazimabad,Karachi,2,2,4.7 Marla,7000000,4.7,0,183,2,4360165.598
+House,North Nazimabad,Karachi,0,0,4 Kanal,250000000,80,1,183,2,223519479.5
+House,North Nazimabad,Karachi,9,4,1.2 Kanal,70000000,24,1,183,2,63719480.97
+Farm House,Super Highway,Karachi,0,0,40 Kanal,45000000,800,0,0,2,2207174847
+Flat,Gulistan-e-Jauhar,Karachi,3,3,4.9 Marla,9000000,4.9,0,104,2,8725933.485
+House,Amir Khusro,Karachi,5,5,9 Marla,70000000,9,1,0,2,35299706.83
+House,DHA Defence,Islamabad,2,2,5 Marla,2300000,5,1,59,1,29090745.44
+House,Soan Garden,Islamabad,3,3,10 Marla,12700000,10,1,229,1,33029681.14
+House,G-13,Islamabad,4,4,7 Marla,27000000,7,1,85,1,32141224.85
+House,Soan Garden,Islamabad,2,3,6 Marla,9000000,6,1,229,1,22686277.84
+House,F-7,Islamabad,7,7,1 Kanal,14000000,20,1,75,1,66962777.17
+Flat,Faisal Town - F-18,Islamabad,4,4,10.8 Marla,14600000,10.8,0,0,1,36668035.66
+Flat,G-15,Islamabad,4,4,16 Marla,20000000,16,0,86,1,46282373.09
+House,D-12,Islamabad,6,6,14.2 Marla,100000,14.2,1,0,1,55609402.65
+Flat,G-11,Islamabad,3,2,7.1 Marla,32500000,7.1,0,84,1,22220165.43
+Flat,G-15,Islamabad,1,1,2.8 Marla,5000000,2.8,0,86,1,11458040.68
+Flat,G-15,Islamabad,2,2,5.6 Marla,8200000,5.6,0,86,1,18656759.03
+House,F-7,Islamabad,7,8,1.2 Kanal,500000,24,1,75,1,78148617.68
+House,F-7,Islamabad,7,7,1 Kanal,600000,20,1,75,1,66962777.17
+House,E-7,Islamabad,8,9,1.3 Kanal,421000,26,1,65,1,83691033.77
+House,F-7,Islamabad,6,7,2.5 Kanal,280000,50,1,75,1,150318963.4
+Lower Portion,E-11,Islamabad,3,4,1 Kanal,85000,20,0,63,1,59247238.14
+House,G-15,Islamabad,6,6,8 Marla,65000,8,1,86,1,33806818.87
+Lower Portion,G-11,Islamabad,1,2,5 Marla,27000,5,0,84,1,17792993.47
+House,F-6,Islamabad,4,4,2.4 Kanal,400000,48,1,74,1,145735139.7
+House,F-7,Islamabad,11,10,2.5 Kanal,1000000,50,1,75,1,147405652.5
+Upper Portion,E-11,Islamabad,3,4,1 Kanal,75000,20,0,63,1,59247238.14
+House,F-8,Islamabad,5,6,1 Kanal,230000,20,1,76,1,68105734.02
+House,F-7,Islamabad,4,4,2 Kanal,280000,40,1,75,1,123633338.1
+House,F-7,Islamabad,7,8,2.4 Kanal,1800000,48,1,75,1,144289504.4
+House,G-6,Islamabad,6,9,4 Kanal,1650000,80,1,0,1,237432745.3
+House,F-7,Islamabad,6,7,1.1 Kanal,500000,22,1,75,1,73154595.55
+House,F-7,Islamabad,8,9,1.3 Kanal,700000,26,1,75,1,83142639.81
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,45000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,55000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,50000,20,0,59,1,59304236.33
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,55000,20,0,59,1,59304236.33
+House,DHA Defence,Islamabad,6,6,1 Kanal,105000,20,1,59,1,68357925.93
+Upper Portion,DHA Defence,Islamabad,3,3,1 Kanal,40000,20,0,59,1,59304236.33
+House,F-6,Islamabad,11,10,5.4 Kanal,1450000,108,1,74,1,307300968.2
+House,F-7,Islamabad,10,10,1.3 Kanal,1000000,26,1,75,1,81944843.56
+Lower Portion,G-13,Islamabad,3,3,10 Marla,46000,10,0,85,1,30319709.23
+House,F-7,Islamabad,10,10,1.3 Kanal,1000000,26,1,75,1,81944843.56
+House,PWD Housing Scheme,Islamabad,5,6,10 Marla,55000,10,1,189,1,34350179.49
+Lower Portion,G-13,Islamabad,0,0,4 Marla,23000,4,0,85,1,15337642.84
+House,F-7,Islamabad,8,9,2 Kanal,700000,40,1,75,1,121724823.7
+Upper Portion,I-8,Islamabad,4,3,1 Kanal,115000,20,0,121,1,55224115.98
+Lower Portion,PWD Housing Scheme,Islamabad,3,3,12 Marla,45000,12,0,189,1,30128152.64
+House,F-7,Islamabad,5,6,1.3 Kanal,400000,26,1,75,1,84695795.11
+House,G-13,Islamabad,0,0,4 Marla,40000,4,1,85,1,25944487.74
+House,E-11,Islamabad,5,7,3.2 Kanal,100000,64,1,63,1,190239297.9
+House,DHA Defence,Lahore,5,6,1 Kanal,41500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,1 Kanal,41000000,20,1,59,3,56044226.17
+Flat,Askari,Lahore,3,3,10 Marla,113000000,10,0,22,3,20780813.58
+House,Bahria Town,Lahore,3,4,5 Marla,13500000,5,1,33,3,17167433.1
+House,Bahria Town,Lahore,6,6,1 Kanal,52500000,20,1,33,3,56789972.64
+House,DHA Defence,Lahore,5,6,1 Kanal,52500000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,6,2 Kanal,130000000,40,1,59,3,111161631.8
+House,DHA Defence,Lahore,5,6,1 Kanal,47500000,20,1,59,3,56044226.17
+House,Canal View,Lahore,0,0,1.1 Kanal,42500000,22,1,46,3,64695111.65
+House,Bahria Town,Lahore,3,4,5 Marla,9000000,5,1,33,3,17167433.1
+House,DHA Defence,Lahore,6,7,1 Kanal,39500000,20,1,59,3,55526507.73
+House,DHA Defence,Lahore,5,6,1 Kanal,49000000,20,1,59,3,56044226.17
+House,Eden,Lahore,0,0,3 Marla,6500000,3,1,67,3,11181949
+House,Bahria Town,Lahore,3,4,8 Marla,12800000,8,1,33,3,25435043.95
+House,DHA Defence,Lahore,5,6,1 Kanal,49000000,20,1,59,3,56044226.17
+House,Cantt,Lahore,3,0,3 Marla,5500000,3,1,47,3,10238503.46
+House,Bankers Co-operative Housing Society,Lahore,0,0,5 Marla,12900000,5,1,0,3,20367929.07
+Flat,DHA Defence,Lahore,2,0,4.5 Marla,8400000,4.5,0,59,3,3787469.049
+House,Rasool Park,Lahore,3,0,3 Marla,8200000,3,1,206,3,1519039.534
+House,DHA Defence,Lahore,5,6,1 Kanal,37500000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,7,10 Marla,16800000,10,1,33,3,30073707.03
+House,DHA Defence,Lahore,5,6,1 Kanal,53000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,7,10 Marla,19400000,10,1,33,3,30073707.03
+House,DHA Defence,Lahore,5,6,1 Kanal,49000000,20,1,59,3,56044226.17
+Flat,Shah Jamal,Lahore,2,2,3.4 Marla,12400000,3.4,0,0,3,4316254.86
+House,DHA Defence,Lahore,5,6,1 Kanal,45000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,7,10 Marla,17700000,10,1,33,3,30073707.03
+House,DHA Defence,Lahore,4,5,10 Marla,36000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,5,5,1 Kanal,57500000,20,1,59,3,55881866.78
+House,Askari,Lahore,4,4,17 Marla,36500000,17,1,22,3,50161032.01
+House,DHA Defence,Lahore,4,5,10 Marla,31000000,10,1,59,3,29003241.79
+House,DHA Defence,Lahore,5,6,1.2 Kanal,40000000,24,1,59,3,67067707.29
+House,DHA Defence,Lahore,5,5,1 Kanal,45000000,20,1,59,3,55881866.78
+Lower Portion,Johar Town,Lahore,0,0,5 Marla,28000,5,0,136,3,2302926.354
+House,State Life Housing Society,Lahore,3,0,5 Marla,9000000,5,1,230,3,5714634.599
+House,DHA Defence,Lahore,6,6,4 Marla,165000000,4,1,59,3,11270223.85
+House,DHA Defence,Lahore,5,6,1 Kanal,30000000,20,1,59,3,56044226.17
+House,Bahria Town,Lahore,5,7,10 Marla,14700000,10,1,33,3,30073707.03
+House,Bahria Town,Lahore,3,4,8 Marla,12700000,8,1,33,3,25435043.95
+House,Bahria Town,Lahore,5,7,10 Marla,17500000,10,1,33,3,30073707.03
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,5.3 Marla,7500000,5.3,0,35,4,1136140.751
+Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,2.2 Marla,717000,2.2,0,35,4,-6889338.689
+House,Adiala Road,Rawalpindi,2,0,5 Marla,5100000,5,1,2,4,12401205.85
+House,Adiala Road,Rawalpindi,0,0,5 Marla,6000000,5,1,2,4,13761361.49
+House,Adiala Road,Rawalpindi,3,0,8.5 Marla,9000000,8.5,1,2,4,21366674.02
+House,Adiala Road,Rawalpindi,4,0,5 Marla,6200000,5,1,2,4,11041050.22
+House,Adiala Road,Rawalpindi,2,0,5 Marla,4500000,5,1,2,4,12401205.85
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,12 Marla,17000000,12,1,35,4,28816520.62
+House,Capital Smart City,Rawalpindi,3,3,5 Marla,9849000,5,1,0,4,12317884.98
+Flat,Bahria Town Rawalpindi,Rawalpindi,2,2,4.2 Marla,6200000,4.2,0,35,4,-1895316.559
+House,Bahria Town Rawalpindi,Rawalpindi,5,6,7 Marla,13500000,7,1,35,4,15037169.21
+House,Bahria Town Rawalpindi,Rawalpindi,3,4,5 Marla,10000000,5,1,35,4,10560865.52
+House,Adiala Road,Rawalpindi,0,0,10 Marla,13000000,10,1,2,4,27540712.9
+Flat,Bahria Town Rawalpindi,Rawalpindi,1,1,2.4 Marla,3300000,2.4,0,35,4,-6338164.632
+Upper Portion,Chak 208 Road,Faisalabad,2,2,12 Marla,25000,12,0,0,0,47507405.66
+House,Adiala Road,Rawalpindi,0,0,6 Marla,15000,6,1,2,4,16517231.77
+House,Askari,Lahore,5,5,17 Marla,40000000,17,1,22,3,49643313.58
+House,DHA Defence,Lahore,5,5,1 Kanal,41500000,20,1,59,3,55881866.78
+House,DHA Defence,Lahore,5,6,1 Kanal,37000000,20,1,59,3,56044226.17
+House,Zaitoon - New Lahore City,Lahore,3,3,5 Marla,8500000,5,1,0,3,18814773.78
+House,DHA Defence,Lahore,4,6,10 Marla,29000000,10,1,59,3,29165601.17
+House,Cavalry Ground,Lahore,6,6,3 Kanal,185000000,60,1,48,3,166202193
+House,Bahria Town,Lahore,3,5,5 Marla,10000000,5,1,33,3,17329792.49
+House,DHA Defence,Lahore,5,6,1 Kanal,35000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,5,1 Kanal,82500000,20,1,59,3,55881866.78
+House,NFC 1,Lahore,5,6,1 Kanal,41500000,20,1,0,3,59279750.51
+House,DHA Defence,Lahore,4,5,10 Marla,26500000,10,1,59,3,29003241.79
+Flat,Bahria Town,Lahore,1,1,2.2 Marla,4500000,2.2,0,33,3,-282771.1046
+House,DHA Defence,Lahore,5,6,1 Kanal,34000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,5,5,1 Kanal,55000000,20,1,59,3,55881866.78
+House,Johar Town,Lahore,4,4,3 Marla,9000000,3,1,136,3,5327156.96
+House,State Life Housing Society,Lahore,3,3,10 Marla,22500000,10,1,230,3,19981064.16
+House,State Life Housing Society,Lahore,3,3,10 Marla,22500000,10,1,230,3,19981064.16
+House,DHA Defence,Lahore,5,6,1 Kanal,39000000,20,1,59,3,56044226.17
+House,Lake City,Lahore,6,7,1 Kanal,28000000,20,1,0,3,58762032.08
+House,DHA Defence,Lahore,4,4,10 Marla,26000000,10,1,59,3,28840882.4
+House,DHA Defence,Lahore,6,7,1 Kanal,44000000,20,1,59,3,55526507.73
+House,DHA Defence,Lahore,5,6,1 Kanal,55000000,20,1,59,3,56044226.17
+House,DHA Defence,Lahore,3,4,10 Marla,20500000,10,1,59,3,29520960.22
+House,DHA Defence,Lahore,5,5,2 Kanal,170000000,40,1,59,3,110999272.4
+House,DHA Defence,Lahore,5,6,1 Kanal,42500000,20,1,59,3,56044226.17
+House,Bahria Town Karachi,Karachi,3,4,6 Marla,14000000,6,1,34,2,26365352.78
+House,Bahria Town Karachi,Karachi,3,4,6.1 Marla,9500000,6.1,1,34,2,26640939.81
+House,Bahria Town Karachi,Karachi,4,5,14 Marla,14000000,14,1,34,2,47894596.6
+Flat,Bahria Town Karachi,Karachi,2,2,4.2 Marla,5200000,4.2,0,34,2,11153300.42
+Flat,Bahria Town Karachi,Karachi,3,3,8 Marla,7500000,8,0,34,2,21107889.06
+House,Bahria Town Karachi,Karachi,3,4,8 Marla,8800000,8,1,34,2,31877093.34
+House,Bahria Town Karachi,Karachi,3,4,5 Marla,5000000,5,1,34,2,23609482.5
+House,Bahria Town Karachi,Karachi,3,3,8 Marla,14000000,8,1,34,2,31714733.96
+House,Bahria Town Karachi,Karachi,4,4,14 Marla,14000000,14,1,34,2,47732237.21
+Flat,Gadap Town,Karachi,2,0,3.8 Marla,4800000,3.8,0,92,2,6545548.586
+House,Gadap Town,Karachi,6,0,9.6 Marla,26500000,9.6,1,92,2,30416129.84
+House,Gadap Town,Karachi,3,0,8 Marla,12500000,8,1,92,2,28046970.85
+House,Gadap Town,Karachi,6,0,9.6 Marla,27000000,9.6,1,92,2,30416129.84
+House,Gadap Town,Karachi,3,0,7.8 Marla,11000000,7.8,1,92,2,27495796.79
+House,Bahria Town Karachi,Karachi,3,3,9.4 Marla,9000000,9.4,1,34,2,35572952.35
