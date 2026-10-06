@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
+import { useAuth } from "@/components/auth-provider"
 import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import { Menu, Heart, PlusSquare } from "lucide-react"
@@ -68,6 +68,7 @@ const authenticatedRoutes = [
 export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
+  const { profile, signOut } = useAuth()
 
   return (
     <div className="border-b bg-card">
@@ -98,9 +99,7 @@ export function Navbar() {
               </Link>
             ))}
             
-            {/* Authenticated Routes */}
-            <SignedIn>
-              {authenticatedRoutes.map((route) => (
+            {profile && authenticatedRoutes.map((route) => (
                 <Link
                   key={route.href}
                   href={route.href}
@@ -115,21 +114,16 @@ export function Navbar() {
                   {route.label}
                 </Link>
               ))}
-            </SignedIn>
           </nav>
           
-          <SignedIn>
-            <UserButton 
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "h-10 w-10"
-                }
-              }}
-            />
-          </SignedIn>
-          
-          <SignedOut>
+          {profile ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">{profile.name}</span>
+              <Button size="sm" variant="outline" onClick={() => signOut()}>
+                Sign out
+              </Button>
+            </div>
+          ) : (
             <div className="flex items-center gap-2">
               <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -141,7 +135,7 @@ export function Navbar() {
                 <Link href="/sign-in">Sign In</Link>
               </Button>
             </div>
-          </SignedOut>
+          )}
         </div>
         
         {/* Mobile Navigation - Fixed to be truly hidden on md screens and up */}
@@ -161,22 +155,17 @@ export function Navbar() {
               </SheetHeader>
               
               <div className="flex flex-col gap-6 pt-6">
-                <SignedIn>
-                  <div className="flex items-center gap-3 pb-4 border-b">
-                    <UserButton 
-                      afterSignOutUrl="/"
-                      appearance={{
-                        elements: {
-                          avatarBox: "h-12 w-12"
-                        }
-                      }}
-                    />
+                {profile && (
+                  <div className="flex items-center justify-between gap-3 pb-4 border-b">
                     <div className="text-sm">
-                      <p className="font-medium">Your Account</p>
-                      <p className="text-muted-foreground">Manage your profile</p>
+                      <p className="font-medium">{profile.name}</p>
+                      <p className="text-muted-foreground">{profile.email}</p>
                     </div>
+                    <Button size="sm" variant="outline" onClick={() => signOut()}>
+                      Sign out
+                    </Button>
                   </div>
-                </SignedIn>
+                )}
                 
                 <nav className="flex flex-col space-y-4">
                   {routes.map((route) => (
@@ -196,9 +185,7 @@ export function Navbar() {
                   ))}
                 </nav>
                 
-                {/* Authenticated Routes for Mobile */}
-                <SignedIn>
-                  {authenticatedRoutes.map((route) => (
+                {profile && authenticatedRoutes.map((route) => (
                     <Link
                       key={route.href}
                       href={route.href}
@@ -214,15 +201,14 @@ export function Navbar() {
                       {route.label}
                     </Link>
                   ))}
-                </SignedIn>
                 
-                <SignedOut>
+                {!profile && (
                   <div className="pt-6 border-t">
                     <Button asChild className="w-full">
-                      <Link href="/sign-in">Sign In</Link>
+                      <Link href="/sign-in" onClick={() => setOpen(false)}>Sign In</Link>
                     </Button>
                   </div>
-                </SignedOut>
+                )}
               </div>
             </SheetContent>
           </Sheet>

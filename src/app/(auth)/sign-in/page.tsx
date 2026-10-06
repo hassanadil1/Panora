@@ -1,64 +1,56 @@
 "use client"
 
 import Link from "next/link"
-import { SignIn, useAuth } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { motion } from "framer-motion"
-import { useState } from "react"
-import { useMutation } from "convex/react"
-import { api } from "@/convex/_generated/api"
+import { FormEvent, useState } from "react"
+import { createClient } from "@/lib/supabase/client"
 
-function SignInWithConvex() {
-  const { isLoaded, userId } = useAuth();
-  const createUser = useMutation(api.users.createUser);
+function SignInForm() {
+  const router = useRouter()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [pending, setPending] = useState(false)
 
-  const handleSignIn = async (user: any) => {
-    if (!user) return;
-    
-    try {
-      await createUser({
-        name: user.firstName + " " + user.lastName,
-        email: user.emailAddresses[0].emailAddress,
-        clerkId: user.id,
-        imageUrl: user.imageUrl,
-      });
-    } catch (error) {
-      console.error("Error creating user in Convex:", error);
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    setPending(true)
+    setError("")
+    const supabase = createClient()
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+    setPending(false)
+    if (signInError) {
+      setError(signInError.message)
+      return
     }
-  };
+    router.push("/")
+    router.refresh()
+  }
 
   return (
-    <SignIn 
-      routing="hash"
-      appearance={{
-        variables: {
-          colorPrimary: 'hsl(145 3% 39%)',
-          colorText: 'hsl(145 3% 39%)',
-          colorBackground: 'hsl(0 0% 100%)',
-          colorInputBackground: 'hsl(0 0% 100%)',
-          colorInputText: 'hsl(145 3% 39%)',
-          borderRadius: '0.5rem'
-        },
-        elements: {
-          rootBox: 'w-full',
-          card: 'bg-background rounded-2xl shadow-xl p-6 md:p-8 border-none',
-          headerTitle: 'text-2xl font-bold text-foreground',
-          headerSubtitle: 'text-sm text-muted-foreground',
-          socialButtonsBlockButton: 'bg-card border border-border hover:bg-secondary text-foreground',
-          socialButtonsBlockButtonText: 'font-medium',
-          dividerText: 'text-xs text-muted-foreground',
-          formFieldLabel: 'text-sm font-medium text-foreground',
-          formFieldInput: 'rounded-lg border border-border focus:border-primary focus:ring-primary bg-input',
-          formButtonPrimary: 'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg py-2.5',
-          footerActionText: 'text-sm text-muted-foreground',
-          footerActionLink: 'text-primary hover:text-primary/90 font-medium',
-        }
-      }}
-      signUpUrl="/sign-up"
-      redirectUrl="/"
-      afterSignInUrl="/"
-    />
-  );
+    <form onSubmit={onSubmit} className="w-full bg-background rounded-2xl shadow-xl p-6 md:p-8 space-y-4">
+      <div>
+        <h1 className="text-2xl font-bold text-foreground">Sign in</h1>
+        <p className="text-sm text-muted-foreground mt-1">Use the email and password for your Panora account.</p>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input id="password" type="password" required minLength={6} value={password} onChange={(event) => setPassword(event.target.value)} />
+      </div>
+      {error && <p className="text-sm text-red-600">{error}</p>}
+      <Button type="submit" className="w-full" disabled={pending}>
+        {pending ? "Signing in..." : "Sign in"}
+      </Button>
+    </form>
+  )
 }
 
 export default function SignInPage() {
@@ -159,7 +151,7 @@ export default function SignInPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="w-full max-w-md"
         >
-          <SignInWithConvex />
+          <SignInForm />
         </motion.div>
       </motion.div>
     </div>

@@ -1,48 +1,72 @@
 "use client"
 
 import Link from "next/link"
-import { SignUp, useAuth } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import { motion } from "framer-motion"
-import { useState } from "react"
-import { useMutation } from "convex/react"
-import { api } from "@/convex/_generated/api"
+import { FormEvent, useState } from "react"
+import { createClient } from "@/lib/supabase/client"
 
-function SignUpWithConvex() {
-  const { isLoaded, userId } = useAuth();
-  const createUser = useMutation(api.users.createUser);
+function SignUpForm() {
+  const router = useRouter()
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [message, setMessage] = useState("")
+  const [pending, setPending] = useState(false)
+
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault()
+    setPending(true)
+    setError("")
+    setMessage("")
+    const supabase = createClient()
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+      options: { data: { name } },
+    })
+    setPending(false)
+    if (signUpError) {
+      setError(signUpError.message)
+      return
+    }
+    if (data.session) {
+      router.push("/")
+      router.refresh()
+      return
+    }
+    setMessage("Check your email to confirm the account, then sign in.")
+  }
 
   return (
-    <SignUp 
-      routing="hash"
-      appearance={{
-        variables: {
-          colorPrimary: 'hsl(145 3% 39%)',
-          colorText: 'hsl(145 3% 39%)',
-          colorInputBackground: 'hsl(0 0% 100%)',
-          colorInputText: 'hsl(145 3% 39%)',
-          borderRadius: '0.5rem'
-        },
-        elements: {
-          rootBox: 'w-full',
-          card: 'bg-background p-6 md:p-8',
-          headerTitle: 'text-2xl font-bold text-primary',
-          headerSubtitle: 'text-sm text-muted-foreground',
-          socialButtonsBlockButton: 'bg-input border border-border hover:bg-secondary text-foreground',
-          socialButtonsBlockButtonText: 'font-medium',
-          dividerText: 'text-xs text-muted-foreground',
-          formFieldLabel: 'text-sm font-medium text-foreground',
-          formFieldInput: 'rounded-lg border border-border focus:border-primary focus:ring-primary bg-input',
-          formButtonPrimary: 'bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg py-2.5',
-          footerActionText: 'text-sm text-muted-foreground',
-          footerActionLink: 'text-primary hover:text-primary/90 font-medium',
-        }
-      }}
-      signInUrl="/sign-in"
-      redirectUrl="/"
-      afterSignUpUrl="/"
-    />
-  );
+    <form onSubmit={onSubmit} className="w-full bg-background rounded-2xl shadow-xl p-6 md:p-8 space-y-4">
+      <div>
+        <h1 className="text-2xl font-bold text-primary">Create an account</h1>
+        <p className="text-sm text-muted-foreground mt-1">Save listings and publish properties on Panora.</p>
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="name">Name</Label>
+        <Input id="name" required value={name} onChange={(event) => setName(event.target.value)} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input id="password" type="password" required minLength={6} value={password} onChange={(event) => setPassword(event.target.value)} />
+      </div>
+      {error && <p className="text-sm text-red-600">{error}</p>}
+      {message && <p className="text-sm text-muted-foreground">{message}</p>}
+      <Button type="submit" className="w-full" disabled={pending}>
+        {pending ? "Creating account..." : "Sign up"}
+      </Button>
+    </form>
+  )
 }
 
 export default function SignUpPage() {
@@ -142,7 +166,7 @@ export default function SignUpPage() {
           transition={{ delay: 0.3, duration: 0.5 }}
           className="w-full max-w-md mt-16 md:mt-4"
         >
-          <SignUpWithConvex />
+          <SignUpForm />
         </motion.div>
       </motion.div>
     </div>
