@@ -31,6 +31,34 @@ function SignInForm() {
     router.refresh()
   }
 
+  const onMagicLink = async () => {
+    if (!email) {
+      setError("Enter your email first.")
+      return
+    }
+    setPending(true)
+    setError("")
+    const supabase = createClient()
+    const { error: otpError } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: `${window.location.origin}/` },
+    })
+    setPending(false)
+    setError(otpError ? otpError.message : "Check your email for a sign-in link.")
+  }
+
+  const onGoogle = async () => {
+    setPending(true)
+    setError("")
+    const supabase = createClient()
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/` },
+    })
+    if (oauthError) setError(oauthError.message)
+    setPending(false)
+  }
+
   return (
     <form onSubmit={onSubmit} className="w-full bg-background rounded-2xl shadow-xl p-6 md:p-8 space-y-4">
       <div>
@@ -47,7 +75,13 @@ function SignInForm() {
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" className="w-full" disabled={pending}>
-        {pending ? "Signing in..." : "Sign in"}
+        {pending ? "Signing in..." : "Sign in with password"}
+      </Button>
+      <Button type="button" variant="secondary" className="w-full" disabled={pending} onClick={onMagicLink}>
+        Email me a magic link
+      </Button>
+      <Button type="button" variant="outline" className="w-full" disabled={pending} onClick={onGoogle}>
+        Continue with Google
       </Button>
     </form>
   )

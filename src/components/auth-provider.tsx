@@ -3,12 +3,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import type { UserRole } from "@/lib/schema/database.types";
 
 export type Profile = {
-  _id: string;
-  name: string;
-  email: string;
-  imageUrl?: string;
+  id: string;
+  role: UserRole;
 };
 
 type AuthState = {
@@ -16,6 +15,8 @@ type AuthState = {
   profile: Profile | null;
   loading: boolean;
   signOut: () => Promise<void>;
+  /** Display label from auth user metadata or email */
+  displayName: string | null;
 };
 
 const AuthContext = createContext<AuthState>({
@@ -23,40 +24,33 @@ const AuthContext = createContext<AuthState>({
   profile: null,
   loading: true,
   signOut: async () => {},
+  displayName: null,
 });
 
-async function ensureProfile(user: User): Promise<Profile | null> {
+function displayNameForUser(user: User): string {
+  const meta = user.user_metadata?.name as string | undefined;
+  return meta?.trim() || user.email?.split("@")[0] || "Account";
+}
+
+async function loadProfile(user: User): Promise<Profile | null> {
   const supabase = createClient();
-  const name =
-    (user.user_metadata?.name as string | undefined) ||
-    user.email?.split("@")[0] ||
-    "Panora user";
 
-  const { error } = await supabase.from("profiles").upsert({
-    id: user.id,
-    name,
-    email: user.email ?? "",
-    image_url: (user.user_metadata?.avatar_url as string | undefined) ?? null,
-    updated_at: new Date().toISOString(),
-  });
-
-  if (error) {
-    console.error("Could not save profile", error.message);
-  }
-
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("profiles")
-    .select("id, name, email, image_url")
+    .select("id, role")
     .eq("id", user.id)
     .maybeSingle();
+
+  if (error) {
+    console.error("Could not load profile", error.message);
+    return null;
+  }
 
   if (!data) return null;
 
   return {
-    _id: data.id,
-    name: data.name,
-    email: data.email,
-    imageUrl: data.image_url ?? undefined,
+    id: data.id,
+    role: data.role as UserRole,
   };
 }
 
@@ -93,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (!user) return;
     let active = true;
     setLoading(true);
-    ensureProfile(user).then((next) => {
+    loadProfile(user).then((next) => {
       if (!active) return;
       setProfile(next);
       setLoading(false);
@@ -110,8 +104,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setProfile(null);
   };
 
+  const displayName = user ? displayNameForUser(user) : null;
+
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signOut }}>
+    <AuthContext.Provider
+      value={{ user, profile, loading, signOut, displayName }}
+    >
       {children}
     </AuthContext.Provider>
   );

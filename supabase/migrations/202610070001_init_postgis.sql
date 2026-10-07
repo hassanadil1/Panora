@@ -169,6 +169,26 @@ create table if not exists public.profiles (
     check (role in ('user','editor','admin'))
 );
 
+-- Upgrade legacy profiles from the old listings app (name/email/image_url, no role).
+do $$
+begin
+  if exists (
+    select 1 from information_schema.tables
+    where table_schema = 'public' and table_name = 'profiles'
+  ) and not exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public' and table_name = 'profiles' and column_name = 'role'
+  ) then
+    alter table public.profiles
+      add column role text not null default 'user'
+      check (role in ('user','editor','admin'));
+    alter table public.profiles drop column if exists name;
+    alter table public.profiles drop column if exists email;
+    alter table public.profiles drop column if exists image_url;
+    alter table public.profiles drop column if exists updated_at;
+  end if;
+end $$;
+
 -- ---------------------------------------------------------------------------
 -- 4. Security-definer helper
 -- ---------------------------------------------------------------------------
@@ -486,34 +506,43 @@ as $$
   select jsonb_build_object(
     'type', 'FeatureCollection',
     'features', coalesce(
-      jsonb_agg(
-        jsonb_build_object(
-          'type',     'Feature',
-          'id',       row_number() over (),
-          'geometry', st_asgeojson(
-                        st_reduceprecision(s.geom, 0.000001)
-                      )::jsonb,
-          'properties', jsonb_build_object(
-            'slug',      s.slug,
-            'name',      s.name,
-            'short',     coalesce(s.short_name, s.name),
-            'tier',      s.tier,
-            'color',     s.color_key,
-            'has_tour',  exists (
-              select 1 from public.tours t
-              where t.scheme_id = s.id
-                and t.state = 'verified'
-            )
+      (
+        select jsonb_agg(
+          jsonb_build_object(
+            'type',       'Feature',
+            'id',         sub.fid,
+            'geometry',   sub.geom,
+            'properties', sub.props
           )
+          order by sub.fid
         )
+        from (
+          select
+            row_number() over (order by s.slug) as fid,
+            st_asgeojson(
+              st_reduceprecision(s.geom, 0.000001)
+            )::jsonb as geom,
+            jsonb_build_object(
+              'slug',     s.slug,
+              'name',     s.name,
+              'short',    coalesce(s.short_name, s.name),
+              'tier',     s.tier,
+              'color',    s.color_key,
+              'has_tour', exists (
+                select 1 from public.tours t
+                where t.scheme_id = s.id
+                  and t.state = 'verified'
+              )
+            ) as props
+          from public.schemes s
+          join public.cities c on c.id = s.city_id
+          where c.slug = p_city
+            and s.published
+        ) sub
       ),
       '[]'::jsonb
     )
   )
-  from public.schemes s
-  join public.cities  c on c.id = s.city_id
-  where c.slug = p_city
-    and s.published
 $$;
 
 -- 8.2  scheme_public – full drawer payload for a single scheme

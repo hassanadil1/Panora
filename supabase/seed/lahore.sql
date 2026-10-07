@@ -42,7 +42,6 @@ values
 on conflict (host) do nothing;
 
 -- ---------------------------------------------------------------------------
--- NOTE: No schemes inserted yet.
--- Run:  select map_schemes('lahore');
--- Expected result: {"type":"FeatureCollection","features":[]}
+-- Next: run supabase/seed/lahore-schemes.sql for demo polygons + tours.
+-- Smoke: select map_schemes('lahore');
 -- ---------------------------------------------------------------------------

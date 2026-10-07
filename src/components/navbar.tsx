@@ -68,7 +68,7 @@ const authenticatedRoutes = [
 export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const { profile, signOut } = useAuth()
+  const { user, profile, displayName, signOut } = useAuth()
 
   return (
     <div className="border-b bg-card">
@@ -118,7 +118,7 @@ export function Navbar() {
           
           {profile ? (
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium">{profile.name}</span>
+              <span className="text-sm font-medium">{displayName}</span>
               <Button size="sm" variant="outline" onClick={() => signOut()}>
                 Sign out
               </Button>
@@ -158,8 +158,8 @@ export function Navbar() {
                 {profile && (
                   <div className="flex items-center justify-between gap-3 pb-4 border-b">
                     <div className="text-sm">
-                      <p className="font-medium">{profile.name}</p>
-                      <p className="text-muted-foreground">{profile.email}</p>
+                      <p className="font-medium">{displayName}</p>
+                      <p className="text-muted-foreground">{user?.email}</p>
                     </div>
                     <Button size="sm" variant="outline" onClick={() => signOut()}>
                       Sign out

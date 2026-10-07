@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { AuthProvider } from '@/components/auth-provider'
+import { Providers } from '@/app/providers'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -10,7 +10,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Panora",
-  description: "Panora property map — coming soon.",
+  description: "Interactive map of housing schemes in Lahore.",
 }
 
 export default function RootLayout({
@@ -27,9 +27,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`antialiased ${inter.variable} font-outfit`}>
-        <AuthProvider>
+        <Providers>
           {children}
-        </AuthProvider>
+        </Providers>
       </body>
     </html>
   )
