@@ -38,7 +38,8 @@ values
   ('momento360.com',        'Momento360'),
   ('roundme.com',           'Roundme'),
   ('kuula.co',              'Kuula'),
-  ('vrway.com',             'VRWay')
+  ('vrway.com',             'VRWay'),
+  ('tours.panoraproperties.com', 'Panora Properties')
 on conflict (host) do nothing;
 
 -- ---------------------------------------------------------------------------

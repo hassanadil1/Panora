@@ -150,3 +150,78 @@ select s.id, 'embed', 'Boulevard preview',
   'Matterport (demo)', 'Embed permitted for demo', 'verified', true
 from public.schemes s where s.slug = 'dha-phase-5'
 and not exists (select 1 from public.tours t where t.scheme_id = s.id and t.is_primary);
+
+-- Central Park Housing Scheme (Ferozepur Road / Baddoki).
+-- Ring is an approximate society extent (~5 km²) that contains the mapped
+-- Central Park green (OSM way 1224937895) and A Block park. Not an LDA survey.
+insert into public.developers (name, site)
+values ('Urban Developers', 'https://centralparklahore.com')
+on conflict (name) do nothing;
+
+insert into public.schemes (
+  city_id, dev_id, slug, name, short_name, aliases, tier, color_key, blurb,
+  geom, geom_src, published
+)
+select
+  c.id,
+  d.id,
+  'central-park-housing-scheme',
+  'Central Park Housing Scheme',
+  'Central Park',
+  array['Central Park', 'CPHS', 'Central Park Lahore'],
+  'premium',
+  'mint',
+  'Ferozepur Road society built around a large central park and lake.',
+  st_geomfromgeojson(
+    '{"type":"MultiPolygon","coordinates":[[[[74.372,31.308],[74.392,31.308],[74.392,31.334],[74.372,31.334],[74.372,31.308]]]]}'
+  ),
+  'approximate-extent',
+  true
+from public.cities c
+cross join public.developers d
+where c.slug = 'lahore' and d.name = 'Urban Developers'
+on conflict (slug) do update set
+  published = excluded.published,
+  blurb = excluded.blurb,
+  geom = excluded.geom,
+  geom_src = excluded.geom_src;
+
+-- Tour anchored on the Central Park green, inside the scheme ring.
+insert into public.embed_allowlist (host, label)
+values ('tours.panoraproperties.com', 'Panora Properties')
+on conflict (host) do nothing;
+
+insert into public.tours (scheme_id, kind, title, url, owner, licence, state, is_primary)
+select s.id, 'embed', 'Central Park',
+  'https://tours.panoraproperties.com/Central-Park-Tour/index.htm',
+  'Panora Properties', 'Panora Properties virtual tour', 'verified', true
+from public.schemes s
+where s.slug = 'central-park-housing-scheme'
+on conflict (scheme_id) where is_primary do update set
+  kind = excluded.kind,
+  title = excluded.title,
+  url = excluded.url,
+  owner = excluded.owner,
+  licence = excluded.licence,
+  state = excluded.state;
+
+insert into public.scenes (tour_id, ord, name, pano_path, pos)
+select t.id, 1, 'Central Park',
+  'https://tours.panoraproperties.com/Central-Park-Tour/index.htm',
+  st_setsrid(st_makepoint(74.38268, 31.31600), 4326)
+from public.tours t
+join public.schemes s on s.id = t.scheme_id
+where s.slug = 'central-park-housing-scheme'
+  and t.title = 'Central Park'
+  and st_contains(s.geom, st_setsrid(st_makepoint(74.38268, 31.31600), 4326))
+  and not exists (
+    select 1 from public.scenes sc where sc.tour_id = t.id and sc.ord = 1
+  );
+
+update public.scenes sc
+set pano_path = 'https://tours.panoraproperties.com/Central-Park-Tour/index.htm'
+from public.tours t
+join public.schemes s on s.id = t.scheme_id
+where sc.tour_id = t.id
+  and sc.ord = 1
+  and s.slug = 'central-park-housing-scheme';

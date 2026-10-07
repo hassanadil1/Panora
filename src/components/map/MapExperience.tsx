@@ -33,9 +33,13 @@ export function MapExperience({ slug }: MapExperienceProps) {
       if (!feature) return;
       const map = mapRef.current?.getMap();
       if (map) {
+        const wide = window.innerWidth >= 768;
         map.fitBounds(getBoundsFromFeature(feature as GeoJSON.Feature), {
-          padding: 80,
-          duration: 1200,
+          padding: wide
+            ? { top: 72, bottom: 48, left: 520, right: 48 }
+            : 48,
+          pitch: map.getPitch(),
+          duration: 700,
         });
       }
       router.push(`/s/${targetSlug}`);
@@ -130,7 +134,9 @@ export function MapExperience({ slug }: MapExperienceProps) {
             mapRef.current = ref;
           }}
         />
-        {slug && <SchemeDrawer slug={slug} onClose={closeDrawer} />}
+        {slug && (
+          <SchemeDrawer key={slug} slug={slug} onClose={closeDrawer} />
+        )}
       </div>
 
       <footer className="shrink-0 border-t px-3 py-1.5 text-center text-[10px] text-muted-foreground md:text-xs">

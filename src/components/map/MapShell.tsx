@@ -85,11 +85,14 @@ export function MapShell({ filters, onSchemeSelect, onMapReady }: MapShellProps)
         const prefersReduced =
           typeof window !== "undefined" &&
           window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const wide = window.innerWidth >= 768;
         map.fitBounds(bounds, {
-          padding: 80,
-          pitch: prefersReduced ? map.getPitch() : 55,
-          bearing: prefersReduced ? map.getBearing() : -17,
-          duration: prefersReduced ? 0 : 1600,
+          padding: wide
+            ? { top: 72, bottom: 48, left: 520, right: 48 }
+            : { top: 72, bottom: 48, left: 24, right: 24 },
+          pitch: prefersReduced ? map.getPitch() : 24,
+          bearing: prefersReduced ? map.getBearing() : -12,
+          duration: prefersReduced ? 0 : 700,
         });
       }
 

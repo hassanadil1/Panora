@@ -11,6 +11,7 @@ const embedFrameSrc = [
   "https://*.kuula.co",
   "https://vrway.com",
   "https://*.vrway.com",
+  "https://tours.panoraproperties.com",
 ];
 
 const nextConfig = {
